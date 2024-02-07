@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fragment_home"
-        android:name="com.android.traveltube.home.HomeFragment"
+        android:name="com.android.traveltube.ui.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/fragment_country"
-        android:name="com.android.traveltube.country.CountryFragment"
+        android:name="com.android.traveltube.ui.country.CountryFragment"
         android:label="fragment_country"
         tools:layout="@layout/fragment_country" >
         <action
@@ -30,7 +30,7 @@
 
     <fragment
         android:id="@+id/fragment_detail_city"
-        android:name="com.android.traveltube.country.DetailCityFragment"
+        android:name="com.android.traveltube.ui.country.DetailCityFragment"
         android:label="fragment_detail_city"
         tools:layout="@layout/fragment_detail_city" >
         <action
@@ -40,7 +40,7 @@
 
     <fragment
         android:id="@+id/fragment_my_favorite"
-        android:name="com.android.traveltube.favorite.MyFavoriteFragment"
+        android:name="com.android.traveltube.ui.favorite.MyFavoriteFragment"
         android:label="fragment_my_favorite"
         tools:layout="@layout/fragment_my_favorite" >
         <action
@@ -50,7 +50,7 @@
 
     <fragment
         android:id="@+id/fragment_search"
-        android:name="com.android.traveltube.search.SearchFragment"
+        android:name="com.android.traveltube.ui.search.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" >
         <action
@@ -59,7 +59,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_my_video"
-        android:name="com.android.traveltube.mypage.MyVideoFragment"
+        android:name="com.android.traveltube.ui.mypage.MyVideoFragment"
         android:label="fragment_my_video"
         tools:layout="@layout/fragment_my_video" >
         <action
@@ -68,7 +68,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_video_detail"
-        android:name="com.android.traveltube.datail.VideoDetailFragment"
+        android:name="com.android.traveltube.ui.datail.VideoDetailFragment"
         android:label="fragment_video_detail"
         tools:layout="@layout/fragment_video_detail" >
         <argument

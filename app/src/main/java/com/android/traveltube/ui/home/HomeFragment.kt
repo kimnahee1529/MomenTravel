@@ -1,4 +1,4 @@
-package com.android.traveltube.home
+package com.android.traveltube.ui.home
 
 import android.content.Context
 import android.os.Bundle
@@ -6,12 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import com.android.traveltube.databinding.FragmentHomeBinding
 import androidx.fragment.app.viewModels
 import com.android.traveltube.factory.HomeViewModelFactory
 import com.android.traveltube.factory.PreferencesRepository
 import com.android.traveltube.repository.YoutubeRepository
+import com.android.traveltube.viewmodel.HomeViewModel
 
 class HomeFragment() : Fragment() {
     private val favoriteKey = "loadYoutubeData"
@@ -49,7 +49,7 @@ class HomeFragment() : Fragment() {
 
     //video, search api 호출
     private fun initView(){
-//        viewModel.loadTrendingVideos("KR")
+        viewModel.loadTrendingVideos("KR")
 //        viewModel.loadSearchingVideos("KR")
     }
 

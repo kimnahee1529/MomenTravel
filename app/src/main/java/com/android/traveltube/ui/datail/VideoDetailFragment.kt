@@ -1,4 +1,4 @@
-package com.android.traveltube.datail
+package com.android.traveltube.ui.datail
 
 import android.os.Bundle
 import android.util.Log

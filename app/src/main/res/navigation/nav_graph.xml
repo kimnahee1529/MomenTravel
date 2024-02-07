@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragment_home">
+
+    <fragment
+        android:id="@+id/fragment_home"
+        android:name="com.android.traveltube.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_countryFragment"
+            app:destination="@id/fragment_country" />
+        <action
+            android:id="@+id/action_fragment_home_to_fragment_video_detail"
+            app:destination="@id/fragment_video_detail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_country"
+        android:name="com.android.traveltube.country.CountryFragment"
+        android:label="fragment_country"
+        tools:layout="@layout/fragment_country" >
+        <action
+            android:id="@+id/action_countryFragment_to_detailCityFragment2"
+            app:destination="@id/fragment_detail_city" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_detail_city"
+        android:name="com.android.traveltube.country.DetailCityFragment"
+        android:label="fragment_detail_city"
+        tools:layout="@layout/fragment_detail_city" >
+        <action
+            android:id="@+id/action_detailCityFragment_to_homeFragment"
+            app:destination="@id/fragment_home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_my_favorite"
+        android:name="com.android.traveltube.favorite.MyFavoriteFragment"
+        android:label="fragment_my_favorite"
+        tools:layout="@layout/fragment_my_favorite" >
+        <action
+            android:id="@+id/action_fragment_my_favorite_to_fragment_video_detail"
+            app:destination="@id/fragment_video_detail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_search"
+        android:name="com.android.traveltube.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_fragment_search_to_fragment_video_detail"
+            app:destination="@id/fragment_video_detail" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_my_video"
+        android:name="com.android.traveltube.mypage.MyVideoFragment"
+        android:label="fragment_my_video"
+        tools:layout="@layout/fragment_my_video" >
+        <action
+            android:id="@+id/action_fragment_my_video_to_fragment_video_detail"
+            app:destination="@id/fragment_video_detail" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_video_detail"
+        android:name="com.android.traveltube.datail.VideoDetailFragment"
+        android:label="fragment_video_detail"
+        tools:layout="@layout/fragment_video_detail" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
+
+</navigation>

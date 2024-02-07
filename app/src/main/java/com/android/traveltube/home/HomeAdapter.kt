@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.android.traveltube.databinding.RecyclerviewCatVideoItemBinding
 import com.android.traveltube.utils.UtilManager.loadImage
 
 //class HomeAdapter():

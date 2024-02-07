@@ -1,4 +1,4 @@
-package com.android.traveltube.country
+package com.android.traveltube.ui.country
 
 import android.os.Bundle
 import android.view.LayoutInflater

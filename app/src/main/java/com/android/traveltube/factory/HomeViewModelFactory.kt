@@ -3,7 +3,7 @@ package com.android.traveltube.factory
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.android.traveltube.home.HomeViewModel
+import com.android.traveltube.viewmodel.HomeViewModel
 import com.android.traveltube.repository.YoutubeRepository
 
 class HomeViewModelFactory(

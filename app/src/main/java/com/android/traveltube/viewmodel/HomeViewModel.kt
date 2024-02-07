@@ -1,4 +1,4 @@
-package com.android.traveltube.home
+package com.android.traveltube.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

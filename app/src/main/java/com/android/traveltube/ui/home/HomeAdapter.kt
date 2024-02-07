@@ -1,4 +1,4 @@
-package com.android.traveltube.home
+package com.android.traveltube.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

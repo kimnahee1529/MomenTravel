@@ -64,6 +64,7 @@ class HomeFragment() : Fragment() {
     private fun initViewModel() {
 //        sharedViewModel.getDetailItem()
 //        sharedViewModel.getChannelItem()
+//        sharedViewModel.getVideoViewCount()
     }
 
     override fun onDestroyView() {
@@ -71,18 +72,3 @@ class HomeFragment() : Fragment() {
         super.onDestroyView()
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

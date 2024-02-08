@@ -14,7 +14,7 @@ import kotlinx.coroutines.withContext
 
 class SharedViewModel(
     private val youtubeRepository: YoutubeRepository
-): ViewModel() {
+) : ViewModel() {
     private val _detailItems = MutableLiveData<List<VideoDetailModel>>()
     val detailItems: LiveData<List<VideoDetailModel>> get() = _detailItems
 
@@ -23,19 +23,23 @@ class SharedViewModel(
         loadSearchingVideos()
         return detailItems
     }
-    private fun loadSearchingVideos(){
+
+    private fun loadSearchingVideos() {
         viewModelScope.launch {
             kotlin.runCatching {
                 val videos = youtubeRepository.getSearchingVideos()
                 val videoItemModels = videos.items.map { item ->
                     convertToSearchItemModel(item)
                 }
-                Log.d("sharedviewmodel videos search", videos.toString())
                 _detailItems.postValue(videoItemModels)
-                Log.d("sharedviewmodel detailItem search", videoItemModels.toString())
+                Log.d("sharedviewmodel search", videoItemModels.toString())
             }.onFailure { exception ->
                 withContext(Dispatchers.Main) {
-                    Log.e("sharedviewmodel detailItem search Error", "Failed to fetch trending videos", exception)
+                    Log.e(
+                        "sharedviewmodel detailItem search Error",
+                        "Failed to fetch trending videos",
+                        exception
+                    )
                 }
             }
         }
@@ -46,19 +50,23 @@ class SharedViewModel(
         loadChannelsVideos()
         return detailItems
     }
-    private fun loadChannelsVideos(){
+
+    private fun loadChannelsVideos() {
         viewModelScope.launch {
             kotlin.runCatching {
                 val channel = youtubeRepository.getChannelsVideo()
                 val videoItemModels = channel.items.map { item ->
                     convertToSearchItemModel(item)
                 }
-                Log.d("sharedviewmodel channel", channel.toString())
                 _detailItems.postValue(videoItemModels)
-//                Log.d("sharedviewmodel channel", videoItemModels.toString())
+                Log.d("sharedviewmodel channel", videoItemModels.toString())
             }.onFailure { exception ->
                 withContext(Dispatchers.Main) {
-                    Log.e("sharedviewmodel channel Error", "Failed to fetch getting channel", exception)
+                    Log.e(
+                        "sharedviewmodel channel Error",
+                        "Failed to fetch getting channel",
+                        exception
+                    )
                 }
             }
         }

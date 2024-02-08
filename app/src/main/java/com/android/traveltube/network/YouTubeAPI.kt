@@ -1,5 +1,6 @@
 package com.android.traveltube.network
 
+import com.android.traveltube.data.channel.ChannelModel
 import com.android.traveltube.data.search.SearchModel
 import com.android.traveltube.data.videos.VideoModel
 import retrofit2.http.GET
@@ -84,4 +85,16 @@ interface YouTubeAPI {
         @Query("key")
         apiKey: String = API_KEY
     ): SearchModel
+
+    @GET("channels")
+    suspend fun getChannelInfo(
+        @Query("part")
+        part: String = "snippet, statistics",
+        @Query("id")
+        channelId: String,
+        @Query("regionCode")
+        regionCode: String = API_REGION,
+        @Query("key")
+        apiKey: String = API_KEY
+    ): ChannelModel
 }

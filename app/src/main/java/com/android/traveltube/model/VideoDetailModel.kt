@@ -12,5 +12,6 @@ data class VideoDetailModel(
     val channelTitle: String?,
     val title: String?,
     val description: String?,
-    val publishTime: Date?
+    val publishTime: Date?,
+    val channelInfoModel: ChannelInfoModel? = null
 ) : Parcelable

@@ -1,17 +1,12 @@
 package com.android.traveltube.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.android.traveltube.data.search.Item as SearchItem
 import com.android.traveltube.factory.PreferencesRepository
 import com.android.traveltube.model.VideoDetailModel
 import com.android.traveltube.repository.YoutubeRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class HomeViewModel(
     private val youtubeRepository: YoutubeRepository,
@@ -59,7 +54,7 @@ class HomeViewModel(
             channelTitle = item.snippet.channelTitle,
             title = item.snippet.title,
             description = item.snippet.description,
-            publishTime = item.snippet.publishedAt
+            publishTime = item.snippet.publishedAt,
         )
     }
 }

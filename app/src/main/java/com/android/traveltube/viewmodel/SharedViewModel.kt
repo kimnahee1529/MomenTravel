@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.traveltube.data.search.Item
+import com.android.traveltube.model.ChannelInfoModel
 import com.android.traveltube.model.VideoDetailModel
 import com.android.traveltube.repository.YoutubeRepository
 import kotlinx.coroutines.Dispatchers
@@ -24,13 +25,50 @@ class SharedViewModel(
         return detailItems
     }
 
+//    private fun loadSearchingVideos() {
+//        viewModelScope.launch {
+//            kotlin.runCatching {
+//                val videos = youtubeRepository.getSearchingVideos()
+//                val videoItemModels = videos.items.map { item ->
+//                    convertToSearchItemModel(item)
+//                }
+//                _detailItems.postValue(videoItemModels)
+//                Log.d("sharedviewmodel search", videoItemModels.toString())
+//            }.onFailure { exception ->
+//                withContext(Dispatchers.Main) {
+//                    Log.e(
+//                        "sharedviewmodel detailItem search Error",
+//                        "Failed to fetch trending videos",
+//                        exception
+//                    )
+//                }
+//            }
+//        }
+//    }
+
     private fun loadSearchingVideos() {
         viewModelScope.launch {
             kotlin.runCatching {
                 val videos = youtubeRepository.getSearchingVideos()
                 val videoItemModels = videos.items.map { item ->
-                    convertToSearchItemModel(item)
+                    val channelInfoList = getChannelInfo(item.snippet.channelId)
+
+                    run {
+                        val channelInfo = channelInfoList.first()
+
+                        VideoDetailModel(
+                            id = item.id.videoId,
+                            thumbNailUrl = item.snippet.thumbnails.medium.url,
+                            channelId = item.snippet.channelId,
+                            channelTitle = item.snippet.channelTitle,
+                            title = item.snippet.title,
+                            description = item.snippet.description,
+                            publishTime = item.snippet.publishedAt,
+                            channelInfoModel = channelInfo
+                        )
+                    }
                 }
+
                 _detailItems.postValue(videoItemModels)
                 Log.d("sharedviewmodel search", videoItemModels.toString())
             }.onFailure { exception ->
@@ -112,33 +150,33 @@ class SharedViewModel(
             channelTitle = item.snippet.channelTitle,
             title = item.snippet.title,
             description = item.snippet.description,
-            publishTime = item.snippet.publishedAt
+            publishTime = item.snippet.publishedAt,
         )
     }
+
+    private fun convertToChannelInfoModel(item: com.android.traveltube.data.channel.Item): ChannelInfoModel {
+        return ChannelInfoModel(
+            channelId = item.id,
+            channelThumbnail = item.snippet.thumbnails.default.url,
+            subscriberCount = item.statistics.subscriberCount,
+            hiddenSubscriberCount = item.statistics.hiddenSubscriberCount
+        )
+    }
+
+    private suspend fun getChannelInfo(channelId: String): List<ChannelInfoModel> {
+        return try {
+            val channel = youtubeRepository.getChannelInfo(channelId = channelId)
+            channel.items.map { item ->
+                convertToChannelInfoModel(item)
+            }
+        } catch (exception: Exception) {
+            Log.e(
+                "sharedviewmodel channel Error",
+                "Failed to fetch getting channel",
+                exception
+            )
+            emptyList()
+        }
+    }
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //인기 동영상 정보 가져오는 loadTrendingVideos 호출
-//        fun loadTrendingVideos(){
-//        viewModelScope.launch {
-//            kotlin.runCatching {
-//                val videos = youtubeRepository.getTrendingVideos()
-//                Log.d("viewmodel videos", videos.toString())
-//            }.onFailure { exception ->
-//                withContext(Dispatchers.Main) {
-//                    Log.e("viewmodel videos Error", "Failed to fetch trending videos", exception)
-//                }
-//            }
-//        }
-//    }

@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.android.traveltube.databinding.FragmentHomeBinding
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.traveltube.factory.HomeViewModelFactory
@@ -39,7 +38,6 @@ class HomeFragment() : Fragment() {
         return binding.root
     }
 
-    //video, search api 호출
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
@@ -47,6 +45,7 @@ class HomeFragment() : Fragment() {
     }
 
     private fun setupImageRecyclerView() {
+        //각 아이템 클릭 시 Detail 화면으로 이동
         val homeAdapter = HomeAdapter { videoDetailModel ->
             val action =
                 HomeFragmentDirections.actionFragmentHomeToFragmentVideoDetail(videoDetailModel)
@@ -57,13 +56,13 @@ class HomeFragment() : Fragment() {
             adapter = homeAdapter
         }
         sharedViewModel.detailItems.observe(viewLifecycleOwner) {
-            //TODO submitList
             homeAdapter.submitList(it)
         }
     }
 
+    //video, search api 호출
     private fun initViewModel() {
-        sharedViewModel.getDetailItem()
+//        sharedViewModel.getDetailItem()
 //        sharedViewModel.getChannelItem()
     }
 

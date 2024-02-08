@@ -6,11 +6,14 @@ import kotlinx.coroutines.withContext
 
 class YoutubeRepository {
     // 어떤 함수인지 적어놔야 할까?
-    suspend fun getTrendingVideos(region: String) = withContext(Dispatchers.IO) {
-        RetrofitInstance.api.getTrendingVideos(regionCode = region).items
+    suspend fun getTrendingVideos() = withContext(Dispatchers.IO) {
+        RetrofitInstance.api.getTrendingVideos()
+    }
+    suspend fun getSearchingVideos() = withContext(Dispatchers.IO) {
+        RetrofitInstance.api.getSearchingVideos()
+    }
+    suspend fun getChannelsVideo() = withContext(Dispatchers.IO) {
+        RetrofitInstance.api.getChannelsVideo()
     }
 
-    suspend fun getSearchingVideos(region: String) = withContext(Dispatchers.IO) {
-        RetrofitInstance.api.getSearchingVideos(regionCode = region).items
-    }
 }

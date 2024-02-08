@@ -72,6 +72,35 @@ class SharedViewModel(
         }
     }
 
+    //영상 Id로 영상 조회수를 가져오는 getSearchingVideos 호출
+    fun getVideoViewCount(): LiveData<List<VideoDetailModel>> {
+        loadVideoViewCount()
+        return detailItems
+    }
+
+    private fun loadVideoViewCount() {
+        viewModelScope.launch {
+            kotlin.runCatching {
+                val channel = youtubeRepository.getViewCount()
+                val videoItemModels = channel.items.map { item ->
+                    Log.d("sharedviewmodel viewcount", "count: ${item.statistics.viewCount}, channelTitle: ${item.snippet.title}")
+                //                    convertToSearchItemModel(item)
+                }
+//                _detailItems.postValue(videoItemModels)
+//                Log.d("sharedviewmodel channel", videoItemModels.toString())
+            }.onFailure { exception ->
+                withContext(Dispatchers.Main) {
+                    Log.e(
+                        "sharedviewmodel viewcount Error",
+                        "Failed to fetch getting channel",
+                        exception
+                    )
+                }
+            }
+        }
+    }
+
+
 
     //Item 데이터 타입을 Detail 화면에서 쓰기 좋게 VideoDetailModel로 변환
     private fun convertToSearchItemModel(item: Item): VideoDetailModel {
@@ -87,3 +116,29 @@ class SharedViewModel(
         )
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //인기 동영상 정보 가져오는 loadTrendingVideos 호출
+//        fun loadTrendingVideos(){
+//        viewModelScope.launch {
+//            kotlin.runCatching {
+//                val videos = youtubeRepository.getTrendingVideos()
+//                Log.d("viewmodel videos", videos.toString())
+//            }.onFailure { exception ->
+//                withContext(Dispatchers.Main) {
+//                    Log.e("viewmodel videos Error", "Failed to fetch trending videos", exception)
+//                }
+//            }
+//        }
+//    }

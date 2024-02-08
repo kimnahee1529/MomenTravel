@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.android.traveltube.databinding.FragmentHomeBinding
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.traveltube.factory.HomeViewModelFactory
@@ -72,18 +71,3 @@ class HomeFragment() : Fragment() {
         super.onDestroyView()
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

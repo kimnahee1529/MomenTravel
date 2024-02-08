@@ -9,7 +9,7 @@ import com.android.traveltube.databinding.RecyclerviewHomeSelectVideoBinding
 import com.android.traveltube.model.VideoDetailModel
 import com.bumptech.glide.Glide
 
-class HomeAdapter():
+class HomeAdapter(private val onItemClicked: (VideoDetailModel) -> Unit):
     ListAdapter<VideoDetailModel, HomeAdapter.Holder>(DocumentDiffCallback()) {
 
     class DocumentDiffCallback : DiffUtil.ItemCallback<VideoDetailModel>() {
@@ -36,7 +36,6 @@ class HomeAdapter():
 
     inner class Holder(private val binding: RecyclerviewHomeSelectVideoBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
         fun bind(data: VideoDetailModel) {
             Glide.with(itemView.context)
                 .load(data.thumbNailUrl)
@@ -44,7 +43,9 @@ class HomeAdapter():
 
             binding.tvTitle.text = data.title
             binding.tvChannelTitle.text = data.channelTitle
+            binding.root.setOnClickListener {
+                onItemClicked(data)
+            }
         }
     }
-
 }

@@ -9,9 +9,11 @@ class YoutubeRepository {
     suspend fun getTrendingVideos() = withContext(Dispatchers.IO) {
         RetrofitInstance.api.getTrendingVideos()
     }
+
     suspend fun getSearchingVideos() = withContext(Dispatchers.IO) {
         RetrofitInstance.api.getSearchingVideos()
     }
+
     suspend fun getChannelsVideo() = withContext(Dispatchers.IO) {
         RetrofitInstance.api.getChannelsVideo()
     }

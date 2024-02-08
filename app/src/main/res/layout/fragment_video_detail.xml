@@ -1,10 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.datail.VideoDetailFragment">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                android:id="@+id/youtube_player_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_video_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:lineSpacingExtra="4dp"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/youtube_player_view" />
+
+            <ImageView
+                android:id="@+id/iv_channel_thumbnail"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/background_shape_circle"
+                android:clipToOutline="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_video_title" />
+
+            <TextView
+                android:id="@+id/tv_channel_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/tv_channel_subscription_count"
+                app:layout_constraintStart_toEndOf="@id/iv_channel_thumbnail"
+                app:layout_constraintTop_toTopOf="@id/iv_channel_thumbnail" />
+
+            <TextView
+                android:id="@+id/tv_channel_subscription_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/grey"
+                android:textSize="11sp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_channel_thumbnail"
+                app:layout_constraintStart_toEndOf="@id/iv_channel_thumbnail"
+                app:layout_constraintTop_toBottomOf="@id/tv_channel_title" />
+
+            <ImageView
+                android:id="@+id/iv_share"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_share_24"
+                app:layout_constraintBottom_toBottomOf="@id/iv_channel_thumbnail"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/iv_channel_thumbnail" />
+
+            <ImageView
+                android:id="@+id/iv_like"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/ic_like_empty_24"
+                app:layout_constraintBottom_toBottomOf="@id/iv_channel_thumbnail"
+                app:layout_constraintEnd_toStartOf="@id/iv_share"
+                app:layout_constraintTop_toTopOf="@id/iv_channel_thumbnail" />
+
+            <kr.co.prnd.readmore.ReadMoreTextView
+                android:id="@+id/tv_video_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/background_radius_round"
+                android:lineSpacingExtra="4dp"
+                android:padding="8dp"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_channel_thumbnail"
+                app:readMoreColor="@android:color/black"
+                app:readMoreMaxLine="3"
+                app:readMoreText="...더보기" />
+
+            <TextView
+                android:id="@+id/tvRecommendListTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="수빈님을 위한 여행지"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_video_description" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recommend_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="8dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvRecommendListTitle"
+                tools:listitem="@layout/item_recommend_list" />
+
+            <TextView
+                android:id="@+id/tvChannelOtherVideoTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="해쭈[HAEJOO]의 다른 동영상"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recommend_recycler_view" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/channel_video_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="8dp"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvChannelOtherVideoTitle"
+                tools:listitem="@layout/item_channel_other_video_list" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
 
 </FrameLayout>

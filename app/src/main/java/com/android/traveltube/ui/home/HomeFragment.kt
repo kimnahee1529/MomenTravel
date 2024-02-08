@@ -10,8 +10,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.android.traveltube.databinding.FragmentHomeBinding
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.traveltube.factory.HomeViewModelFactory
 import com.android.traveltube.factory.PreferencesRepository
@@ -100,3 +98,4 @@ class HomeFragment() : Fragment() {
 //            viewModel.toggleFavorite(document)
 //        }
 //    }
+

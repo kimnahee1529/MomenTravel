@@ -62,7 +62,7 @@ class HomeFragment() : Fragment() {
     }
 
     private fun initViewModel() {
-        sharedViewModel.getDetailItem()
+//        sharedViewModel.getDetailItem()
 //        sharedViewModel.getChannelItem()
     }
 

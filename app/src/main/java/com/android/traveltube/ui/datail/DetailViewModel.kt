@@ -1,6 +1,5 @@
 package com.android.traveltube.ui.datail
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,7 +17,9 @@ class DetailViewModel(entity: VideoDetailModel) : ViewModel() {
             videoTitle = entity.title,
             videoDescription = entity.description,
             videoDate = entity.publishTime,
-            channelName = entity.channelTitle
+            channelName = entity.channelTitle,
+            channelThumbnail = entity.channelInfoModel?.channelThumbnail,
+            subscriptionCount = entity.channelInfoModel?.subscriberCount
 
             )
     }

@@ -72,8 +72,8 @@
         android:label="fragment_video_detail"
         tools:layout="@layout/fragment_video_detail" >
         <argument
-            android:name="id"
-            app:argType="string" />
+            android:name="homeToDetailEntity"
+            app:argType="com.android.traveltube.model.VideoDetailModel" />
     </fragment>
 
 </navigation>

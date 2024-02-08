@@ -18,4 +18,7 @@ class YoutubeRepository {
         RetrofitInstance.api.getChannelsVideo()
     }
 
+    suspend fun getViewCount() = withContext(Dispatchers.IO) {
+        RetrofitInstance.api.getViewCount()
+    }
 }

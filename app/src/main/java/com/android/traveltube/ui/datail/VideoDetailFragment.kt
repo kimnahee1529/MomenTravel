@@ -32,8 +32,8 @@ class VideoDetailFragment : Fragment() {
 
     private fun initView() {
         // HomeFragment 로부터 전달 받은 데이터
-        val id = args.id
-        Log.d("TAG", "HomeFragment: $id")
+//        val id = args.id
+//        Log.d("TAG", "HomeFragment: $id")
     }
 
     override fun onDestroyView() {

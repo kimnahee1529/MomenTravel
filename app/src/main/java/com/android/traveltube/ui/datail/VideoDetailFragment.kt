@@ -10,7 +10,9 @@ import androidx.navigation.fragment.navArgs
 import com.android.traveltube.databinding.FragmentVideoDetailBinding
 import com.android.traveltube.ui.datail.channel.ChannelListAdapter
 import com.android.traveltube.ui.datail.recommend.ReCommendListAdapter
+import com.android.traveltube.utils.DateManager.convertToDecimalString
 import com.android.traveltube.utils.DateManager.dateFormatter
+import com.android.traveltube.utils.UtilManager.loadImage
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 
@@ -45,7 +47,7 @@ class VideoDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentVideoDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -74,6 +76,10 @@ class VideoDetailFragment : Fragment() {
             binding.tvVideoDescription.text =
                 item.videoDate?.dateFormatter() + "\n" + item.videoDescription
             binding.tvChannelTitle.text = item.channelName
+            binding.tvChannelSubscriptionCount.text = "구독자 ${item.subscriptionCount?.convertToDecimalString()}명"
+            item.channelThumbnail?.let { binding.ivChannelThumbnail.loadImage(it) }
+
+            binding.tvChannelOtherVideoTitle.text = "${item.channelName}의 다른 동영상"
         }
     }
 

@@ -5,8 +5,6 @@ import com.bumptech.glide.Glide
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.util.Date
 
@@ -21,20 +19,16 @@ object UtilManager {
 object DateManager {
 
     fun Date.dateFormatter(): String {
-        // Date를 LocalDateTime으로 변환
         val dateInstant = Instant.ofEpochMilli(this.time)
         val date = LocalDateTime.ofInstant(dateInstant, ZoneId.systemDefault())
 
-        // 현재 날짜 및 시간
         val nowInstant = Instant.ofEpochMilli(System.currentTimeMillis())
         val now = LocalDateTime.ofInstant(nowInstant, ZoneId.systemDefault())
 
-        // 날짜 차이 계산
         val daysDifference = ChronoUnit.DAYS.between(date, now)
         val monthsDifference = ChronoUnit.MONTHS.between(date, now)
         val yearsDifference = ChronoUnit.YEARS.between(date, now)
 
-        // 결과 출력
         return when {
             daysDifference < 1 -> "하루 전"
             daysDifference < 30 -> "${daysDifference}일 전"
@@ -42,6 +36,12 @@ object DateManager {
             monthsDifference < 12 -> "${monthsDifference}달 전"
             else -> "${yearsDifference}년 전"
         }
+    }
+
+    fun String.convertToDecimalString(): String {
+        val number = this.toLongOrNull() ?: return ""
+        val result = String.format("%.1f", number.toDouble() / 1000.0)
+        return if (result.endsWith(".0")) result.dropLast(2) else result
     }
 
 }

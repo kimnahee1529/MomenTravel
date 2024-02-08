@@ -10,6 +10,7 @@ import androidx.navigation.fragment.navArgs
 import com.android.traveltube.databinding.FragmentVideoDetailBinding
 import com.android.traveltube.ui.datail.channel.ChannelListAdapter
 import com.android.traveltube.ui.datail.recommend.ReCommendListAdapter
+import com.android.traveltube.utils.DateManager.dateFormatter
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 
@@ -63,14 +64,16 @@ class VideoDetailFragment : Fragment() {
     }
 
     private fun initViewModel() = with(viewModel) {
-        uiState.observe(viewLifecycleOwner) {item ->
+        uiState.observe(viewLifecycleOwner) { item ->
             if (item == null) {
                 return@observe
             }
 
             setUpYoutubePlayer(item.videoId)
             binding.tvVideoTitle.text = item.videoTitle
-            // binding.tvVideoDescription.text = item.videoDate?.dateFormatter() + "\n" + item.videoDescription
+            binding.tvVideoDescription.text =
+                item.videoDate?.dateFormatter() + "\n" + item.videoDescription
+            binding.tvChannelTitle.text = item.channelName
         }
     }
 
@@ -81,7 +84,8 @@ class VideoDetailFragment : Fragment() {
         }
 
         lifecycle.addObserver(binding.youtubePlayerView)
-        binding.youtubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+        binding.youtubePlayerView.addYouTubePlayerListener(object :
+            AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
                 youTubePlayer.loadVideo(videoId, 0f)
             }

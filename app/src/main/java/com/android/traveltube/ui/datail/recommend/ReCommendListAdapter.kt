@@ -51,7 +51,7 @@ class ReCommendListAdapter(
             item.thumbNailUrl?.let { ivRecommendListThumbnail.loadImage(it) }
             tvRecommendListTitle.text = item.title
             tvRecommendListChannel.text = item.channelTitle
-            // tvRecommendListDate.text = item.publishTime?.dateFormatter()
+            tvRecommendListDate.text = item.publishTime?.dateFormatter()
         }
     }
 

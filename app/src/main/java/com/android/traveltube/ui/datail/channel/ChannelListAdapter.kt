@@ -56,7 +56,7 @@ class ChannelListAdapter(
             // TODO 채널 thumbnail
             tvChannelListTitle.text = item.title
             tvChannelListName.text = item.channelTitle
-            // tvChannelListDate.text = item.publishTime?.dateFormatter()
+            tvChannelListDate.text = item.publishTime?.dateFormatter()
         }
     }
 

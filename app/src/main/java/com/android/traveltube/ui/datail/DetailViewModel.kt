@@ -18,6 +18,7 @@ class DetailViewModel(entity: VideoDetailModel) : ViewModel() {
             videoTitle = entity.title,
             videoDescription = entity.description,
             videoDate = entity.publishTime,
+            channelName = entity.channelTitle
 
             )
     }

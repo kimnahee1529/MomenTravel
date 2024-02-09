@@ -15,9 +15,8 @@ object UtilManager {
             .into(this)
     }
 }
-
 object DateManager {
-
+    //일 수 계산하기 위한 함수
     fun Date.dateFormatter(): String {
         val dateInstant = Instant.ofEpochMilli(this.time)
         val date = LocalDateTime.ofInstant(dateInstant, ZoneId.systemDefault())
@@ -37,11 +36,10 @@ object DateManager {
             else -> "${yearsDifference}년 전"
         }
     }
-
+    //구독자 표시하기 위한 함수
     fun String.convertToDecimalString(): String {
         val number = this.toLongOrNull() ?: return ""
         val result = String.format("%.1f", number.toDouble() / 1000.0)
         return if (result.endsWith(".0")) result.dropLast(2) else result
     }
-
 }

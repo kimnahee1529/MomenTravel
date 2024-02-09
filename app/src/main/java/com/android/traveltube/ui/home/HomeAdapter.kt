@@ -51,12 +51,13 @@ class HomeAdapter(private val onItemClicked: (VideoRecommendModel) -> Unit) :
             Glide.with(itemView.context)
                 .load(data.thumbNailUrl)
                 .into(binding.ivThumbnail)
-
+            binding.ivThumbnail.clipToOutline = true
             binding.tvTitle.text = data.title
             binding.tvChannelTitle.text = data.channelTitle
             binding.root.setOnClickListener {
                 onItemClicked(data)
             }
+            binding.tvDate.text = data.publishTime.toString()
         }
     }
 }

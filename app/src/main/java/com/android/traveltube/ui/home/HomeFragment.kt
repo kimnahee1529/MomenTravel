@@ -2,6 +2,7 @@ package com.android.traveltube.ui.home
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,8 +17,10 @@ import com.android.traveltube.factory.HomeViewModelFactory
 import com.android.traveltube.factory.PreferencesRepository
 import com.android.traveltube.factory.SharedViewModelFactory
 import com.android.traveltube.repository.YoutubeRepository
+import com.android.traveltube.utils.DateManager.dateFormatter
 import com.android.traveltube.viewmodel.HomeViewModel
 import com.android.traveltube.viewmodel.SharedViewModel
+import java.util.Date
 
 class HomeFragment() : Fragment() {
     private val favoriteKey = "loadYoutubeData"
@@ -50,7 +53,6 @@ class HomeFragment() : Fragment() {
         return binding.root
     }
 
-    //video, search api 호출
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
@@ -58,14 +60,16 @@ class HomeFragment() : Fragment() {
     }
 
     private fun setupImageRecyclerView() {
+        //각 아이템 클릭 시 Detail 화면으로 이동
         binding.rvCatVideo.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = homeListAdapter
         }
     }
 
+    //video, search api 호출
     private fun initViewModel() {
-//        sharedViewModel.getDetailItem()
+//        sharedViewModel.getDetailItem() //채널 썸네일 받아오기
 //        sharedViewModel.getChannelItem()
 
         sharedViewModel.searchResults.observe(viewLifecycleOwner) {
@@ -75,6 +79,7 @@ class HomeFragment() : Fragment() {
         sharedViewModel.detailItems.observe(viewLifecycleOwner) {
             // TODO
         }
+//        sharedViewModel.getVideoViewCount()
     }
 
     override fun onDestroyView() {

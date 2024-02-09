@@ -10,7 +10,8 @@ data class DetailUiState(
     val videoDate: Date?,
     val channelName: String?,
     val channelThumbnail: String?,
-    val subscriptionCount: String?
+    val subscriptionCount: String?,
+    val isFavorite: Boolean = false
 ) {
     companion object {
         fun init() = DetailUiState(
@@ -20,7 +21,8 @@ data class DetailUiState(
             videoDate = null,
             channelName = null,
             channelThumbnail = null,
-            subscriptionCount = null
+            subscriptionCount = null,
+            isFavorite = false
         )
     }
 }

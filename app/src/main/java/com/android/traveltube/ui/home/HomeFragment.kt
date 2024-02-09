@@ -11,6 +11,7 @@ import com.android.traveltube.databinding.FragmentHomeBinding
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.traveltube.data.db.VideoSearchDatabase
 import com.android.traveltube.factory.HomeViewModelFactory
 import com.android.traveltube.factory.PreferencesRepository
 import com.android.traveltube.factory.SharedViewModelFactory
@@ -24,10 +25,21 @@ class HomeFragment() : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: HomeViewModel by viewModels {
         val preferences = requireContext().getSharedPreferences(favoriteKey, Context.MODE_PRIVATE)
-        HomeViewModelFactory(YoutubeRepository(), PreferencesRepository(preferences))
+        HomeViewModelFactory(
+            YoutubeRepository(VideoSearchDatabase.getInstance(requireContext())),
+            PreferencesRepository(preferences)
+        )
     }
     private val sharedViewModel by activityViewModels<SharedViewModel> {
-        SharedViewModelFactory(YoutubeRepository())
+        SharedViewModelFactory(YoutubeRepository(VideoSearchDatabase.getInstance(requireContext())))
+    }
+
+    private val homeListAdapter by lazy {
+        HomeAdapter { videoDetailModel ->
+            val action =
+                HomeFragmentDirections.actionFragmentHomeToFragmentVideoDetail(videoDetailModel)
+            findNavController().navigate(action)
+        }
     }
 
     override fun onCreateView(
@@ -46,24 +58,23 @@ class HomeFragment() : Fragment() {
     }
 
     private fun setupImageRecyclerView() {
-        val homeAdapter = HomeAdapter { videoDetailModel ->
-            val action =
-                HomeFragmentDirections.actionFragmentHomeToFragmentVideoDetail(videoDetailModel)
-            findNavController().navigate(action)
-        }
         binding.rvCatVideo.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = homeAdapter
-        }
-        sharedViewModel.detailItems.observe(viewLifecycleOwner) {
-            //TODO submitList
-            homeAdapter.submitList(it)
+            adapter = homeListAdapter
         }
     }
 
     private fun initViewModel() {
 //        sharedViewModel.getDetailItem()
 //        sharedViewModel.getChannelItem()
+
+        sharedViewModel.searchResults.observe(viewLifecycleOwner) {
+            homeListAdapter.submitList(it)
+        }
+
+        sharedViewModel.detailItems.observe(viewLifecycleOwner) {
+            // TODO
+        }
     }
 
     override fun onDestroyView() {

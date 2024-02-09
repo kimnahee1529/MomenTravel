@@ -1,6 +1,5 @@
 package com.android.traveltube.data.db.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -14,6 +13,4 @@ interface VideoDao<T>  {
 
     @Delete
     suspend fun deleteVideo(models: T)
-
-    fun getVideos(): LiveData<List<T>>
 }

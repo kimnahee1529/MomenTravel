@@ -6,12 +6,13 @@ import java.util.Date
 
 @Parcelize
 data class VideoDetailModel(
-    val id: String?,
+    val id: String,
     val thumbNailUrl: String?,
     val channelId: String?,
     val channelTitle: String?,
     val title: String?,
     val description: String?,
     val publishTime: Date?,
-    val channelInfoModel: ChannelInfoModel? = null
+    val channelInfoModel: ChannelInfoModel? = null,
+    val isFavorite: Boolean = false
 ) : Parcelable

@@ -5,11 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.android.traveltube.data.db.dao.VideoFavoriteDao
-import com.android.traveltube.data.db.dao.VideoRecommendDao
-import com.android.traveltube.model.VideoDetailModel
 import com.android.traveltube.data.db.converter.ChannelInfoModelConverter
 import com.android.traveltube.data.db.converter.DateConverter
+import com.android.traveltube.data.db.dao.VideoFavoriteDao
+import com.android.traveltube.data.db.dao.VideoRecommendDao
 import com.android.traveltube.model.db.VideoFavoriteModel
 import com.android.traveltube.model.db.VideoRecommendModel
 
@@ -21,10 +20,14 @@ import com.android.traveltube.model.db.VideoRecommendModel
 )
 @TypeConverters(DateConverter::class, ChannelInfoModelConverter::class)
 abstract class VideoSearchDatabase : RoomDatabase() {
-    abstract fun videoFavoriteDao(): VideoFavoriteDao
-    abstract fun videoRecommendDao(): VideoRecommendDao
+    abstract fun videoFavoriteDao(): VideoFavoriteDao // Room에서 사용할 Dao
+    abstract fun videoRecommendDao(): VideoRecommendDao // Room에서 사용할 Dao
+
 
     companion object {
+        /**
+         * 데이터베이스 객체도 생성하는데 비용이 많이 들기 때문에 중복으로 생성하지 않도록 싱글톤 생성
+         */
         @Volatile
         private var INSTANCE: VideoSearchDatabase? = null
 
@@ -39,12 +42,6 @@ abstract class VideoSearchDatabase : RoomDatabase() {
             INSTANCE ?: synchronized(this) {
                 INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
             }
+
     }
 }
-
-/**
- * 추천 여행지 리스트 RecommendVideoList v
- * 여행 카테고리 리스트 TravelVideoList
- * 좋아요 리스트 FavoriteList v
- * 시청기록 리스트 ViewingRecordList
- */

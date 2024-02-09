@@ -17,7 +17,7 @@ private const val VIDEO_ID = "gbxCTwgKcX8" //TODO 수정 필요
 interface YouTubeAPI {
     /*
     Videos: list
-    동영상 정보 가져오는 api
+    인기 비디오 목록을 조회하는 api
     */
     @GET("videos")
     suspend fun getTrendingVideos(
@@ -69,23 +69,9 @@ interface YouTubeAPI {
         apiKey: String = API_KEY
     ): SearchModel
     /*
-    Search: list
-    채널 검색 정보 가져오는 api
+    Channels: list
+    채널 정보 가져오는 api
     */
-    @GET("search")
-    suspend fun getChannelsVideo(
-        @Query("part")
-        part: String = "snippet,statistics",
-        @Query("channelId")
-        channelId: String = CHANNEL_ID,
-        @Query("maxResults")
-        maxResults: Int = API_MAX_RESULT,
-        @Query("regionCode")
-        regionCode: String = API_REGION,
-        @Query("key")
-        apiKey: String = API_KEY
-    ): SearchModel
-
     @GET("channels")
     suspend fun getChannelInfo(
         @Query("part")
@@ -98,3 +84,36 @@ interface YouTubeAPI {
         apiKey: String = API_KEY
     ): ChannelModel
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    /*
+    //왜 만들었는지 모르겠음;
+//    Search: list
+//    채널 검색 정보 가져오는 api
+//    */
+//    @GET("search")
+//    suspend fun getChannelsVideo(
+//        @Query("part")
+//        part: String = "snippet,statistics",
+//        @Query("channelId")
+//        channelId: String = CHANNEL_ID,
+//        @Query("maxResults")
+//        maxResults: Int = API_MAX_RESULT,
+//        @Query("regionCode")
+//        regionCode: String = API_REGION,
+//        @Query("key")
+//        apiKey: String = API_KEY
+//    ): SearchModel

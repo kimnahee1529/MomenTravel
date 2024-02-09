@@ -6,24 +6,24 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.android.traveltube.databinding.RecyclerviewHomeSelectVideoBinding
-import com.android.traveltube.model.VideoDetailModel
+import com.android.traveltube.model.db.VideoRecommendModel
 import com.bumptech.glide.Glide
 
-class HomeAdapter(private val onItemClicked: (VideoDetailModel) -> Unit) :
-    ListAdapter<VideoDetailModel, HomeAdapter.Holder>(DocumentDiffCallback()) {
+class HomeAdapter(private val onItemClicked: (VideoRecommendModel) -> Unit) :
+    ListAdapter<VideoRecommendModel, HomeAdapter.Holder>(DocumentDiffCallback()) {
 
-    class DocumentDiffCallback : DiffUtil.ItemCallback<VideoDetailModel>() {
+    class DocumentDiffCallback : DiffUtil.ItemCallback<VideoRecommendModel>() {
         override fun areItemsTheSame(
-            oldItem: VideoDetailModel,
-            newItem: VideoDetailModel
+            oldItem: VideoRecommendModel,
+            newItem: VideoRecommendModel
         ): Boolean {
             // 객체의 고유 식별자를 비교
             return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
-            oldItem: VideoDetailModel,
-            newItem: VideoDetailModel
+            oldItem: VideoRecommendModel,
+            newItem: VideoRecommendModel
         ): Boolean {
             // TODO : 그냥 ==은 왜 안되는지 확인하기
             return oldItem.title == newItem.title
@@ -47,7 +47,7 @@ class HomeAdapter(private val onItemClicked: (VideoDetailModel) -> Unit) :
 
     inner class Holder(private val binding: RecyclerviewHomeSelectVideoBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: VideoDetailModel) {
+        fun bind(data: VideoRecommendModel) {
             Glide.with(itemView.context)
                 .load(data.thumbNailUrl)
                 .into(binding.ivThumbnail)

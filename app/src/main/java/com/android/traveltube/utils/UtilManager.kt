@@ -9,7 +9,8 @@ import java.time.temporal.ChronoUnit
 import java.util.Date
 
 object UtilManager {
-    fun ImageView.loadImage(url: String){
+    fun ImageView.loadImage(url: String) {
+        this.clipToOutline = true
         Glide.with(this)
             .load(url)
             .into(this)
@@ -17,7 +18,6 @@ object UtilManager {
 }
 
 object DateManager {
-
     fun Date.dateFormatter(): String {
         val dateInstant = Instant.ofEpochMilli(this.time)
         val date = LocalDateTime.ofInstant(dateInstant, ZoneId.systemDefault())
@@ -37,11 +37,9 @@ object DateManager {
             else -> "${yearsDifference}년 전"
         }
     }
-
     fun String.convertToDecimalString(): String {
         val number = this.toLongOrNull() ?: return ""
         val result = String.format("%.1f", number.toDouble() / 1000.0)
         return if (result.endsWith(".0")) result.dropLast(2) else result
     }
-
 }

@@ -12,6 +12,7 @@ import com.android.traveltube.databinding.FragmentHomeBinding
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.traveltube.data.db.VideoSearchDatabase
 import com.android.traveltube.factory.HomeViewModelFactory
 import com.android.traveltube.factory.PreferencesRepository
 import com.android.traveltube.factory.SharedViewModelFactory
@@ -27,10 +28,21 @@ class HomeFragment() : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: HomeViewModel by viewModels {
         val preferences = requireContext().getSharedPreferences(favoriteKey, Context.MODE_PRIVATE)
-        HomeViewModelFactory(YoutubeRepository(), PreferencesRepository(preferences))
+        HomeViewModelFactory(
+            YoutubeRepository(VideoSearchDatabase.getInstance(requireContext())),
+            PreferencesRepository(preferences)
+        )
     }
     private val sharedViewModel by activityViewModels<SharedViewModel> {
-        SharedViewModelFactory(YoutubeRepository())
+        SharedViewModelFactory(YoutubeRepository(VideoSearchDatabase.getInstance(requireContext())))
+    }
+
+    private val homeListAdapter by lazy {
+        HomeAdapter { videoDetailModel ->
+            val action =
+                HomeFragmentDirections.actionFragmentHomeToFragmentVideoDetail(videoDetailModel)
+            findNavController().navigate(action)
+        }
     }
 
     override fun onCreateView(
@@ -49,17 +61,9 @@ class HomeFragment() : Fragment() {
 
     private fun setupImageRecyclerView() {
         //각 아이템 클릭 시 Detail 화면으로 이동
-        val homeAdapter = HomeAdapter { videoDetailModel ->
-            val action =
-                HomeFragmentDirections.actionFragmentHomeToFragmentVideoDetail(videoDetailModel)
-            findNavController().navigate(action)
-        }
         binding.rvCatVideo.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = homeAdapter
-        }
-        sharedViewModel.detailItems.observe(viewLifecycleOwner) {
-            homeAdapter.submitList(it)
+            adapter = homeListAdapter
         }
     }
 
@@ -67,6 +71,14 @@ class HomeFragment() : Fragment() {
     private fun initViewModel() {
 //        sharedViewModel.getDetailItem() //채널 썸네일 받아오기
 //        sharedViewModel.getChannelItem()
+
+        sharedViewModel.searchResults.observe(viewLifecycleOwner) {
+            homeListAdapter.submitList(it)
+        }
+
+        sharedViewModel.detailItems.observe(viewLifecycleOwner) {
+            // TODO
+        }
 //        sharedViewModel.getVideoViewCount()
     }
 

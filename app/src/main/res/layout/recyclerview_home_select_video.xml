@@ -36,7 +36,7 @@
             app:layout_constraintTop_toBottomOf="@+id/iv_thumbnail">
 
             <ImageView
-                android:id="@+id/iv_channel"
+                android:id="@+id/iv_channel_thumbnail"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_marginTop="4dp"
@@ -55,7 +55,7 @@
                 android:maxLines="2"
                 android:text="[Vlog]동생이랑 3박4일 오사카 여행 가나다라 마바사"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/iv_channel"
+                app:layout_constraintStart_toEndOf="@+id/iv_channel_thumbnail"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView

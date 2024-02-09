@@ -2,6 +2,7 @@ package com.android.traveltube.ui.home
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,8 +16,10 @@ import com.android.traveltube.factory.HomeViewModelFactory
 import com.android.traveltube.factory.PreferencesRepository
 import com.android.traveltube.factory.SharedViewModelFactory
 import com.android.traveltube.repository.YoutubeRepository
+import com.android.traveltube.utils.DateManager.dateFormatter
 import com.android.traveltube.viewmodel.HomeViewModel
 import com.android.traveltube.viewmodel.SharedViewModel
+import java.util.Date
 
 class HomeFragment() : Fragment() {
     private val favoriteKey = "loadYoutubeData"
@@ -62,7 +65,7 @@ class HomeFragment() : Fragment() {
 
     //video, search api 호출
     private fun initViewModel() {
-//        sharedViewModel.getDetailItem()
+//        sharedViewModel.getDetailItem() //채널 썸네일 받아오기
 //        sharedViewModel.getChannelItem()
 //        sharedViewModel.getVideoViewCount()
     }

@@ -25,26 +25,6 @@ class SharedViewModel(
         return detailItems
     }
 
-//    private fun loadSearchingVideos() {
-//        viewModelScope.launch {
-//            kotlin.runCatching {
-//                val videos = youtubeRepository.getSearchingVideos()
-//                val videoItemModels = videos.items.map { item ->
-//                    convertToSearchItemModel(item)
-//                }
-//                _detailItems.postValue(videoItemModels)
-//                Log.d("sharedviewmodel search", videoItemModels.toString())
-//            }.onFailure { exception ->
-//                withContext(Dispatchers.Main) {
-//                    Log.e(
-//                        "sharedviewmodel detailItem search Error",
-//                        "Failed to fetch trending videos",
-//                        exception
-//                    )
-//                }
-//            }
-//        }
-//    }
 
     private fun loadSearchingVideos() {
         viewModelScope.launch {
@@ -66,43 +46,20 @@ class SharedViewModel(
                             publishTime = item.snippet.publishedAt,
                             channelInfoModel = channelInfo
                         )
+                        Log.d("홈 화면 영상 썸네일", item.snippet.thumbnails.medium.url)
+                        Log.d("홈 화면 채널 썸네일", channelInfo.channelThumbnail.toString())
+                        Log.d("홈 화면 영상 제목", item.snippet.description)
+                        Log.d("홈 화면 채널 이름", item.snippet.channelTitle)
+                        Log.d("홈 화면 영상 게시일", item.snippet.publishedAt.toString())
                     }
                 }
-
-                _detailItems.postValue(videoItemModels)
+//                _detailItems.postValue(videoItemModels)
                 Log.d("sharedviewmodel search", videoItemModels.toString())
             }.onFailure { exception ->
                 withContext(Dispatchers.Main) {
                     Log.e(
                         "sharedviewmodel detailItem search Error",
                         "Failed to fetch trending videos",
-                        exception
-                    )
-                }
-            }
-        }
-    }
-
-    //영상 검색 정보 가져오는 getSearchingVideos 호출
-    fun getChannelItem(): LiveData<List<VideoDetailModel>> {
-        loadChannelsVideos()
-        return detailItems
-    }
-
-    private fun loadChannelsVideos() {
-        viewModelScope.launch {
-            kotlin.runCatching {
-                val channel = youtubeRepository.getChannelsVideo()
-                val videoItemModels = channel.items.map { item ->
-                    convertToSearchItemModel(item)
-                }
-                _detailItems.postValue(videoItemModels)
-                Log.d("sharedviewmodel channel", videoItemModels.toString())
-            }.onFailure { exception ->
-                withContext(Dispatchers.Main) {
-                    Log.e(
-                        "sharedviewmodel channel Error",
-                        "Failed to fetch getting channel",
                         exception
                     )
                 }
@@ -121,7 +78,7 @@ class SharedViewModel(
             kotlin.runCatching {
                 val channel = youtubeRepository.getViewCount()
                 val videoItemModels = channel.items.map { item ->
-                    Log.d("sharedviewmodel viewcount", "count: ${item.statistics.viewCount}, channelTitle: ${item.snippet.title}")
+                    Log.d("홈 화면 영상 조회수", "count: ${item.statistics.viewCount}")
                 //                    convertToSearchItemModel(item)
                 }
 //                _detailItems.postValue(videoItemModels)
@@ -180,3 +137,61 @@ class SharedViewModel(
     }
 
 }
+
+
+
+
+
+
+
+
+
+//    private fun loadSearchingVideos() {
+//        viewModelScope.launch {
+//            kotlin.runCatching {
+//                val videos = youtubeRepository.getSearchingVideos()
+//                val videoItemModels = videos.items.map { item ->
+//                    convertToSearchItemModel(item)
+//                }
+//                _detailItems.postValue(videoItemModels)
+//                Log.d("sharedviewmodel search", videoItemModels.toString())
+//            }.onFailure { exception ->
+//                withContext(Dispatchers.Main) {
+//                    Log.e(
+//                        "sharedviewmodel detailItem search Error",
+//                        "Failed to fetch trending videos",
+//                        exception
+//                    )
+//                }
+//            }
+//        }
+//    }
+
+
+
+//    //영상 검색 정보 가져오는 getSearchingVideos 호출
+//    fun getChannelItem(): LiveData<List<VideoDetailModel>> {
+//        loadChannelsVideos()
+//        return detailItems
+//    }
+//
+//    private fun loadChannelsVideos() {
+//        viewModelScope.launch {
+//            kotlin.runCatching {
+//                val channel = youtubeRepository.getChannelsVideo()
+//                val videoItemModels = channel.items.map { item ->
+//                    convertToSearchItemModel(item)
+//                }
+//                _detailItems.postValue(videoItemModels)
+//                Log.d("sharedviewmodel channel", videoItemModels.toString())
+//            }.onFailure { exception ->
+//                withContext(Dispatchers.Main) {
+//                    Log.e(
+//                        "sharedviewmodel channel Error",
+//                        "Failed to fetch getting channel",
+//                        exception
+//                    )
+//                }
+//            }
+//        }
+//    }

@@ -14,10 +14,6 @@ class YoutubeRepository {
         RetrofitInstance.api.getSearchingVideos()
     }
 
-    suspend fun getChannelsVideo() = withContext(Dispatchers.IO) {
-        RetrofitInstance.api.getChannelsVideo()
-    }
-
     suspend fun getChannelInfo(channelId: String) = withContext(Dispatchers.IO) {
         RetrofitInstance.api.getChannelInfo(channelId = channelId)
     }

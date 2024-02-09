@@ -6,5 +6,35 @@
     tools:context=".ui.search.SearchFragment">
 
 
+    <EditText
+        android:id="@+id/et_searchBar"
+        android:layout_width="260dp"
+        android:layout_height="50dp"
+        android:hint="검색어를 입력하세요"
+        android:layout_marginStart="20dp"
+        android:paddingHorizontal="10dp"
+
+        android:layout_marginTop="40dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_searchResult"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:layout_marginTop="120dp"/>
+
+    <ImageView
+        android:id="@+id/btn_goSearch"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/ic_search_24"
+        android:text="검색"/>
+
+
+
+
+
+
 
 </FrameLayout>

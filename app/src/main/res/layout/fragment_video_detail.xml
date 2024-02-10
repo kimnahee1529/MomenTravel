@@ -104,7 +104,7 @@
                 app:layout_constraintTop_toBottomOf="@id/iv_channel_thumbnail"
                 app:readMoreColor="@android:color/black"
                 app:readMoreMaxLine="3"
-                app:readMoreText="...더보기" />
+                app:readMoreText=" ...더보기" />
 
             <TextView
                 android:id="@+id/tvRecommendListTitle"

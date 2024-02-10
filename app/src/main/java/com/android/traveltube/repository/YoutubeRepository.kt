@@ -23,8 +23,12 @@ class YoutubeRepository(
         RetrofitInstance.api.getChannelInfo(channelId = channelId)
     }
 
-    suspend fun getViewCount() = withContext(Dispatchers.IO) {
-        RetrofitInstance.api.getViewCount()
+    suspend fun getViewCount(videoId: String) = withContext(Dispatchers.IO) {
+        RetrofitInstance.api.getViewCount(id = videoId)
+    }
+
+    suspend fun getChannelVideos(channelId: String) = withContext(Dispatchers.IO) {
+        RetrofitInstance.api.getChannelsVideo(channelId = channelId)
     }
 
     suspend fun insertFavoriteVideo(model: VideoFavoriteModel) {

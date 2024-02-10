@@ -20,6 +20,7 @@
         android:id="@+id/tv_recommend_list_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:ellipsize="end"
         android:lineSpacingExtra="4dp"
         android:maxLines="2"

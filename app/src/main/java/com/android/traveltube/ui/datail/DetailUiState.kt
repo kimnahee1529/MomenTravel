@@ -11,6 +11,7 @@ data class DetailUiState(
     val channelName: String?,
     val channelThumbnail: String?,
     val subscriptionCount: String?,
+    val viewCount: String?,
     val isFavorite: Boolean = false
 ) {
     companion object {
@@ -22,6 +23,7 @@ data class DetailUiState(
             channelName = null,
             channelThumbnail = null,
             subscriptionCount = null,
+            viewCount = null,
             isFavorite = false
         )
     }

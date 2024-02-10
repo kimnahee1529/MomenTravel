@@ -15,6 +15,7 @@ import com.android.traveltube.ui.datail.channel.ChannelListAdapter
 import com.android.traveltube.ui.datail.recommend.ReCommendListAdapter
 import com.android.traveltube.utils.DateManager.convertToDecimalString
 import com.android.traveltube.utils.DateManager.dateFormatter
+import com.android.traveltube.utils.DateManager.formatNumber
 import com.android.traveltube.utils.UtilManager.loadImage
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
@@ -83,7 +84,7 @@ class VideoDetailFragment : Fragment() {
             with(binding) {
                 setUpYoutubePlayer(item.videoId)
                 tvVideoTitle.text = item.videoTitle
-                tvVideoDescription.text = "${item.videoDate?.dateFormatter()}\n${item.videoDescription}"
+                tvVideoDescription.text = "조회수 ${item.viewCount?.formatNumber()} ${item.videoDate?.dateFormatter()}\n${item.videoDescription}"
                 tvChannelTitle.text = item.channelName
                 tvChannelSubscriptionCount.text = "구독자 ${item.subscriptionCount?.convertToDecimalString()}명"
                 item.channelThumbnail?.let { ivChannelThumbnail.loadImage(it) }
@@ -95,6 +96,10 @@ class VideoDetailFragment : Fragment() {
 
         uiRecommendState.observe(viewLifecycleOwner) {
             recommendListAdapter.submitList(it)
+        }
+
+        uiChannelVideoState.observe(viewLifecycleOwner) {
+            channelListAdapter.submitList(it)
         }
     }
 

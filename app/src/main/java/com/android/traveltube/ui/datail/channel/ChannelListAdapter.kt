@@ -5,26 +5,27 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.android.traveltube.databinding.ItemChannelOtherVideoListBinding
-import com.android.traveltube.model.VideoDetailModel
+import com.android.traveltube.model.db.VideoRecommendModel
 import com.android.traveltube.utils.DateManager.dateFormatter
+import com.android.traveltube.utils.DateManager.formatNumber
 import com.android.traveltube.utils.UtilManager.loadImage
 
 class ChannelListAdapter(
-    private val onItemClick: (VideoDetailModel) -> Unit
-) : androidx.recyclerview.widget.ListAdapter<VideoDetailModel, ChannelListAdapter.ViewHolder>(
+    private val onItemClick: (VideoRecommendModel) -> Unit
+) : androidx.recyclerview.widget.ListAdapter<VideoRecommendModel, ChannelListAdapter.ViewHolder>(
 
-    object : DiffUtil.ItemCallback<VideoDetailModel>() {
+    object : DiffUtil.ItemCallback<VideoRecommendModel>() {
 
         override fun areItemsTheSame(
-            oldItem: VideoDetailModel,
-            newItem: VideoDetailModel
+            oldItem: VideoRecommendModel,
+            newItem: VideoRecommendModel
         ): Boolean {
             return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
-            oldItem: VideoDetailModel,
-            newItem: VideoDetailModel
+            oldItem: VideoRecommendModel,
+            newItem: VideoRecommendModel
         ): Boolean {
             return oldItem == newItem
         }
@@ -48,14 +49,13 @@ class ChannelListAdapter(
 
     class ViewHolder(
         private val binding: ItemChannelOtherVideoListBinding,
-        private val onItemClick: ((VideoDetailModel) -> Unit)?
+        private val onItemClick: ((VideoRecommendModel) -> Unit)?
     ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: VideoDetailModel) = with(binding) {
+        fun bind(item: VideoRecommendModel) = with(binding) {
             item.thumbNailUrl?.let { ivChannelOtherVideoThumbnail.loadImage(it) }
-            // TODO 채널 thumbnail
             tvChannelListTitle.text = item.title
-            tvChannelListName.text = item.channelTitle
+            tvChannelViewCount.text = item.videoViewCountModel?.viewCount?.formatNumber()
             tvChannelListDate.text = item.publishTime?.dateFormatter()
         }
     }

@@ -14,5 +14,6 @@ data class VideoDetailModel(
     val description: String?,
     val publishTime: Date?,
     val channelInfoModel: ChannelInfoModel? = null,
+    val videoViewCount: VideoViewCountModel? = null,
     val isFavorite: Boolean = false
 ) : Parcelable

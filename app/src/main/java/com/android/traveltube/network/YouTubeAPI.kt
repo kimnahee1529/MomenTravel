@@ -42,7 +42,7 @@ interface YouTubeAPI {
         @Query("part")
         part: String = "snippet,statistics",
         @Query("id")
-        id: String = VIDEO_ID,
+        id: String,
         @Query("maxResults")
         maxResults: Int = API_MAX_RESULT,
         @Query("regionCode")
@@ -83,37 +83,24 @@ interface YouTubeAPI {
         @Query("key")
         apiKey: String = API_KEY
     ): ChannelModel
+
+    /*
+    Search: list
+    채널 검색 정보 가져오는 api
+    */
+    @GET("search")
+    suspend fun getChannelsVideo(
+        @Query("part")
+        part: String = "snippet",
+        @Query("channelId")
+        channelId: String,
+        @Query("maxResults")
+        maxResults: Int = API_MAX_RESULT,
+        @Query("regionCode")
+        regionCode: String = API_REGION,
+        @Query("key")
+        apiKey: String = API_KEY
+    ): SearchModel
+
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    /*
-    //왜 만들었는지 모르겠음;
-//    Search: list
-//    채널 검색 정보 가져오는 api
-//    */
-//    @GET("search")
-//    suspend fun getChannelsVideo(
-//        @Query("part")
-//        part: String = "snippet,statistics",
-//        @Query("channelId")
-//        channelId: String = CHANNEL_ID,
-//        @Query("maxResults")
-//        maxResults: Int = API_MAX_RESULT,
-//        @Query("regionCode")
-//        regionCode: String = API_REGION,
-//        @Query("key")
-//        apiKey: String = API_KEY
-//    ): SearchModel

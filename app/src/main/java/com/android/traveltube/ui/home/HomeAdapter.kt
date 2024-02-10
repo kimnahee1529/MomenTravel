@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.traveltube.databinding.RecyclerviewHomeSelectVideoBinding
 import com.android.traveltube.model.db.VideoRecommendModel
 import com.android.traveltube.utils.DateManager.dateFormatter
+import com.android.traveltube.utils.DateManager.formatNumber
 import com.android.traveltube.utils.UtilManager.loadImage
 
 class HomeAdapter(private val onItemClicked: (VideoRecommendModel) -> Unit) :
@@ -53,11 +54,12 @@ class HomeAdapter(private val onItemClicked: (VideoRecommendModel) -> Unit) :
             data.channelInfoModel?.channelThumbnail?.let {binding.ivChannelThumbnail.loadImage(it)}
             binding.ivThumbnail.clipToOutline = true
             binding.tvTitle.text = data.title
-            binding.tvChannelTitle.text = data.channelTitle
+            binding.tvChannelTitle.text = data.channelTitle  + "ㆍ"
             binding.root.setOnClickListener {
                 onItemClicked(data)
             }
             binding.tvDate.text = data.publishTime?.dateFormatter()
+            binding.tvViewCount.text = data.videoViewCountModel?.viewCount?.formatNumber()  + "ㆍ"
         }
     }
 }

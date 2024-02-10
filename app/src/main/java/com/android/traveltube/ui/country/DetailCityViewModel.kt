@@ -6,7 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.android.traveltube.data.videos.Item
 import com.android.traveltube.model.ChannelInfoModel
+import com.android.traveltube.model.VideoViewCountModel
 import com.android.traveltube.model.db.VideoRecommendModel
 import com.android.traveltube.repository.YoutubeRepository
 import kotlinx.coroutines.Dispatchers
@@ -24,40 +26,37 @@ class DetailCityViewModel(
     }
 
     //영상 검색 정보 가져오는 getSearchingVideos 호출
-    private fun searchVideoList() {
-        viewModelScope.launch {
-            kotlin.runCatching {
-                val videos = youtubeRepository.getSearchingVideos()
-                val videoItemModels = videos.items.map { item ->
-                    val channelInfoList = getChannelInfo(item.snippet.channelId)
+    private fun searchVideoList() = viewModelScope.launch {
+        kotlin.runCatching {
+            val videos = youtubeRepository.getSearchingVideos()
+            val videoItemModels = videos.items.map { item ->
+                val channelInfoList = getChannelInfo(item.snippet.channelId)
+                val videoViewCountList = getVideoViewCount(item.id.videoId)
+                val videoViewCountModel = videoViewCountList.firstOrNull()
 
-                    run {
-                        val channelInfo = channelInfoList.first()
+                VideoRecommendModel(
+                    id = item.id.videoId,
+                    thumbNailUrl = item.snippet.thumbnails.medium.url,
+                    channelId = item.snippet.channelId,
+                    channelTitle = item.snippet.channelTitle,
+                    title = item.snippet.title,
+                    description = item.snippet.description,
+                    publishTime = item.snippet.publishedAt,
+                    channelInfoModel = channelInfoList.first(),
+                    videoViewCountModel = videoViewCountModel
+                )
+            }
 
-                        VideoRecommendModel(
-                            id = item.id.videoId,
-                            thumbNailUrl = item.snippet.thumbnails.medium.url,
-                            channelId = item.snippet.channelId,
-                            channelTitle = item.snippet.channelTitle,
-                            title = item.snippet.title,
-                            description = item.snippet.description,
-                            publishTime = item.snippet.publishedAt,
-                            channelInfoModel = channelInfo
-                        )
-                    }
-                }
-
-                _searchResults.postValue(videoItemModels)
-                saveSearchResult(videoItemModels)
-                Log.d("sharedviewmodel search", videoItemModels.toString())
-            }.onFailure { exception ->
-                withContext(Dispatchers.Main) {
-                    Log.e(
-                        "sharedviewmodel detailItem search Error",
-                        "Failed to fetch trending videos",
-                        exception
-                    )
-                }
+            _searchResults.postValue(videoItemModels)
+            saveSearchResult(videoItemModels)
+            Log.d("sharedviewmodel search", videoItemModels.toString())
+        }.onFailure { exception ->
+            withContext(Dispatchers.Main) {
+                Log.e(
+                    "sharedviewmodel detailItem search Error",
+                    "Failed to fetch trending videos",
+                    exception
+                )
             }
         }
     }
@@ -78,6 +77,18 @@ class DetailCityViewModel(
         }
     }
 
+    private suspend fun getVideoViewCount(videoId: String): List<VideoViewCountModel> {
+        return try {
+            val count = youtubeRepository.getViewCount(videoId = videoId)
+            count.items.map { item ->
+                convertToViewCountModel(item)
+            }
+        } catch (exception: Exception) {
+            Log.e("sharedviewmodel viewCount Error", "Failed to fetch getting viewCount", exception)
+            emptyList()
+        }
+    }
+
     private fun convertToChannelInfoModel(item: com.android.traveltube.data.channel.Item): ChannelInfoModel {
         return ChannelInfoModel(
             channelId = item.id,
@@ -86,6 +97,16 @@ class DetailCityViewModel(
             hiddenSubscriberCount = item.statistics.hiddenSubscriberCount
         )
     }
+
+    private fun convertToViewCountModel(item: Item): VideoViewCountModel {
+        return VideoViewCountModel(
+            videoId = item.id,
+            viewCount = item.statistics.viewCount,
+            commentCount = item.statistics.commentCount,
+            likeCount = item.statistics.likeCount
+        )
+    }
+
 }
 
 class DetailCityViewModelProviderFactory(

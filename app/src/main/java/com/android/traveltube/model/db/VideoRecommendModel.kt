@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.android.traveltube.model.ChannelInfoModel
+import com.android.traveltube.model.VideoViewCountModel
 import kotlinx.parcelize.Parcelize
 import java.util.Date
 
@@ -19,5 +20,6 @@ data class VideoRecommendModel(
     val description: String?,
     val publishTime: Date?,
     val channelInfoModel: ChannelInfoModel? = null,
+    val videoViewCountModel: VideoViewCountModel? = null,
     val isFavorite: Boolean = false
 ) : Parcelable

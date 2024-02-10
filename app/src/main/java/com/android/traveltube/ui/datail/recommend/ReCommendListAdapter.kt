@@ -1,6 +1,5 @@
 package com.android.traveltube.ui.datail.recommend
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -53,7 +52,6 @@ class ReCommendListAdapter(
             tvRecommendListTitle.text = item.title
             tvRecommendListChannel.text = item.channelTitle
             tvRecommendListDate.text = item.publishTime?.dateFormatter()
-            Log.d("TAG", "${item.title}")
         }
     }
 

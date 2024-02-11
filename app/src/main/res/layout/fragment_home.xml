@@ -38,7 +38,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_main_title" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_cat_video"
+                android:id="@+id/rv_search_video"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
@@ -51,20 +51,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16sp"
                 android:layout_marginTop="24dp"
-                android:text="카테고리별 채널"
+                android:text="다른 여행지 영상"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rv_cat_video" />
+                app:layout_constraintTop_toBottomOf="@+id/rv_search_video" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_cat_ch"
+                android:id="@+id/rv_travel_video"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
                 android:padding="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_cat_ch" />
-
 
             <TextView
                 android:id="@+id/tv_pop_video"
@@ -72,16 +70,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16sp"
                 android:layout_marginTop="24dp"
-                android:text="최신 인기 동영상"
+                android:text="다양한 여행 채널들"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rv_cat_ch" />
+                app:layout_constraintTop_toBottomOf="@+id/rv_travel_video" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_pop_video"
+                android:id="@+id/rv_shorts_video"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
                 android:padding="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_pop_video" />

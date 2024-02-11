@@ -12,12 +12,17 @@ class SharedViewModel(
 ) : ViewModel() {
     private val _searchResults = MutableLiveData<List<VideoRecommendModel>>()
     val searchResults: LiveData<List<VideoRecommendModel>> get() = _searchResults
+    private val _searchTravelResults = MutableLiveData<List<VideoRecommendModel>>()
+    val searchTravelResults: LiveData<List<VideoRecommendModel>> get() = _searchTravelResults
 
     private val _detailItems = MutableLiveData<List<VideoDetailModel>>()
     val detailItems: LiveData<List<VideoDetailModel>> get() = _detailItems
 
     fun getResultsVideoList(list: List<VideoRecommendModel>) {
         _searchResults.value = list
+    }
+    fun getResultsTravelLVideoList(list: List<VideoRecommendModel>) {
+        _searchTravelResults.value = list
     }
 }
 

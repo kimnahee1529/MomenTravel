@@ -9,10 +9,17 @@ import java.time.temporal.ChronoUnit
 import java.util.Date
 
 object UtilManager {
-    fun ImageView.loadImage(url: String) {
+    fun ImageView.loadVideoImage(url: String) {
         this.clipToOutline = true
         Glide.with(this)
             .load(url)
+            .into(this)
+    }
+    fun ImageView.loadChannelImage(url: String) {
+        this.clipToOutline = true
+        Glide.with(this)
+            .load(url)
+            .circleCrop()
             .into(this)
     }
 }

@@ -1,6 +1,7 @@
 package com.android.traveltube.repository
 
 import com.android.traveltube.data.db.VideoSearchDatabase
+import com.android.traveltube.model.db.VideoCatTravelModel
 import com.android.traveltube.model.db.VideoFavoriteModel
 import com.android.traveltube.model.db.VideoRecommendModel
 import com.android.traveltube.network.RetrofitInstance
@@ -17,6 +18,10 @@ class YoutubeRepository(
 
     suspend fun getSearchingVideos() = withContext(Dispatchers.IO) {
         RetrofitInstance.api.getSearchingVideos()
+    }
+
+    suspend fun getCatTravelVideos() = withContext(Dispatchers.IO) {
+        RetrofitInstance.api.getCatTravelVideos()
     }
 
     suspend fun getChannelInfo(channelId: String) = withContext(Dispatchers.IO) {
@@ -51,6 +56,10 @@ class YoutubeRepository(
     // 추천 여행지 리스트 가져 오기
     suspend fun getRecommendVideos(): List<VideoRecommendModel> {
         return db.videoRecommendDao().getVideos()
+    }
+
+    suspend fun insertCatTravelVideo(model: List<VideoCatTravelModel>){
+        db.videoCatTravelDao().insertVideos(model)
     }
 
 }

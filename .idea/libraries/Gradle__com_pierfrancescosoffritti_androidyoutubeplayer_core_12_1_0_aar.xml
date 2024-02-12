@@ -1,15 +1,15 @@
 <component name="libraryTable">
-  <library name="Gradle: com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0@aar">
+  <library name="Gradle: com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0@aar" external-system-id="GRADLE">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/619551f992ed1b2e6b2ff77e03c999c0/transformed/core-12.1.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/619551f992ed1b2e6b2ff77e03c999c0/transformed/core-12.1.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/619551f992ed1b2e6b2ff77e03c999c0/transformed/core-12.1.0/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/transforms-3/619551f992ed1b2e6b2ff77e03c999c0/transformed/core-12.1.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-3/619551f992ed1b2e6b2ff77e03c999c0/transformed/core-12.1.0/res" />
+      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-3/619551f992ed1b2e6b2ff77e03c999c0/transformed/core-12.1.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.pierfrancescosoffritti.androidyoutubeplayer/core/12.1.0/81a661d26504bd5cc0e9f4e96ed37810cbde105f/core-12.1.0-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/com.pierfrancescosoffritti.androidyoutubeplayer/core/12.1.0/81a661d26504bd5cc0e9f4e96ed37810cbde105f/core-12.1.0-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.pierfrancescosoffritti.androidyoutubeplayer/core/12.1.0/eeb0d5a5907e979585ab46e496c7855f6a87e9c8/core-12.1.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/com.pierfrancescosoffritti.androidyoutubeplayer/core/12.1.0/eeb0d5a5907e979585ab46e496c7855f6a87e9c8/core-12.1.0-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

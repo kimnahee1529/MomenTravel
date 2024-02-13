@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="12dp">
+
+    <ImageView
+        android:id="@+id/iv_favorite_video_thumbnail"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/background_radius_round"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_favorite_channel_thumbnail"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="4dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/background_shape_circle"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_favorite_video_thumbnail" />
+
+    <TextView
+        android:id="@+id/tv_favorite_video_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        app:layout_constraintEnd_toEndOf="@id/iv_favorite_video_thumbnail"
+        app:layout_constraintStart_toEndOf="@id/iv_favorite_channel_thumbnail"
+        app:layout_constraintTop_toTopOf="@id/iv_favorite_channel_thumbnail" />
+
+    <TextView
+        android:id="@+id/tv_favorite_channel_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/grey"
+        app:layout_constraintBottom_toBottomOf="@id/iv_favorite_channel_thumbnail"
+        app:layout_constraintStart_toEndOf="@id/iv_favorite_channel_thumbnail"
+        app:layout_constraintTop_toBottomOf="@id/tv_favorite_video_title" />
+
+    <TextView
+        android:id="@+id/tv_favorite_video_view_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/grey"
+        app:layout_constraintBottom_toBottomOf="@id/tv_favorite_channel_name"
+        app:layout_constraintStart_toEndOf="@id/tv_favorite_channel_name"
+        app:layout_constraintTop_toTopOf="@id/tv_favorite_channel_name" />
+
+    <TextView
+        android:id="@+id/tv_favorite_video_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/grey"
+        app:layout_constraintBottom_toBottomOf="@id/tv_favorite_video_view_count"
+        app:layout_constraintStart_toEndOf="@id/tv_favorite_video_view_count"
+        app:layout_constraintTop_toTopOf="@id/tv_favorite_video_view_count" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

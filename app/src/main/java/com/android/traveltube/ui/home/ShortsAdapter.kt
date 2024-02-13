@@ -43,6 +43,9 @@ class ShortsAdapter(private val onItemClicked: (VideoRecommendModel) -> Unit) :
         fun bind(data: VideoRecommendModel) {
             data.thumbNailUrl?.let {binding.ivThumbnail.loadVideoImage(it)}
             binding.tvShortsTitle.text = data.title
+            binding.root.setOnClickListener {
+                onItemClicked(data)
+            }
         }
     }
 }

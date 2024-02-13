@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rv_item"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/iv_thumbnail"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="180dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/rounded_pic_corner"
@@ -28,16 +28,18 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="320dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_thumbnail"
             app:layout_constraintStart_toStartOf="@+id/iv_thumbnail"
             app:layout_constraintTop_toBottomOf="@+id/iv_thumbnail">
 
             <ImageView
-                android:id="@+id/iv_channel"
+                android:id="@+id/iv_channel_thumbnail"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
+                android:layout_marginTop="4dp"
                 android:background="@drawable/rounded_pic_corner"
                 android:clipToOutline="true"
                 android:scaleType="centerCrop"
@@ -46,24 +48,44 @@
 
             <TextView
                 android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="[Vlog]동생이랑 3박4일 오사카 여행\n가나다라"
-                app:layout_constraintStart_toEndOf="@+id/iv_channel"
+                android:text="[Vlog]동생이랑 3박4일 오사카 여행 가나다라 마바사"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/iv_channel_thumbnail"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_channel_title"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="문지MOONZI"
+                android:text="문지MOONZI>>"
                 app:layout_constraintStart_toStartOf="@+id/tv_title"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+            <TextView
+                android:id="@+id/tv_view_count"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                app:layout_constraintStart_toEndOf="@+id/tv_channel_title"
+                app:layout_constraintTop_toTopOf="@+id/tv_channel_title" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                app:layout_constraintStart_toEndOf="@+id/tv_view_count"
+                app:layout_constraintTop_toTopOf="@+id/tv_channel_title" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

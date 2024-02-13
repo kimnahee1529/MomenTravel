@@ -2,42 +2,36 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp">
 
     <ImageView
         android:id="@+id/iv_channel_other_video_thumbnail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:adjustViewBounds="true"
         android:background="@drawable/background_radius_round"
-        android:clipToOutline="true"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/iv_channel_list_thumbnail"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_channel_other_video_thumbnail" />
-
     <TextView
         android:id="@+id/tv_channel_list_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/tv_channel_list_name"
-        app:layout_constraintStart_toEndOf="@id/iv_channel_list_thumbnail"
-        app:layout_constraintTop_toTopOf="@id/iv_channel_list_thumbnail" />
+        android:ellipsize="end"
+        android:maxLines="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_channel_other_video_thumbnail" />
 
     <TextView
-        android:id="@+id/tv_channel_list_name"
+        android:id="@+id/tv_channel_view_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/grey"
-        app:layout_constraintBottom_toBottomOf="@id/iv_channel_list_thumbnail"
-        app:layout_constraintStart_toEndOf="@id/iv_channel_list_thumbnail"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_channel_list_title" />
 
     <TextView
@@ -46,8 +40,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:textColor="@color/grey"
-        app:layout_constraintBottom_toBottomOf="@id/tv_channel_list_name"
-        app:layout_constraintStart_toEndOf="@id/tv_channel_list_name"
-        app:layout_constraintTop_toTopOf="@id/tv_channel_list_name" />
+        app:layout_constraintBottom_toBottomOf="@id/tv_channel_view_count"
+        app:layout_constraintStart_toEndOf="@id/tv_channel_view_count"
+        app:layout_constraintTop_toTopOf="@id/tv_channel_view_count" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

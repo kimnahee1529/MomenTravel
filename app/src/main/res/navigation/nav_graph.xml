@@ -3,65 +3,62 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragment_home">
+    app:startDestination="@id/fragment_detail_city">
 
     <fragment
         android:id="@+id/fragment_home"
         android:name="com.android.traveltube.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_homeFragment_to_countryFragment"
-            app:destination="@id/fragment_country" />
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_fragment_home_to_fragment_video_detail"
-            app:destination="@id/fragment_video_detail" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/fragment_country"
-        android:name="com.android.traveltube.ui.country.CountryFragment"
-        android:label="fragment_country"
-        tools:layout="@layout/fragment_country" >
-        <action
-            android:id="@+id/action_countryFragment_to_detailCityFragment2"
-            app:destination="@id/fragment_detail_city" />
+            app:destination="@id/fragment_video_detail"
+            app:popUpTo="@id/fragment_home"
+            app:popUpToInclusive="true"/>
     </fragment>
 
     <fragment
         android:id="@+id/fragment_detail_city"
         android:name="com.android.traveltube.ui.country.DetailCityFragment"
         android:label="fragment_detail_city"
-        tools:layout="@layout/fragment_detail_city" >
+        tools:layout="@layout/fragment_detail_city">
         <action
-            android:id="@+id/action_detailCityFragment_to_homeFragment"
-            app:destination="@id/fragment_home" />
+            android:id="@+id/action_fragment_detail_city_to_fragment_home"
+            app:destination="@id/fragment_home"
+            app:popUpTo="@id/fragment_home"
+            app:popUpToInclusive="true"/>
     </fragment>
 
     <fragment
         android:id="@+id/fragment_my_favorite"
         android:name="com.android.traveltube.ui.favorite.MyFavoriteFragment"
         android:label="fragment_my_favorite"
-        tools:layout="@layout/fragment_my_favorite" >
+        tools:layout="@layout/fragment_my_favorite">
         <action
             android:id="@+id/action_fragment_my_favorite_to_fragment_video_detail"
-            app:destination="@id/fragment_video_detail" />
+            app:destination="@id/fragment_video_detail"
+            app:popUpTo="@id/fragment_home"
+            app:popUpToInclusive="true"/>
     </fragment>
 
     <fragment
         android:id="@+id/fragment_search"
         android:name="com.android.traveltube.ui.search.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" >
+        tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_fragment_search_to_fragment_video_detail"
-            app:destination="@id/fragment_video_detail" />
+            app:destination="@id/fragment_video_detail"
+            app:popUpTo="@id/fragment_home"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/fragment_my_video"
         android:name="com.android.traveltube.ui.mypage.MyVideoFragment"
         android:label="fragment_my_video"
-        tools:layout="@layout/fragment_my_video" >
+        tools:layout="@layout/fragment_my_video"
+        app:popUpTo="@id/fragment_home"
+        app:popUpToInclusive="true">
         <action
             android:id="@+id/action_fragment_my_video_to_fragment_video_detail"
             app:destination="@id/fragment_video_detail" />
@@ -70,10 +67,10 @@
         android:id="@+id/fragment_video_detail"
         android:name="com.android.traveltube.ui.datail.VideoDetailFragment"
         android:label="fragment_video_detail"
-        tools:layout="@layout/fragment_video_detail" >
+        tools:layout="@layout/fragment_video_detail">
         <argument
             android:name="homeToDetailEntity"
-            app:argType="com.android.traveltube.model.VideoDetailModel" />
+            app:argType="com.android.traveltube.model.db.VideoRecommendModel" />
     </fragment>
 
 </navigation>

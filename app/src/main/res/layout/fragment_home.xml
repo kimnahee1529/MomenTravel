@@ -13,23 +13,35 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
+            <TextView
+                android:id="@+id/tv_main_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="40dp"
+                android:text="여행지 구경"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/tv_cat_video"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="24dp"
                 android:text="OO님을 위한 여행지"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_main_title" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_cat_video"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="12dp"
+                android:padding="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_cat_video" />
 
@@ -37,23 +49,19 @@
                 android:id="@+id/tv_cat_ch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16sp"
+                android:layout_marginTop="24dp"
                 android:text="카테고리별 채널"
                 android:textSize="20sp"
-                android:layout_marginTop="28dp"
-                android:layout_marginStart="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_cat_video" />
-
-            <!--                app:spinner_item_array="@array/Sido"-->
-
-
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_cat_ch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:layout_marginHorizontal="16dp"
+                android:padding="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_cat_ch" />
 
@@ -62,8 +70,8 @@
                 android:id="@+id/tv_pop_video"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
                 android:layout_marginStart="16sp"
+                android:layout_marginTop="24dp"
                 android:text="최신 인기 동영상"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -74,15 +82,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:layout_marginHorizontal="16dp"
+                android:padding="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_pop_video" />
+
             <Button
                 android:id="@+id/bt_send_data"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="32dp"
-                android:text="데이터 전달 참고용" />
+                android:layout_marginTop="48dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/rounded_btn_corner"
+                android:text="여행지 재선택하기"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

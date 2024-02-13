@@ -137,11 +137,22 @@ class MyVideoFragment : Fragment() {
                 }
 
                 updateName(newName)
-                selectImageBitmap?.let { bitmap -> updateImage(bitmap) }
+                selectImageBitmap?.let { bitmap ->
+                    updateImage(bitmap)
+                }
+
+                if (selectImageBitmap == null) {
+                    binding?.ivPfImage?.setImageResource(R.drawable.ic_default_image)
+                }
+
                 dialog.dismiss()
             } else {
                 Toast.makeText(requireContext(), "한글, 영어, 숫자만 입력 가능하며 최대 6글자까지 입력 가능합니다.", Toast.LENGTH_SHORT).show()
             }
+
+            ivProfile.setImageResource(R.drawable.ic_default_image)
+            selectImageBitmap = null
+            btnEditImage.visibility = View.GONE
         }
 
         btnCancel.setOnClickListener {
@@ -161,7 +172,6 @@ class MyVideoFragment : Fragment() {
             ivProfile.setImageResource(R.drawable.ic_default_image)
             selectImageBitmap = null
             btnEditImage.visibility = View.GONE
-            updateImage(BitmapFactory.decodeResource(resources, R.drawable.ic_default_image))
         }
 
         etName.addTextChangedListener(object : TextWatcher {

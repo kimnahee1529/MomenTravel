@@ -27,11 +27,17 @@ import android.widget.Toast
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.ColorDrawable
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
+import androidx.fragment.app.activityViewModels
 import java.io.ByteArrayOutputStream
 import com.android.traveltube.databinding.CustomDialogLayoutBinding
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.traveltube.data.db.VideoSearchDatabase
+import com.android.traveltube.factory.SharedViewModelFactory
+import com.android.traveltube.repository.YoutubeRepositoryImpl
+import com.android.traveltube.viewmodel.SharedViewModel
 
 class MyVideoFragment : Fragment() {
 
@@ -48,6 +54,10 @@ class MyVideoFragment : Fragment() {
     private val galleryRequestCode = 1
     private val maxNameLength = 6
     private var selectImageBitmap: Bitmap? = null
+
+    private val sharedViewModel by activityViewModels<SharedViewModel> {
+        SharedViewModelFactory(YoutubeRepositoryImpl(VideoSearchDatabase.getInstance(requireContext())))
+    }
 
     private lateinit var recyclerView: RecyclerView
 //    private lateinit var adapter: MyVideoAdapter
@@ -79,6 +89,17 @@ class MyVideoFragment : Fragment() {
 //        recyclerView.adapter = adapter
 
         return binding?.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initViewModel()
+    }
+
+    private fun initViewModel() = with(sharedViewModel){
+        savedVideos.observe(viewLifecycleOwner) {
+            Log.d("TAG", "$it")
+        }
     }
 
     override fun onDestroyView() {

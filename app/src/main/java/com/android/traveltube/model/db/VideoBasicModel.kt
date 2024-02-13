@@ -21,5 +21,6 @@ data class VideoBasicModel(
     val channelInfoModel: ChannelInfoModel?,
     val videoViewCountModel: VideoViewCountModel?,
     val modelType: ModelType,
-    val isFavorite: Boolean = false
+    val isFavorite: Boolean = false,
+    val isSaved: Boolean = false
 ) : Parcelable

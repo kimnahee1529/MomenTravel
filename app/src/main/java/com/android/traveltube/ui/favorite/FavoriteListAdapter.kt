@@ -5,27 +5,27 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.android.traveltube.databinding.ItemFavoriteListBinding
-import com.android.traveltube.model.db.VideoFavoriteModel
+import com.android.traveltube.model.db.VideoBasicModel
 import com.android.traveltube.utils.DateManager.dateFormatter
 import com.android.traveltube.utils.DateManager.formatNumber
 import com.android.traveltube.utils.UtilManager.loadVideoImage
 
 class FavoriteListAdapter(
-    private val onItemClick: (VideoFavoriteModel) -> Unit
-) : androidx.recyclerview.widget.ListAdapter<VideoFavoriteModel, FavoriteListAdapter.ViewHolder>(
+    private val onItemClick: (VideoBasicModel) -> Unit
+) : androidx.recyclerview.widget.ListAdapter<VideoBasicModel, FavoriteListAdapter.ViewHolder>(
 
-    object : DiffUtil.ItemCallback<VideoFavoriteModel>() {
+    object : DiffUtil.ItemCallback<VideoBasicModel>() {
 
         override fun areItemsTheSame(
-            oldItem: VideoFavoriteModel,
-            newItem: VideoFavoriteModel
+            oldItem: VideoBasicModel,
+            newItem: VideoBasicModel
         ): Boolean {
             return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
-            oldItem: VideoFavoriteModel,
-            newItem: VideoFavoriteModel
+            oldItem: VideoBasicModel,
+            newItem: VideoBasicModel
         ): Boolean {
             return oldItem == newItem
         }
@@ -45,10 +45,10 @@ class FavoriteListAdapter(
 
     class ViewHolder(
         private val binding: ItemFavoriteListBinding,
-        private val onItemClick: ((VideoFavoriteModel) -> Unit)?
+        private val onItemClick: ((VideoBasicModel) -> Unit)?
     ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: VideoFavoriteModel) = with(binding) {
+        fun bind(item: VideoBasicModel) = with(binding) {
             item.thumbNailUrl?.let { ivFavoriteVideoThumbnail.loadVideoImage(it) }
             tvFavoriteVideoTitle.text = item.title
             tvFavoriteVideoDate.text = item.publishTime?.dateFormatter()

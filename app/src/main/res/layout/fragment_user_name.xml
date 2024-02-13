@@ -40,7 +40,7 @@
         android:layout_width="325dp"
         android:layout_height="50dp"
         android:text="다음"
-        android:backgroundTint="#245399"
+        android:background="@drawable/rounded_btn_confirm"
         android:layout_marginTop="680dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"/>

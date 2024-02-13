@@ -90,7 +90,7 @@
                 android:layout_margin="32dp"
                 android:layout_marginTop="48dp"
                 android:layout_marginEnd="24dp"
-                android:background="@drawable/rounded_btn_corner"
+                android:background="@drawable/rounded_btn_confirm"
                 android:text="여행지 재선택하기"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"

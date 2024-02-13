@@ -37,21 +37,24 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_skip"
         android:layout_width="140dp"
         android:layout_height="40dp"
         android:text="건너뛰기"
         android:layout_marginTop="680dp"
         android:layout_marginStart="40dp"
-        android:backgroundTint="#909090" />
+        android:background="@drawable/rounded_btn_cancel"
+         />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/bt_move_home_fragment"
         android:layout_width="160dp"
         android:layout_height="40dp"
+        android:textColor="@color/white"
         android:layout_marginTop="680dp"
         android:layout_marginStart="210dp"
+        android:background="@drawable/rounded_btn_confirm"
         android:text="다음"
         />
 

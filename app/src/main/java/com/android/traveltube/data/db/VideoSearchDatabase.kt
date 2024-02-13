@@ -8,14 +8,13 @@ import androidx.room.TypeConverters
 import com.android.traveltube.data.db.converter.ChannelInfoModelConverter
 import com.android.traveltube.data.db.converter.DateConverter
 import com.android.traveltube.data.db.converter.VideoViewCountConverter
-import com.android.traveltube.data.db.dao.VideoFavoriteDAO
 import com.android.traveltube.data.db.dao.VideoDAO
-import com.android.traveltube.model.db.VideoFavoriteModel
 import com.android.traveltube.model.db.VideoBasicModel
 
+
 @Database(
-    entities = [VideoFavoriteModel::class, VideoBasicModel::class],
-    version = 2,
+    entities = [VideoBasicModel::class],
+    version = 4,
     exportSchema = false
 )
 @TypeConverters(
@@ -24,8 +23,8 @@ import com.android.traveltube.model.db.VideoBasicModel
     VideoViewCountConverter::class
 )
 abstract class VideoSearchDatabase : RoomDatabase() {
-    abstract fun videoFavoriteDao(): VideoFavoriteDAO
     abstract fun videoDao(): VideoDAO
+
     companion object {
         @Volatile
         private var INSTANCE: VideoSearchDatabase? = null

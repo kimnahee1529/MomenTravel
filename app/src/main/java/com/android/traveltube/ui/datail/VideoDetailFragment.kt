@@ -21,6 +21,7 @@ import com.android.traveltube.utils.DateManager.dateFormatter
 import com.android.traveltube.utils.DateManager.formatNumber
 import com.android.traveltube.utils.UtilManager.loadVideoImage
 import com.android.traveltube.viewmodel.SharedViewModel
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import kotlinx.coroutines.delay
@@ -157,8 +158,28 @@ class VideoDetailFragment : Fragment() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
                 youTubePlayer.loadVideo(videoId, 0f)
             }
+
+            override fun onStateChange(
+                youTubePlayer: YouTubePlayer,
+                state: PlayerConstants.PlayerState
+            ) {
+                super.onStateChange(youTubePlayer, state)
+
+                when (state) {
+                    PlayerConstants.PlayerState.PLAYING -> {
+                        viewModel.onVideoPlaying()
+                    }
+
+                    PlayerConstants.PlayerState.PAUSED -> Unit
+
+                    PlayerConstants.PlayerState.ENDED -> Unit
+
+                    else -> Unit
+                }
+            }
         })
     }
+
 
     override fun onDestroyView() {
         _binding = null

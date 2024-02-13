@@ -18,8 +18,8 @@
 
         <ImageView
             android:id="@+id/iv_thumbnail"
-            android:layout_width="200dp"
-            android:layout_height="300dp"
+            android:layout_width="162dp"
+            android:layout_height="288dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/rounded_video_pic_corner"
             android:clipToOutline="true"
@@ -38,8 +38,21 @@
             android:layout_margin="10dp"
             android:ellipsize="end"
             android:maxLines="2"
-            android:textColor="@color/white"
             android:text="오사카 3박 4일 여행 60초 요약 | 도톤보리, 우메다, 오사카성, 유니버셜스튜디오, 교토, 아라시야마, 기요미즈데라"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/tv_view_count"
+            app:layout_constraintEnd_toEndOf="@+id/iv_thumbnail"
+            app:layout_constraintStart_toStartOf="@+id/iv_thumbnail" />
+
+        <TextView
+            android:id="@+id/tv_view_count"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/white"
+            android:text="조회수 44만회"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/iv_thumbnail"
             app:layout_constraintStart_toStartOf="@+id/iv_thumbnail" />

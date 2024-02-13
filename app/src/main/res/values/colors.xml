@@ -8,4 +8,5 @@
     <color name="grey">#929292</color>
     <color name="light_grey">#c8c8c8</color>
     <color name="background">#dddddd</color>
+    <color name="search_gray">#f2f2f2</color>
 </resources>

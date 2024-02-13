@@ -40,7 +40,7 @@ class MyVideoFragment : Fragment() {
     private lateinit var sharedPref: SharedPreferences
     private lateinit var ivProfile: ImageView
     private lateinit var etName: EditText
-    private lateinit var btnSave: Button
+    private lateinit var btnConfirm: Button
     private lateinit var btnGallery: Button
     private lateinit var btnCancel: Button
     private lateinit var btnEditImage: ImageView
@@ -93,7 +93,7 @@ class MyVideoFragment : Fragment() {
 
         ivProfile = dialogBinding.ivPfImage
         etName = dialogBinding.etDialogEdit
-        btnSave = dialogBinding.btnDialogSave
+        btnConfirm = dialogBinding.btnDialogConfirm
         btnCancel = dialogBinding.btnDialogCancel
         btnGallery = dialogBinding.btnGallerySelect
         btnEditImage = dialogBinding.ivImageEdit
@@ -122,7 +122,7 @@ class MyVideoFragment : Fragment() {
             startActivityForResult(intent, galleryRequestCode)
         }
 
-        btnSave.setOnClickListener {
+        btnConfirm.setOnClickListener {
             etName.clearFocus()
             val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(etName.windowToken, 0)
@@ -180,7 +180,7 @@ class MyVideoFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val length = s?.length ?: 0
                 tvCharCount.text = getFormattedCharCountText(length)
-                btnSave.isEnabled = length in 1..maxNameLength
+                btnConfirm.isEnabled = length in 1..maxNameLength
             }
 
             override fun afterTextChanged(s: Editable?) {}

@@ -33,6 +33,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:text="OO님을 위한 여행지"
+                android:textColor="@color/black"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_main_title" />
@@ -52,6 +53,7 @@
                 android:layout_marginStart="16sp"
                 android:layout_marginTop="24dp"
                 android:text="다른 여행지 영상"
+                android:textColor="@color/black"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_search_video" />
@@ -70,7 +72,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16sp"
                 android:layout_marginTop="24dp"
-                android:text="다양한 여행 채널들"
+                android:text="다양한 여행 쇼츠 영상"
+                android:textColor="@color/black"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_travel_video" />

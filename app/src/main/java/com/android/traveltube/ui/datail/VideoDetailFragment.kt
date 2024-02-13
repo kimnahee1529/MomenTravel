@@ -16,7 +16,7 @@ import com.android.traveltube.ui.datail.recommend.ReCommendListAdapter
 import com.android.traveltube.utils.DateManager.convertToDecimalString
 import com.android.traveltube.utils.DateManager.dateFormatter
 import com.android.traveltube.utils.DateManager.formatNumber
-import com.android.traveltube.utils.UtilManager.loadImage
+import com.android.traveltube.utils.UtilManager.loadVideoImage
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 
@@ -87,7 +87,7 @@ class VideoDetailFragment : Fragment() {
                 tvVideoDescription.text = "조회수 ${item.viewCount?.formatNumber()} ${item.videoDate?.dateFormatter()}\n${item.videoDescription}"
                 tvChannelTitle.text = item.channelName
                 tvChannelSubscriptionCount.text = "구독자 ${item.subscriptionCount?.convertToDecimalString()}명"
-                item.channelThumbnail?.let { ivChannelThumbnail.loadImage(it) }
+                item.channelThumbnail?.let { ivChannelThumbnail.loadVideoImage(it) }
 
                 ivLike.setImageResource(if (item.isFavorite) R.drawable.ic_like_24 else R.drawable.ic_like_empty_24)
                 tvChannelOtherVideoTitle.text = "${item.channelName}의 다른 동영상"

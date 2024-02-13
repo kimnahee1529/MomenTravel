@@ -1,6 +1,7 @@
 package com.android.traveltube.ui.country
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,6 +60,7 @@ class DetailCityFragment : Fragment() {
              * 저장 된 항목은 HomeFragment 에서 사용할 수 있어야 함.
              */
             viewModel.getSearchVideoList() // 동영상 검색
+            viewModel.getTravelVideoList()
             showLoadingActivity()
         }
     }
@@ -78,6 +80,10 @@ class DetailCityFragment : Fragment() {
 
                 }
             }
+        }
+        viewModel.searchTravelResults.observe(viewLifecycleOwner){
+            sharedViewModel.getResultsTravelLVideoList(it)
+            Log.d("여행 카테고리 동영상들", it.toString())
         }
     }
 

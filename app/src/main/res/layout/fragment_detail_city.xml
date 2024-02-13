@@ -5,6 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".ui.country.DetailCityFragment">
 
+<!--    <Button-->
+<!--        android:id="@+id/bt_move_home_fragment"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Go To HomeFragment" />-->
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,7 +37,6 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
-
     <Button
         android:id="@+id/btn_skip"
         android:layout_width="140dp"
@@ -42,16 +47,13 @@
         android:backgroundTint="#909090" />
 
     <Button
-        android:id="@+id/btn_next"
+        android:id="@+id/bt_move_home_fragment"
         android:layout_width="160dp"
         android:layout_height="40dp"
         android:layout_marginTop="680dp"
         android:layout_marginStart="210dp"
         android:text="다음"
-        android:backgroundTint="#245399"
-
         />
-
 
 
 

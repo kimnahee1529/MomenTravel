@@ -10,7 +10,9 @@ import androidx.fragment.app.activityViewModels
 import com.android.traveltube.databinding.FragmentHomeBinding
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.traveltube.data.db.VideoSearchDatabase
 import com.android.traveltube.factory.HomeViewModelFactory
 import com.android.traveltube.factory.PreferencesRepository
 import com.android.traveltube.factory.SharedViewModelFactory
@@ -24,10 +26,35 @@ class HomeFragment() : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: HomeViewModel by viewModels {
         val preferences = requireContext().getSharedPreferences(favoriteKey, Context.MODE_PRIVATE)
-        HomeViewModelFactory(YoutubeRepository(), PreferencesRepository(preferences))
+        HomeViewModelFactory(
+            YoutubeRepository(VideoSearchDatabase.getInstance(requireContext())),
+            PreferencesRepository(preferences)
+        )
     }
     private val sharedViewModel by activityViewModels<SharedViewModel> {
-        SharedViewModelFactory(YoutubeRepository())
+        SharedViewModelFactory(YoutubeRepository(VideoSearchDatabase.getInstance(requireContext())))
+    }
+
+    private val homeListAdapter by lazy {
+        SearchAdapter { videoDetailModel ->
+            val action =
+                HomeFragmentDirections.actionFragmentHomeToFragmentVideoDetail(videoDetailModel)
+            findNavController().navigate(action)
+        }
+    }
+    private val travelListAdapter by lazy {
+        TravelAdapter { videoDetailModel ->
+            val action =
+                HomeFragmentDirections.actionFragmentHomeToFragmentVideoDetail(videoDetailModel)
+            findNavController().navigate(action)
+        }
+    }
+    private val shortsListAdapter by lazy {
+        ShortsAdapter { videoDetailModel ->
+            val action =
+                HomeFragmentDirections.actionFragmentHomeToFragmentVideoDetail(videoDetailModel)
+            findNavController().navigate(action)
+        }
     }
 
     override fun onCreateView(
@@ -38,7 +65,6 @@ class HomeFragment() : Fragment() {
         return binding.root
     }
 
-    //video, search api 호출
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
@@ -46,24 +72,37 @@ class HomeFragment() : Fragment() {
     }
 
     private fun setupImageRecyclerView() {
-        val homeAdapter = HomeAdapter { videoDetailModel ->
-            val action =
-                HomeFragmentDirections.actionFragmentHomeToFragmentVideoDetail(videoDetailModel)
-            findNavController().navigate(action)
-        }
-        binding.rvCatVideo.apply {
+        //각 아이템 클릭 시 Detail 화면으로 이동
+        binding.rvSearchVideo.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = homeAdapter
+            adapter = homeListAdapter
         }
-        sharedViewModel.detailItems.observe(viewLifecycleOwner) {
-            //TODO submitList
-            homeAdapter.submitList(it)
+        binding.rvTravelVideo.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = travelListAdapter
+        }
+        binding.rvShortsVideo.apply {
+            layoutManager = GridLayoutManager(context,2)
+            adapter = shortsListAdapter
         }
     }
 
+    //video, search api 호출
     private fun initViewModel() {
-//        sharedViewModel.getDetailItem()
+//        sharedViewModel.getDetailItem() //채널 썸네일 받아오기
 //        sharedViewModel.getChannelItem()
+        sharedViewModel.searchResults.observe(viewLifecycleOwner) {
+            homeListAdapter.submitList(it)
+        }
+        sharedViewModel.detailItems.observe(viewLifecycleOwner) {
+            // TODO
+        }
+        sharedViewModel.searchTravelResults.observe(viewLifecycleOwner){
+            travelListAdapter.submitList(it)
+        }
+        sharedViewModel.searchTravelResults.observe(viewLifecycleOwner){
+            shortsListAdapter.submitList(it)
+        }
     }
 
     override fun onDestroyView() {

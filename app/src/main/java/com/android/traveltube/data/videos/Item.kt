@@ -10,5 +10,7 @@ data class Item(
     @SerializedName("id")
     val id: String,
     @SerializedName("snippet")
-    val snippet: Snippet
+    val snippet: Snippet,
+    @SerializedName("statistics")
+    val statistics: Statistics
 )

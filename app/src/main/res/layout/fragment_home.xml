@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.home.HomeFragment">
 
     <ScrollView
@@ -21,6 +22,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="40dp"
                 android:text="여행지 구경"
+                android:textColor="@color/black"
                 android:textSize="32sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -33,6 +35,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:text="OO님을 위한 여행지"
+                android:textColor="@color/black"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_main_title" />
@@ -52,6 +55,7 @@
                 android:layout_marginStart="16sp"
                 android:layout_marginTop="24dp"
                 android:text="다른 여행지 영상"
+                android:textColor="@color/black"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_search_video" />
@@ -70,7 +74,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16sp"
                 android:layout_marginTop="24dp"
-                android:text="다양한 여행 채널들"
+                android:text="다양한 여행 쇼츠 영상"
+                android:textColor="@color/black"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_travel_video" />
@@ -85,14 +90,14 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/bt_send_data"
-                android:layout_width="130dp"
+                android:layout_width="135dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="12dp"
                 android:background="@drawable/rounded_btn_confirm"
                 android:text="여행지 재선택하기"
                 android:textColor="@color/white"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>

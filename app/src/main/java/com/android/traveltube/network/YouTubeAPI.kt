@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 private const val API_MAX_RESULT = 5 //TODO 수정 필요
 private const val API_REGION = "KR"
-private const val API_KEY = "AIzaSyDXqifu8eP7CX_TStYh5SFJPZO36J_4n5Q" //TODO API키 넣어주세요
+private const val API_KEY = "AIzaSyBkdKOJgJgWvj1fCqZYxUm02RLODvb8Tyk" //TODO API키 넣어주세요
 private const val CHANNEL_ID = "UC6KwCU8Y8Uw4h_Q0ptLZkqw" //TODO 수정 필요
 private const val SEARCH_TEXT = "플레이브 봉구" //TODO 수정 필요
 private const val VIDEO_ID = "gbxCTwgKcX8" //TODO 수정 필요
@@ -18,7 +18,7 @@ interface YouTubeAPI {
     /**
     Videos: list
     인기 비디오 목록을 조회하는 api
-    */
+     */
     @GET("videos")
     suspend fun getTrendingVideos(
         @Query("part")
@@ -36,7 +36,7 @@ interface YouTubeAPI {
     /**
     Videos: list
     동영상 조회수 가져오는 api
-    */
+     */
     @GET("videos")
     suspend fun getViewCount(
         @Query("part")
@@ -54,7 +54,7 @@ interface YouTubeAPI {
     /**
     Search: list
     영상 검색 정보 가져오는 api
-    */
+     */
     @GET("search")
     suspend fun getSearchingVideos(
         @Query("part")
@@ -96,7 +96,7 @@ interface YouTubeAPI {
     /**
     Channels: list
     채널 정보 가져오는 api
-    */
+     */
     @GET("channels")
     suspend fun getChannelInfo(
         @Query("part")
@@ -112,7 +112,7 @@ interface YouTubeAPI {
     /**
     Search: list
     채널 검색 정보 가져오는 api
-    */
+     */
     @GET("search")
     suspend fun getChannelsVideo(
         @Query("part")

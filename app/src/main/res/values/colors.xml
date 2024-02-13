@@ -7,5 +7,5 @@
     <color name="light_blue">#AED3F2</color>
     <color name="grey">#929292</color>
     <color name="light_grey">#c8c8c8</color>
-
+    <color name="background">#dddddd</color>
 </resources>

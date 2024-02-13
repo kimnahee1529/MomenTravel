@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.android.traveltube.data.db.VideoSearchDatabase
 import com.android.traveltube.databinding.FragmentDetailCityBinding
 import com.android.traveltube.factory.SharedViewModelFactory
-import com.android.traveltube.repository.YoutubeRepository
+import com.android.traveltube.repository.YoutubeRepositoryImpl
 import com.android.traveltube.viewmodel.SharedViewModel
 import kotlinx.coroutines.launch
 
@@ -24,18 +24,19 @@ class DetailCityFragment : Fragment() {
     private val binding: FragmentDetailCityBinding get() = _binding!!
 
     private val sharedViewModel by activityViewModels<SharedViewModel> {
-        SharedViewModelFactory(YoutubeRepository(VideoSearchDatabase.getInstance(requireContext())))
+        SharedViewModelFactory(YoutubeRepositoryImpl(VideoSearchDatabase.getInstance(requireContext())))
     }
 
     private val viewModel by viewModels<DetailCityViewModel> {
         DetailCityViewModelProviderFactory(
-            YoutubeRepository(
+            YoutubeRepositoryImpl(
                 VideoSearchDatabase.getInstance(
                     requireContext()
                 )
             )
         )
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,24 +67,15 @@ class DetailCityFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        viewModel.searchResults.observe(viewLifecycleOwner) {
-            sharedViewModel.getResultsVideoList(it)
-
-            // TODO 로딩 화면 필요함
-            if (isAdded && findNavController().currentDestination != null) {
+        viewModel.bothSearchesSuccessful.observe(viewLifecycleOwner) { success ->
+            if (success) {
                 val action = DetailCityFragmentDirections.actionFragmentDetailCityToFragmentHome()
 
                 viewLifecycleOwner.lifecycleScope.launch {
                     findNavController().navigate(action)
-
                     closeLoadingActivity()
-
                 }
             }
-        }
-        viewModel.searchTravelResults.observe(viewLifecycleOwner){
-            sharedViewModel.getResultsTravelLVideoList(it)
-            Log.d("여행 카테고리 동영상들", it.toString())
         }
     }
 

@@ -1,39 +1,26 @@
 package com.android.traveltube.viewmodel
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.android.traveltube.model.VideoDetailModel
-import com.android.traveltube.model.db.VideoRecommendModel
-import com.android.traveltube.repository.YoutubeRepository
+import com.android.traveltube.data.db.ModelType
+import com.android.traveltube.model.db.VideoFavoriteModel
+import com.android.traveltube.model.db.VideoBasicModel
+import com.android.traveltube.repository.YoutubeRepositoryImpl
 
 class SharedViewModel(
-    private val youtubeRepository: YoutubeRepository
+    private val youtubeRepositoryImpl: YoutubeRepositoryImpl
 ) : ViewModel() {
-    private val _searchResults = MutableLiveData<List<VideoRecommendModel>>()
-    val searchResults: LiveData<List<VideoRecommendModel>> get() = _searchResults
-    private val _searchTravelResults = MutableLiveData<List<VideoRecommendModel>>()
-    val searchTravelResults: LiveData<List<VideoRecommendModel>> get() = _searchTravelResults
+    val searchResults: LiveData<List<VideoBasicModel>> get() = youtubeRepositoryImpl.getVideos(ModelType.VIDEO_RECOMMEND)
 
-    private val _detailItems = MutableLiveData<List<VideoDetailModel>>()
-    val detailItems: LiveData<List<VideoDetailModel>> get() = _detailItems
+    val favoriteVideos: LiveData<List<VideoFavoriteModel>> = youtubeRepositoryImpl.getFavoriteVideos()
 
-    fun getResultsVideoList(list: List<VideoRecommendModel>) {
-        _searchResults.value = list
+    val searchTravelResults: LiveData<List<VideoBasicModel>> get() = youtubeRepositoryImpl.getVideos(ModelType.VIDEO_CATEGORY_TRAVEL)
+
+    fun getResultsTravelLVideoList(list: List<VideoBasicModel>) {
+        // _searchTravelResults.value = list
     }
-    fun getResultsTravelLVideoList(list: List<VideoRecommendModel>) {
-        _searchTravelResults.value = list
-    }
+
 }
-
-
-
-
-
-
-
-
-
 
 
 // Item 데이터 타입을 Detail 화면에서 쓰기 좋게 VideoDetailModel로 변환

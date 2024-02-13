@@ -53,7 +53,7 @@ class SearchAdapter(private val onItemClicked: (VideoBasicModel) -> Unit) :
                 onItemClicked(data)
             }
             binding.tvDate.text = data.publishTime?.dateFormatter()
-            binding.tvViewCount.text = data.videoViewCountModel?.viewCount?.formatNumber()  + "ㆍ"
+            binding.tvViewCount.text = data.videoViewCountModel?.viewCount?.formatNumber()?.plus("ㆍ") ?: ""
         }
     }
 }

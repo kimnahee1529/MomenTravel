@@ -46,9 +46,9 @@ class MyVideoFragment : Fragment() {
     private lateinit var btnCancel: Button
     private lateinit var btnEditImage: ImageView
     private lateinit var tvCharCount: TextView
-    private val galleryRequestCode = 1
+    private val galleryCode = 1
     private val maxNameLength = 6
-    private var selectImageBitmap: Bitmap? = null
+    private var selectImage: Bitmap? = null
 
     private lateinit var viewModel: MyVideoEditModel
 
@@ -119,7 +119,7 @@ class MyVideoFragment : Fragment() {
 
         btnGallery.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-            startActivityForResult(intent, galleryRequestCode)
+            startActivityForResult(intent, galleryCode)
         }
 
         btnConfirm.setOnClickListener {
@@ -132,16 +132,16 @@ class MyVideoFragment : Fragment() {
             if (newName.matches(Regex("^[a-zA-Z0-9가-힣]*$")) && newName.length in 1..maxNameLength) {
                 sharedPref.edit().apply {
                     putString("name", newName)
-                    putString("image_bitmap", encodeBitmap(selectImageBitmap))
+                    putString("image_bitmap", encodeBitmap(selectImage))
                     apply()
                 }
 
                 updateName(newName)
-                selectImageBitmap?.let { bitmap ->
+                selectImage?.let { bitmap ->
                     updateImage(bitmap)
                 }
 
-                if (selectImageBitmap == null) {
+                if (selectImage == null) {
                     binding?.ivPfImage?.setImageResource(R.drawable.ic_default_image)
                 }
 
@@ -151,7 +151,7 @@ class MyVideoFragment : Fragment() {
             }
 
             ivProfile.setImageResource(R.drawable.ic_default_image)
-            selectImageBitmap = null
+            selectImage = null
             btnEditImage.visibility = View.GONE
         }
 
@@ -160,7 +160,7 @@ class MyVideoFragment : Fragment() {
             val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(etName.windowToken, 0)
 
-            selectImageBitmap?.let { bitmap ->
+            selectImage?.let { bitmap ->
                 ivProfile.setImageBitmap(bitmap)
                 btnEditImage.visibility = View.VISIBLE
             }
@@ -170,7 +170,7 @@ class MyVideoFragment : Fragment() {
 
         btnEditImage.setOnClickListener {
             ivProfile.setImageResource(R.drawable.ic_default_image)
-            selectImageBitmap = null
+            selectImage = null
             btnEditImage.visibility = View.GONE
         }
 
@@ -219,12 +219,12 @@ class MyVideoFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == galleryRequestCode && resultCode == Activity.RESULT_OK && data != null) {
+        if (requestCode == galleryCode && resultCode == Activity.RESULT_OK && data != null) {
             val selectedImageUri = data.data
             selectedImageUri?.let {
                 val inputStream = requireContext().contentResolver.openInputStream(it)
-                selectImageBitmap = BitmapFactory.decodeStream(inputStream)
-                ivProfile.setImageBitmap(selectImageBitmap)
+                selectImage = BitmapFactory.decodeStream(inputStream)
+                ivProfile.setImageBitmap(selectImage)
                 btnEditImage.visibility = View.VISIBLE
             }
         }

@@ -35,6 +35,7 @@ class HomeFragment() : Fragment() {
         SharedViewModelFactory(YoutubeRepository(VideoSearchDatabase.getInstance(requireContext())))
     }
 
+    //각 아이템 클릭 시 Detail 화면으로 이동
     private val homeListAdapter by lazy {
         SearchAdapter { videoDetailModel ->
             val action =
@@ -72,7 +73,6 @@ class HomeFragment() : Fragment() {
     }
 
     private fun setupImageRecyclerView() {
-        //각 아이템 클릭 시 Detail 화면으로 이동
         binding.rvSearchVideo.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = homeListAdapter

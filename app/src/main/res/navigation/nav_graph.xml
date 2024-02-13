@@ -15,6 +15,11 @@
             app:destination="@id/fragment_video_detail"
             app:popUpTo="@id/fragment_home"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_fragment_home_shorts_to_fragment_shorts"
+            app:destination="@id/fragment_shorts"
+            app:popUpTo="@id/fragment_home"
+            app:popUpToInclusive="true"/>
     </fragment>
 
     <fragment
@@ -68,6 +73,15 @@
         android:name="com.android.traveltube.ui.datail.VideoDetailFragment"
         android:label="fragment_video_detail"
         tools:layout="@layout/fragment_video_detail">
+        <argument
+            android:name="homeToDetailEntity"
+            app:argType="com.android.traveltube.model.db.VideoRecommendModel" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_shorts"
+        android:name="com.android.traveltube.ui.datail.shorts.ShortsFragment"
+        android:label="fragment_shorts"
+        tools:layout="@layout/fragment_shorts">
         <argument
             android:name="homeToDetailEntity"
             app:argType="com.android.traveltube.model.db.VideoRecommendModel" />

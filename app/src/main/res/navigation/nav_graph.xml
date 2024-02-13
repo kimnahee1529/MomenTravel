@@ -70,7 +70,7 @@
         tools:layout="@layout/fragment_video_detail">
         <argument
             android:name="homeToDetailEntity"
-            app:argType="com.android.traveltube.model.db.VideoRecommendModel" />
+            app:argType="com.android.traveltube.model.db.VideoBasicModel" />
     </fragment>
 
 </navigation>

@@ -1,6 +1,8 @@
 package com.android.traveltube.model
 
 import android.os.Parcelable
+import com.android.traveltube.model.db.ChannelInfoModel
+import com.android.traveltube.model.db.VideoViewCountModel
 import kotlinx.parcelize.Parcelize
 import java.util.Date
 
@@ -13,7 +15,7 @@ data class VideoDetailModel(
     val title: String?,
     val description: String?,
     val publishTime: Date?,
-    val channelInfoModel: ChannelInfoModel? = null,
-    val videoViewCount: VideoViewCountModel? = null,
+    val channelInfoModel: ChannelInfoModel?,
+    val videoViewCount: VideoViewCountModel?,
     val isFavorite: Boolean = false
 ) : Parcelable

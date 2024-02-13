@@ -3,14 +3,13 @@ package com.android.traveltube.model.db
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.android.traveltube.model.ChannelInfoModel
-import com.android.traveltube.model.VideoViewCountModel
+import com.android.traveltube.data.db.ModelType
 import kotlinx.parcelize.Parcelize
 import java.util.Date
 
 @Parcelize
-@Entity(tableName = "recommend_videos")
-data class VideoRecommendModel(
+@Entity(tableName = "videos")
+data class VideoBasicModel(
     @PrimaryKey(autoGenerate = false)
     val id: String,
     val thumbNailUrl: String?,
@@ -19,7 +18,8 @@ data class VideoRecommendModel(
     val title: String?,
     val description: String?,
     val publishTime: Date?,
-    val channelInfoModel: ChannelInfoModel? = null,
-    val videoViewCountModel: VideoViewCountModel? = null,
+    val channelInfoModel: ChannelInfoModel?,
+    val videoViewCountModel: VideoViewCountModel?,
+    val modelType: ModelType,
     val isFavorite: Boolean = false
 ) : Parcelable

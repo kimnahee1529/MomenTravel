@@ -5,27 +5,27 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.android.traveltube.databinding.ItemChannelOtherVideoListBinding
-import com.android.traveltube.model.db.VideoRecommendModel
+import com.android.traveltube.model.db.VideoBasicModel
 import com.android.traveltube.utils.DateManager.dateFormatter
 import com.android.traveltube.utils.DateManager.formatNumber
 import com.android.traveltube.utils.UtilManager.loadVideoImage
 
 class ChannelListAdapter(
-    private val onItemClick: (VideoRecommendModel) -> Unit
-) : androidx.recyclerview.widget.ListAdapter<VideoRecommendModel, ChannelListAdapter.ViewHolder>(
+    private val onItemClick: (VideoBasicModel) -> Unit
+) : androidx.recyclerview.widget.ListAdapter<VideoBasicModel, ChannelListAdapter.ViewHolder>(
 
-    object : DiffUtil.ItemCallback<VideoRecommendModel>() {
+    object : DiffUtil.ItemCallback<VideoBasicModel>() {
 
         override fun areItemsTheSame(
-            oldItem: VideoRecommendModel,
-            newItem: VideoRecommendModel
+            oldItem: VideoBasicModel,
+            newItem: VideoBasicModel
         ): Boolean {
             return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
-            oldItem: VideoRecommendModel,
-            newItem: VideoRecommendModel
+            oldItem: VideoBasicModel,
+            newItem: VideoBasicModel
         ): Boolean {
             return oldItem == newItem
         }
@@ -49,10 +49,10 @@ class ChannelListAdapter(
 
     class ViewHolder(
         private val binding: ItemChannelOtherVideoListBinding,
-        private val onItemClick: ((VideoRecommendModel) -> Unit)?
+        private val onItemClick: ((VideoBasicModel) -> Unit)?
     ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: VideoRecommendModel) = with(binding) {
+        fun bind(item: VideoBasicModel) = with(binding) {
             item.thumbNailUrl?.let { ivChannelOtherVideoThumbnail.loadVideoImage(it) }
             tvChannelListTitle.text = item.title
             tvChannelViewCount.text = item.videoViewCountModel?.viewCount?.formatNumber()

@@ -5,26 +5,26 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.android.traveltube.databinding.ItemRecommendListBinding
-import com.android.traveltube.model.db.VideoRecommendModel
+import com.android.traveltube.model.db.VideoBasicModel
 import com.android.traveltube.utils.DateManager.dateFormatter
 import com.android.traveltube.utils.UtilManager.loadVideoImage
 
 class ReCommendListAdapter(
-    private val onItemClick: (VideoRecommendModel) -> Unit
-) : androidx.recyclerview.widget.ListAdapter<VideoRecommendModel, ReCommendListAdapter.ViewHolder>(
+    private val onItemClick: (VideoBasicModel) -> Unit
+) : androidx.recyclerview.widget.ListAdapter<VideoBasicModel, ReCommendListAdapter.ViewHolder>(
 
-    object : DiffUtil.ItemCallback<VideoRecommendModel>() {
+    object : DiffUtil.ItemCallback<VideoBasicModel>() {
 
         override fun areItemsTheSame(
-            oldItem: VideoRecommendModel,
-            newItem: VideoRecommendModel
+            oldItem: VideoBasicModel,
+            newItem: VideoBasicModel
         ): Boolean {
             return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
-            oldItem: VideoRecommendModel,
-            newItem: VideoRecommendModel
+            oldItem: VideoBasicModel,
+            newItem: VideoBasicModel
         ): Boolean {
             return oldItem == newItem
         }
@@ -44,10 +44,10 @@ class ReCommendListAdapter(
 
     class ViewHolder(
         private val binding: ItemRecommendListBinding,
-        private val onItemClick: ((VideoRecommendModel) -> Unit)?
+        private val onItemClick: ((VideoBasicModel) -> Unit)?
     ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: VideoRecommendModel) = with(binding) {
+        fun bind(item: VideoBasicModel) = with(binding) {
             item.thumbNailUrl?.let { ivRecommendListThumbnail.loadVideoImage(it) }
             tvRecommendListTitle.text = item.title
             tvRecommendListChannel.text = item.channelTitle

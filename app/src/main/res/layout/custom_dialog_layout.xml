@@ -61,7 +61,7 @@
         android:layout_width="100dp"
         android:layout_height="36dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/shape_gallery_corner"
+        android:background="@drawable/rounded_btn_stroke"
         android:text="갤러리"
         android:textSize="16sp"
         android:textColor="@color/blue"

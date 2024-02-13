@@ -1,5 +1,6 @@
 package com.android.traveltube.ui.country
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +11,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import com.android.traveltube.R
 import com.android.traveltube.data.db.VideoSearchDatabase
 import com.android.traveltube.databinding.FragmentDetailCityBinding
 import com.android.traveltube.factory.SharedViewModelFactory
@@ -22,6 +25,7 @@ class DetailCityFragment : Fragment() {
 
     private var _binding: FragmentDetailCityBinding? = null
     private val binding: FragmentDetailCityBinding get() = _binding!!
+    private lateinit var adapter : DetailCityAdapter
 
     private val sharedViewModel by activityViewModels<SharedViewModel> {
         SharedViewModelFactory(YoutubeRepository(VideoSearchDatabase.getInstance(requireContext())))
@@ -48,8 +52,21 @@ class DetailCityFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val rootView = view.rootView
+        rootView.setBackgroundColor(Color.WHITE)
+
         initView()
         initViewModel()
+
+        adapter = DetailCityAdapter(favoriteList)
+
+        val recyclerView = binding.rvInterest
+        val increaseSpace = controlSpace(0,75,0,0)
+
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = GridLayoutManager(context,3)
+        recyclerView.addItemDecoration(increaseSpace)
+
     }
 
     private fun initView() {
@@ -63,6 +80,8 @@ class DetailCityFragment : Fragment() {
             viewModel.getTravelVideoList()
             showLoadingActivity()
         }
+
+
     }
 
     private fun initViewModel() {

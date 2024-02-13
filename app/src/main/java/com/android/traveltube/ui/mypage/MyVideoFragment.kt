@@ -28,10 +28,12 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.ColorDrawable
 import android.view.inputmethod.InputMethodManager
+import androidx.fragment.app.viewModels
 import java.io.ByteArrayOutputStream
 import com.android.traveltube.databinding.CustomDialogLayoutBinding
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.traveltube.model.MyVideoEditModel
 
 class MyVideoFragment : Fragment() {
 
@@ -49,8 +51,9 @@ class MyVideoFragment : Fragment() {
     private val maxNameLength = 6
     private var selectImageBitmap: Bitmap? = null
 
+    private lateinit var viewModel: MyVideoEditModel
+
     private lateinit var recyclerView: RecyclerView
-//    private lateinit var adapter: MyVideoAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -75,8 +78,6 @@ class MyVideoFragment : Fragment() {
 
         recyclerView = binding?.root?.findViewById(R.id.rc_myVideo)!!
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-//        adapter = MyVideoAdapter()
-//        recyclerView.adapter = adapter
 
         return binding?.root
     }
@@ -103,7 +104,7 @@ class MyVideoFragment : Fragment() {
         val savedImageBytes = sharedPref.getString("image_bitmap", null)?.let { decodeBitmap(it) }
 
         etName.setText(savedName)
-        tvCharCount.text = savedName?.let { getFormattedCharCountText(it.length) }
+        tvCharCount.text = savedName?.let { getCharCountText(it.length) }
 
         if (savedImageBytes != null) {
             ivProfile.setImageBitmap(savedImageBytes)
@@ -179,7 +180,7 @@ class MyVideoFragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val length = s?.length ?: 0
-                tvCharCount.text = getFormattedCharCountText(length)
+                tvCharCount.text = getCharCountText(length)
                 btnConfirm.isEnabled = length in 1..maxNameLength
             }
 
@@ -198,7 +199,7 @@ class MyVideoFragment : Fragment() {
         binding?.root?.findViewById<ImageView>(R.id.iv_pf_image)?.setImageBitmap(newImageBitmap)
     }
 
-    private fun getFormattedCharCountText(length: Int): CharSequence {
+    private fun getCharCountText(length: Int): CharSequence {
         val coloredText = SpannableStringBuilder("$length/$maxNameLength")
         val textColor = if (length == maxNameLength) Color.RED else Color.BLACK
         coloredText.setSpan(ForegroundColorSpan(textColor), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)

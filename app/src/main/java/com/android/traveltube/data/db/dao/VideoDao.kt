@@ -20,4 +20,10 @@ interface VideoDAO {
     suspend fun updateFavoriteStatus(videoId: String, isFavorite: Boolean)
     @Query("SELECT * FROM videos WHERE modelType = :modelType")
     fun getVideosByModelType(modelType: ModelType): LiveData<List<VideoBasicModel>>
+    @Query("SELECT * FROM videos WHERE isFavorite = 1")
+    fun getFavoriteVideos(): LiveData<List<VideoBasicModel>>
+    @Query("UPDATE videos SET isSaved = :isSaved WHERE id = :videoId")
+    suspend fun updateIsSavedStatus(videoId: String, isSaved: Boolean)
+    @Query("SELECT * FROM videos WHERE isSaved = 1")
+    fun getSavedVideos(): LiveData<List<VideoBasicModel>>
 }

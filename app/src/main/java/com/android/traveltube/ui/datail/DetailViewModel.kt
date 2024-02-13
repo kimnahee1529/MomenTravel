@@ -51,6 +51,15 @@ class DetailViewModel(
         updateFavoriteStatus(entity.id, updatedFavoriteState)
     }
 
+    fun onVideoPlaying() {
+        if (entity.isSaved || entity.modelType == ModelType.VIDEO_CATEGORY_SHORTS) {
+            return
+        }
+        viewModelScope.launch {
+            youtubeRepositoryImpl.updateSavedStatus(entity.id, true)
+        }
+    }
+
     private fun updateFavoriteStatus(videoId: String, isFavorite: Boolean) {
         viewModelScope.launch {
             youtubeRepositoryImpl.updateFavoriteStatus(videoId, isFavorite)

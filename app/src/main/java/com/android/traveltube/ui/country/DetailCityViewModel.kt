@@ -20,11 +20,12 @@ class DetailCityViewModel(
 ) : ViewModel() {
     private val _searchResults = MutableLiveData<List<VideoRecommendModel>>()
     val searchResults: LiveData<List<VideoRecommendModel>> get() = _searchResults
+    private val _searchTravelResults = MutableLiveData<List<VideoRecommendModel>>()
+    val searchTravelResults: LiveData<List<VideoRecommendModel>> get() = _searchTravelResults
 
     fun getSearchVideoList() {
         searchVideoList()
     }
-
     //영상 검색 정보 가져오는 getSearchingVideos 호출
     private fun searchVideoList() = viewModelScope.launch {
         kotlin.runCatching {
@@ -60,11 +61,50 @@ class DetailCityViewModel(
             }
         }
     }
+    fun getTravelVideoList() {
+        searchTravelVideoList()
+    }
+    //여행 카테고리 영상 검색 정보 가져오는 getCatTravelVideos 호출
+    private fun searchTravelVideoList() = viewModelScope.launch {
+        kotlin.runCatching {
+            val videos = youtubeRepository.getCatTravelVideos()
+            val videoItemModels = videos.items.map { item ->
+                val channelInfoList = getChannelInfo(item.snippet.channelId)
+                val videoViewCountList = getVideoViewCount(item.id.videoId)
+                val videoViewCountModel = videoViewCountList.firstOrNull()
 
+                VideoRecommendModel(
+                    id = item.id.videoId,
+                    thumbNailUrl = item.snippet.thumbnails.medium.url,
+                    channelId = item.snippet.channelId,
+                    channelTitle = item.snippet.channelTitle,
+                    title = item.snippet.title,
+                    description = item.snippet.description,
+                    publishTime = item.snippet.publishedAt,
+                    channelInfoModel = channelInfoList.first(),
+                    videoViewCountModel = videoViewCountModel
+                )
+            }
+            // TODO
+            _searchTravelResults.postValue(videoItemModels)
+            saveCatTravelResult(videoItemModels)
+            Log.d("DetailCityViewModel search", videoItemModels.toString())
+        }.onFailure { exception ->
+            withContext(Dispatchers.Main) {
+                Log.e(
+                    "sharedviewmodel detailItem search Error",
+                    "Failed to fetch trending videos",
+                    exception
+                )
+            }
+        }
+    }
     private fun saveSearchResult(results: List<VideoRecommendModel>) = viewModelScope.launch {
         youtubeRepository.insertRecommendVideo(results)
     }
-
+    private fun saveCatTravelResult(results: List<VideoRecommendModel>) = viewModelScope.launch {
+//        youtubeRepository.insertCatTravelVideo(results)
+    }
     private suspend fun getChannelInfo(channelId: String): List<ChannelInfoModel> {
         return try {
             val channel = youtubeRepository.getChannelInfo(channelId = channelId)
@@ -76,7 +116,6 @@ class DetailCityViewModel(
             emptyList()
         }
     }
-
     private suspend fun getVideoViewCount(videoId: String): List<VideoViewCountModel> {
         return try {
             val count = youtubeRepository.getViewCount(videoId = videoId)
@@ -88,7 +127,6 @@ class DetailCityViewModel(
             emptyList()
         }
     }
-
     private fun convertToChannelInfoModel(item: com.android.traveltube.data.channel.Item): ChannelInfoModel {
         return ChannelInfoModel(
             channelId = item.id,
@@ -97,7 +135,6 @@ class DetailCityViewModel(
             hiddenSubscriberCount = item.statistics.hiddenSubscriberCount
         )
     }
-
     private fun convertToViewCountModel(item: Item): VideoViewCountModel {
         return VideoViewCountModel(
             videoId = item.id,
@@ -108,7 +145,6 @@ class DetailCityViewModel(
     }
 
 }
-
 class DetailCityViewModelProviderFactory(
     private val youtubeRepository: YoutubeRepository
 ) : ViewModelProvider.Factory {

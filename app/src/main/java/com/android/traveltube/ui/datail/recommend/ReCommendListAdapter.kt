@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.traveltube.databinding.ItemRecommendListBinding
 import com.android.traveltube.model.db.VideoRecommendModel
 import com.android.traveltube.utils.DateManager.dateFormatter
-import com.android.traveltube.utils.UtilManager.loadImage
+import com.android.traveltube.utils.UtilManager.loadVideoImage
 
 class ReCommendListAdapter(
     private val onItemClick: (VideoRecommendModel) -> Unit
@@ -48,7 +48,7 @@ class ReCommendListAdapter(
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: VideoRecommendModel) = with(binding) {
-            item.thumbNailUrl?.let { ivRecommendListThumbnail.loadImage(it) }
+            item.thumbNailUrl?.let { ivRecommendListThumbnail.loadVideoImage(it) }
             tvRecommendListTitle.text = item.title
             tvRecommendListChannel.text = item.channelTitle
             tvRecommendListDate.text = item.publishTime?.dateFormatter()

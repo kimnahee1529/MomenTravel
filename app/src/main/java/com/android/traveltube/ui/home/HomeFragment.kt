@@ -2,7 +2,6 @@ package com.android.traveltube.ui.home
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,16 +10,15 @@ import androidx.fragment.app.activityViewModels
 import com.android.traveltube.databinding.FragmentHomeBinding
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.traveltube.data.db.VideoSearchDatabase
 import com.android.traveltube.factory.HomeViewModelFactory
 import com.android.traveltube.factory.PreferencesRepository
 import com.android.traveltube.factory.SharedViewModelFactory
 import com.android.traveltube.repository.YoutubeRepository
-import com.android.traveltube.utils.DateManager.dateFormatter
 import com.android.traveltube.viewmodel.HomeViewModel
 import com.android.traveltube.viewmodel.SharedViewModel
-import java.util.Date
 
 class HomeFragment() : Fragment() {
     private val favoriteKey = "loadYoutubeData"
@@ -38,7 +36,21 @@ class HomeFragment() : Fragment() {
     }
 
     private val homeListAdapter by lazy {
-        HomeAdapter { videoDetailModel ->
+        SearchAdapter { videoDetailModel ->
+            val action =
+                HomeFragmentDirections.actionFragmentHomeToFragmentVideoDetail(videoDetailModel)
+            findNavController().navigate(action)
+        }
+    }
+    private val travelListAdapter by lazy {
+        TravelAdapter { videoDetailModel ->
+            val action =
+                HomeFragmentDirections.actionFragmentHomeToFragmentVideoDetail(videoDetailModel)
+            findNavController().navigate(action)
+        }
+    }
+    private val shortsListAdapter by lazy {
+        ShortsAdapter { videoDetailModel ->
             val action =
                 HomeFragmentDirections.actionFragmentHomeToFragmentVideoDetail(videoDetailModel)
             findNavController().navigate(action)
@@ -61,9 +73,17 @@ class HomeFragment() : Fragment() {
 
     private fun setupImageRecyclerView() {
         //각 아이템 클릭 시 Detail 화면으로 이동
-        binding.rvCatVideo.apply {
+        binding.rvSearchVideo.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = homeListAdapter
+        }
+        binding.rvTravelVideo.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = travelListAdapter
+        }
+        binding.rvShortsVideo.apply {
+            layoutManager = GridLayoutManager(context,2)
+            adapter = shortsListAdapter
         }
     }
 
@@ -71,15 +91,18 @@ class HomeFragment() : Fragment() {
     private fun initViewModel() {
 //        sharedViewModel.getDetailItem() //채널 썸네일 받아오기
 //        sharedViewModel.getChannelItem()
-
         sharedViewModel.searchResults.observe(viewLifecycleOwner) {
             homeListAdapter.submitList(it)
         }
-
         sharedViewModel.detailItems.observe(viewLifecycleOwner) {
             // TODO
         }
-//        sharedViewModel.getVideoViewCount()
+        sharedViewModel.searchTravelResults.observe(viewLifecycleOwner){
+            travelListAdapter.submitList(it)
+        }
+        sharedViewModel.searchTravelResults.observe(viewLifecycleOwner){
+            shortsListAdapter.submitList(it)
+        }
     }
 
     override fun onDestroyView() {

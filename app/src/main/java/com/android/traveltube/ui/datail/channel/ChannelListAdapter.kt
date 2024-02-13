@@ -8,7 +8,7 @@ import com.android.traveltube.databinding.ItemChannelOtherVideoListBinding
 import com.android.traveltube.model.db.VideoRecommendModel
 import com.android.traveltube.utils.DateManager.dateFormatter
 import com.android.traveltube.utils.DateManager.formatNumber
-import com.android.traveltube.utils.UtilManager.loadImage
+import com.android.traveltube.utils.UtilManager.loadVideoImage
 
 class ChannelListAdapter(
     private val onItemClick: (VideoRecommendModel) -> Unit
@@ -53,7 +53,7 @@ class ChannelListAdapter(
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: VideoRecommendModel) = with(binding) {
-            item.thumbNailUrl?.let { ivChannelOtherVideoThumbnail.loadImage(it) }
+            item.thumbNailUrl?.let { ivChannelOtherVideoThumbnail.loadVideoImage(it) }
             tvChannelListTitle.text = item.title
             tvChannelViewCount.text = item.videoViewCountModel?.viewCount?.formatNumber()
             tvChannelListDate.text = item.publishTime?.dateFormatter()

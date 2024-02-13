@@ -5,6 +5,102 @@
     android:layout_height="match_parent"
     tools:context=".ui.country.CountryFragment">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginTop="88dp"
+        android:layout_marginStart="32dp"
+        android:text="여행지 선택"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="관심 있는 여행지에 대한 동영상 추천을 받아보세요"
+        android:textSize="12sp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="131dp"/>
+
+
+    <!--    <EditText-->
+    <!--        android:id="@+id/et_countrySearch"-->
+    <!--        android:layout_width="320dp"-->
+    <!--        android:layout_height="48dp"-->
+    <!--        android:hint="원하시는 국가가 없나요? 여기에 입력해주세요"-->
+    <!--        android:drawablePadding="3dp"-->
+    <!--        android:drawableStart="@drawable/search_vector_asset"-->
+    <!--        android:background="@drawable/round_edittext"-->
+    <!--        android:textStyle="bold"-->
+    <!--        android:textSize="12sp"-->
+    <!--        android:paddingHorizontal="12dp"-->
+    <!--        android:layout_marginStart="26dp"-->
+    <!--        android:layout_marginTop="166dp"/>-->
+
+
+    <AutoCompleteTextView
+        android:id="@+id/et_countrySearch"
+        android:layout_width="320dp"
+        android:layout_height="48dp"
+        android:hint="원하시는 국가가 없나요? 여기에 입력해주세요"
+        android:drawablePadding="3dp"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        android:paddingHorizontal="12dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="166dp"
+        android:background="@drawable/edit_text_stroke"
+        android:drawableStart="@drawable/search_vector_asset"/>
+
+    />
+
+
+
+    <ImageView
+        android:id="@+id/iv_cancel"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="303dp"
+        android:layout_marginTop="178dp"
+        android:visibility="gone"
+        android:src="@drawable/ic_delete_24"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_chooseCountry"
+        android:layout_width="match_parent"
+        android:layout_marginTop="235dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_height="425dp"
+        android:layoutAnimation="@anim/item_layout_animation"/>
+
+
+
+    <TextView
+        android:id="@+id/tv_noSearchResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="검색한 여행지가 없습니다."
+        android:layout_marginStart="100dp"
+        android:textSize="20sp"
+        android:layout_marginTop="256dp"
+        android:textColor="#E4E3EB"
+        android:visibility="gone"/>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_next"
+        android:layout_width="325dp"
+        android:layout_height="50dp"
+        android:textColor="@color/white"
+        android:text="다음"
+        android:background="@drawable/rounded_btn_confirm"
+        android:layout_marginTop="680dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"/>
+
+
+
 
 
 </FrameLayout>

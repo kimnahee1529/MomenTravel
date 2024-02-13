@@ -22,6 +22,8 @@ class DetailCityViewModel(
     val searchResults: LiveData<List<VideoRecommendModel>> get() = _searchResults
     private val _searchTravelResults = MutableLiveData<List<VideoRecommendModel>>()
     val searchTravelResults: LiveData<List<VideoRecommendModel>> get() = _searchTravelResults
+    private val _searchShortsResults = MutableLiveData<List<VideoRecommendModel>>()
+    val searchShortsResults: LiveData<List<VideoRecommendModel>> get() = _searchShortsResults
 
     fun getSearchVideoList() {
         searchVideoList()
@@ -87,6 +89,44 @@ class DetailCityViewModel(
             }
             // TODO
             _searchTravelResults.postValue(videoItemModels)
+            saveCatTravelResult(videoItemModels)
+            Log.d("DetailCityViewModel search", videoItemModels.toString())
+        }.onFailure { exception ->
+            withContext(Dispatchers.Main) {
+                Log.e(
+                    "sharedviewmodel detailItem search Error",
+                    "Failed to fetch trending videos",
+                    exception
+                )
+            }
+        }
+    }
+    fun getShortsVideoList() {
+        searchShortsVideoList()
+    }
+    //여행 쇼츠 영상 검색 정보 가져오는 getCatTravelVideos 호출
+    private fun searchShortsVideoList() = viewModelScope.launch {
+        kotlin.runCatching {
+            val videos = youtubeRepository.getCatTravelVideos()
+            val videoItemModels = videos.items.map { item ->
+                val channelInfoList = getChannelInfo(item.snippet.channelId)
+                val videoViewCountList = getVideoViewCount(item.id.videoId)
+                val videoViewCountModel = videoViewCountList.firstOrNull()
+
+                VideoRecommendModel(
+                    id = item.id.videoId,
+                    thumbNailUrl = item.snippet.thumbnails.medium.url,
+                    channelId = item.snippet.channelId,
+                    channelTitle = item.snippet.channelTitle,
+                    title = item.snippet.title,
+                    description = item.snippet.description,
+                    publishTime = item.snippet.publishedAt,
+                    channelInfoModel = channelInfoList.first(),
+                    videoViewCountModel = videoViewCountModel
+                )
+            }
+            // TODO
+            _searchShortsResults.postValue(videoItemModels)
             saveCatTravelResult(videoItemModels)
             Log.d("DetailCityViewModel search", videoItemModels.toString())
         }.onFailure { exception ->

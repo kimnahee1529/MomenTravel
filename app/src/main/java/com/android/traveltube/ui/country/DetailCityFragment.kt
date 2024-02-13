@@ -61,6 +61,7 @@ class DetailCityFragment : Fragment() {
              */
             viewModel.getSearchVideoList() // 동영상 검색
             viewModel.getTravelVideoList()
+            viewModel.getShortsVideoList()
             showLoadingActivity()
         }
     }
@@ -84,6 +85,10 @@ class DetailCityFragment : Fragment() {
         viewModel.searchTravelResults.observe(viewLifecycleOwner){
             sharedViewModel.getResultsTravelLVideoList(it)
             Log.d("여행 카테고리 동영상들", it.toString())
+        }
+        viewModel.searchShortsResults.observe(viewLifecycleOwner){
+            sharedViewModel.getResultsShortsVideoList(it)
+            Log.d("쇼츠 동영상들", it.toString())
         }
     }
 

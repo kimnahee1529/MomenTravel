@@ -21,7 +21,11 @@ class YoutubeRepository(
     }
 
     suspend fun getCatTravelVideos() = withContext(Dispatchers.IO) {
-        RetrofitInstance.api.getCatTravelVideos()
+        RetrofitInstance.api.getCatTravelVideos(searchText = "여행-쇼츠|shorts")
+    }
+
+    suspend fun getShortsVideos() = withContext(Dispatchers.IO) {
+        RetrofitInstance.api.getCatTravelVideos(searchText = "여행")
     }
 
     suspend fun getChannelInfo(channelId: String) = withContext(Dispatchers.IO) {
@@ -58,8 +62,8 @@ class YoutubeRepository(
         return db.videoRecommendDao().getVideos()
     }
 
-    suspend fun insertCatTravelVideo(model: List<VideoCatTravelModel>){
-        db.videoCatTravelDao().insertVideos(model)
+    suspend fun insertCatTravelVideo(model: List<VideoRecommendModel>){
+//        db.videoCatTravelDao().insertVideos(model)
     }
 
 }

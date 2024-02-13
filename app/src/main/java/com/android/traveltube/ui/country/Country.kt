@@ -45,4 +45,22 @@ sealed class Interest {
     data class plusImage(val image : Int) : Interest()
 }
 
+val favoriteList : MutableList<Interest> = mutableListOf(
+    Interest.Favorites("맛집"),
+    Interest.Favorites("등산"),
+    Interest.Favorites("음악"),
+    Interest.Favorites("스키"),
+    Interest.Favorites("명상"),
+    Interest.Favorites("박물관"),
+    Interest.Favorites("골프"),
+    Interest.Favorites("낚시"),
+    Interest.Favorites("드라이빙"),
+    Interest.Favorites("배낭여행"),
+    Interest.Favorites("신혼여행"),
+    Interest.plusImage(R.drawable.add)
+)
+
+val canTravelList = mutableListOf( "벨리즈", "캐나다", "코스타리카", "쿠바", "도미니카", "도미니카공화국" , "그레나다", "과테말라"
+    , "아이티", "온두라스", "자메이카", "멕시코", "안틸레스", "세인트루시아", "미국", "가이아나", "베네수엘라", "볼리비아", "브라질", "수리남",
+    "아르헨티나", "에콰도르", "우루과이", "칠레", "콜롬비아", "파라과이", "페루")
 

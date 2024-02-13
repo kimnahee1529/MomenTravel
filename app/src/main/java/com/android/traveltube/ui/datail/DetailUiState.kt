@@ -5,6 +5,7 @@ import java.util.Date
 
 data class DetailUiState(
     val videoId: String?,
+    val videoThumbnail: String?,
     val videoTitle: String?,
     val videoDescription: String?,
     val videoDate: Date?,
@@ -17,6 +18,7 @@ data class DetailUiState(
     companion object {
         fun init() = DetailUiState(
             videoId = null,
+            videoThumbnail = null,
             videoTitle = null,
             videoDescription = null,
             videoDate = null,

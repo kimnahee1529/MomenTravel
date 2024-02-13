@@ -6,10 +6,10 @@ import androidx.lifecycle.ViewModel
 import com.android.traveltube.data.search.Item as SearchItem
 import com.android.traveltube.factory.PreferencesRepository
 import com.android.traveltube.model.VideoDetailModel
-import com.android.traveltube.repository.YoutubeRepository
+import com.android.traveltube.repository.YoutubeRepositoryImpl
 
 class HomeViewModel(
-    private val youtubeRepository: YoutubeRepository,
+    private val youtubeRepositoryImpl: YoutubeRepositoryImpl,
     private val preferencesRepository: PreferencesRepository
 ): ViewModel() {
     private val _videoData = MutableLiveData<List<VideoDetailModel>>()
@@ -55,6 +55,8 @@ class HomeViewModel(
             title = item.snippet.title,
             description = item.snippet.description,
             publishTime = item.snippet.publishedAt,
+            channelInfoModel = null,
+            videoViewCount = null
         )
     }
 }

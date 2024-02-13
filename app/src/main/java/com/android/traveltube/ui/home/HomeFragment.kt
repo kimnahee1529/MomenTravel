@@ -16,23 +16,23 @@ import com.android.traveltube.data.db.VideoSearchDatabase
 import com.android.traveltube.factory.HomeViewModelFactory
 import com.android.traveltube.factory.PreferencesRepository
 import com.android.traveltube.factory.SharedViewModelFactory
-import com.android.traveltube.repository.YoutubeRepository
+import com.android.traveltube.repository.YoutubeRepositoryImpl
 import com.android.traveltube.viewmodel.HomeViewModel
 import com.android.traveltube.viewmodel.SharedViewModel
 
-class HomeFragment() : Fragment() {
+class HomeFragment : Fragment() {
     private val favoriteKey = "loadYoutubeData"
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val viewModel: HomeViewModel by viewModels {
         val preferences = requireContext().getSharedPreferences(favoriteKey, Context.MODE_PRIVATE)
         HomeViewModelFactory(
-            YoutubeRepository(VideoSearchDatabase.getInstance(requireContext())),
+            YoutubeRepositoryImpl(VideoSearchDatabase.getInstance(requireContext())),
             PreferencesRepository(preferences)
         )
     }
     private val sharedViewModel by activityViewModels<SharedViewModel> {
-        SharedViewModelFactory(YoutubeRepository(VideoSearchDatabase.getInstance(requireContext())))
+        SharedViewModelFactory(YoutubeRepositoryImpl(VideoSearchDatabase.getInstance(requireContext())))
     }
 
     //각 아이템 클릭 시 Detail 화면으로 이동
@@ -53,7 +53,7 @@ class HomeFragment() : Fragment() {
     private val shortsListAdapter by lazy {
         ShortsAdapter { videoDetailModel ->
             val action =
-                HomeFragmentDirections.actionFragmentHomeShortsToFragmentShorts(videoDetailModel)
+                HomeFragmentDirections.actionFragmentHomeToFragmentVideoDetail(videoDetailModel)
             findNavController().navigate(action)
         }
     }
@@ -82,7 +82,7 @@ class HomeFragment() : Fragment() {
             adapter = travelListAdapter
         }
         binding.rvShortsVideo.apply {
-            layoutManager = GridLayoutManager(context,2)
+            layoutManager = GridLayoutManager(context, 2)
             adapter = shortsListAdapter
         }
     }
@@ -91,16 +91,15 @@ class HomeFragment() : Fragment() {
     private fun initViewModel() {
 //        sharedViewModel.getDetailItem() //채널 썸네일 받아오기
 //        sharedViewModel.getChannelItem()
+        //        sharedViewModel.detailItems.observe(viewLifecycleOwner) {
+//        }
         sharedViewModel.searchResults.observe(viewLifecycleOwner) {
             homeListAdapter.submitList(it)
         }
-        sharedViewModel.detailItems.observe(viewLifecycleOwner) {
-            // TODO
-        }
-        sharedViewModel.searchTravelResults.observe(viewLifecycleOwner){
+        sharedViewModel.searchTravelResults.observe(viewLifecycleOwner) {
             travelListAdapter.submitList(it)
         }
-        sharedViewModel.searchTravelResults.observe(viewLifecycleOwner){
+        sharedViewModel.searchTravelResults.observe(viewLifecycleOwner) {
             shortsListAdapter.submitList(it)
         }
     }

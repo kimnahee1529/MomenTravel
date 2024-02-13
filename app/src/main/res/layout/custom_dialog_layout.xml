@@ -19,57 +19,72 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <FrameLayout
-        android:id="@+id/imageLayout"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@drawable/rounded_image"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_dialog_title">
 
-        <ImageView
-            android:id="@+id/iv_pf_image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:background="@drawable/rounded_image"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/imageLayout"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:cardCornerRadius="75dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5">
+
+            <ImageView
+                android:id="@+id/iv_pf_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/rounded_image"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
         android:id="@+id/iv_image_edit"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_gravity="top|end"
         android:clickable="true"
         android:src="@drawable/ic_edit_image"
-        android:layout_gravity="top|end"
         android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-</FrameLayout>
+        app:layout_constraintHorizontal_bias="0.61"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.16000003" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_gallery_select"
         android:layout_width="100dp"
         android:layout_height="36dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/shape_gallery_corner"
+        android:background="@drawable/rounded_btn_stroke"
         android:text="갤러리"
-        android:textSize="16sp"
         android:textColor="@color/blue"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
     <EditText
         android:id="@+id/et_dialog_edit"
@@ -102,30 +117,32 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et_dialog_edit" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_dialog_cancel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/search_gray"
+        android:background="@drawable/rounded_btn_cancel"
         android:text="취소"
         android:textColor="@color/black"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@id/btn_dialog_save"
+        app:layout_constraintEnd_toStartOf="@id/btn_dialog_confirm"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et_dialog_edit" />
 
-    <Button
-        android:id="@+id/btn_dialog_save"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_dialog_confirm"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
+        android:background="@drawable/rounded_btn_confirm"
         android:text="확인"
         android:textStyle="bold"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btn_dialog_cancel"
         app:layout_constraintTop_toBottomOf="@id/et_dialog_edit" />

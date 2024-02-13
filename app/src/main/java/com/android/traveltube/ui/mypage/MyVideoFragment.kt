@@ -28,7 +28,6 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.ColorDrawable
 import android.view.inputmethod.InputMethodManager
-import androidx.fragment.app.viewModels
 import java.io.ByteArrayOutputStream
 import com.android.traveltube.databinding.CustomDialogLayoutBinding
 import androidx.recyclerview.widget.LinearLayoutManager

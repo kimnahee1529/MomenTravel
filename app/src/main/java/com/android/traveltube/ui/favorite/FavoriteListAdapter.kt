@@ -93,7 +93,7 @@ class FavoriteListAdapter(
                 "조회수 ${item.videoViewCountModel?.viewCount?.formatNumber()}"
             tvFavoriteChannelName.text = item.channelTitle
 
-            ivFavoriteVideoThumbnail.setOnClickListener {
+            binding.root.setOnClickListener {
                 onItemClick?.invoke(item, viewType)
             }
         }

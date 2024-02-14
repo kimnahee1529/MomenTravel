@@ -29,7 +29,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_cat_video"
+                android:id="@+id/tv_recommend_video"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -46,10 +46,10 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_cat_video" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_recommend_video" />
 
             <TextView
-                android:id="@+id/tv_cat_ch"
+                android:id="@+id/tv_travel_cat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16sp"
@@ -66,10 +66,10 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_cat_ch" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_travel_cat" />
 
             <TextView
-                android:id="@+id/tv_pop_video"
+                android:id="@+id/tv_shorts_video"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16sp"
@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_pop_video" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_shorts_video" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/bt_send_data"

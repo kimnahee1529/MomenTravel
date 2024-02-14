@@ -21,10 +21,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/messageTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/messageTextView"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:text="시청 기록에서 삭제 하시겠습니까?"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,8 +35,10 @@
         android:id="@+id/buttonLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
         android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/messageTextView">
@@ -50,6 +52,8 @@
             android:layout_weight="1"
             android:background="@drawable/rounded_btn_cancel"
             android:text="취소"
+            android:textColor="@color/black"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btn_bottomDialog_confirm"
             app:layout_constraintHorizontal_bias="0.5"
@@ -67,6 +71,7 @@
             android:backgroundTint="@color/blue"
             android:text="확인"
             android:textColor="@color/white"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

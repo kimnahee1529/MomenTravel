@@ -8,7 +8,6 @@ import com.android.traveltube.network.RetrofitInstance
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-
 class YoutubeRepositoryImpl(private val db: VideoSearchDatabase) {
     suspend fun getTrendingVideos() = withContext(Dispatchers.IO) {
         RetrofitInstance.api.getTrendingVideos()
@@ -71,5 +70,4 @@ class YoutubeRepositoryImpl(private val db: VideoSearchDatabase) {
 
     fun getSavedVideos(): LiveData<List<VideoBasicModel>> =
         db.videoDao().getSavedVideos()
-
 }

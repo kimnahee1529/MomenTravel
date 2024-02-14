@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.android.traveltube.data.db.ModelType
-import com.android.traveltube.model.db.ChannelInfoModel
 import com.android.traveltube.model.db.VideoBasicModel
 import com.android.traveltube.repository.YoutubeRepositoryImpl
 import com.android.traveltube.viewmodel.BasicDetailViewModel

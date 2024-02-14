@@ -125,7 +125,7 @@ class DetailCityViewModel(
     //여행 쇼츠 영상 검색 정보 가져오는 getCatTravelVideos 호출
     private fun searchShortsVideoList() = viewModelScope.launch {
         kotlin.runCatching {
-            val videos = youtubeRepositoryImpl.getCatTravelVideos("여행 (쇼츠|shorts)")
+            val videos = youtubeRepositoryImpl.getCatTravelVideos("여행 쇼츠")
             val videoItemModels = videos.items.map { item ->
                 val channelInfoList = getChannelInfo(item.snippet.channelId, youtubeRepositoryImpl)
                 val videoViewCountList = getVideoViewCount(item.id.videoId, youtubeRepositoryImpl)

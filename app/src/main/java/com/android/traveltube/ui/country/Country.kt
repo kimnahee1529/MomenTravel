@@ -16,7 +16,7 @@ data class Country(
             Country(R.drawable.eastasia, "동남아"),
             Country(R.drawable.america, "아메리카"),
             Country(R.drawable.brazil, "브라질"),
-            Country(R.drawable.australia, "호주"),
+//            Country(R.drawable.australia, "호주"),
             Country(R.drawable.china, "중국"),
             Country(R.drawable.england, "영국"),
             Country(R.drawable.france, "프랑스"),

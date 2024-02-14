@@ -1,5 +1,7 @@
 package com.android.traveltube.ui.datail
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -28,9 +30,8 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 class VideoDetailFragment : Fragment() {
     private var _binding: FragmentVideoDetailBinding? = null
     private val binding: FragmentVideoDetailBinding get() = _binding!!
-
+    private lateinit var sharedPref: SharedPreferences
     private val args by navArgs<VideoDetailFragmentArgs>()
-
     private val sharedViewModel by activityViewModels<SharedViewModel> {
         SharedViewModelFactory(YoutubeRepositoryImpl(VideoSearchDatabase.getInstance(requireContext())))
     }
@@ -72,6 +73,17 @@ class VideoDetailFragment : Fragment() {
 
         initView()
         initViewModel()
+        getSavedName()
+    }
+
+    private fun getSavedName() {
+        sharedPref = requireContext().getSharedPreferences("profile_data", Context.MODE_PRIVATE)
+        val savedName = sharedPref.getString("name", "")
+        binding.tvRecommendVideosTitle.text = if (savedName.isNullOrBlank()) {
+            "하나둘셋님을 위한 여행지"
+        } else {
+            "${savedName}님을 위한 여행지"
+        }
     }
 
     private fun initView() {

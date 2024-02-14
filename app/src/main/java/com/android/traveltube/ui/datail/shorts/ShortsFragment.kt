@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.android.traveltube.databinding.FragmentShortsBinding
 import com.android.traveltube.ui.datail.VideoDetailFragmentArgs
-import com.android.traveltube.utils.UtilManager.loadVideoImage
+import com.android.traveltube.utils.UtilManager.loadChannelImage
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
@@ -48,7 +48,7 @@ class ShortsFragment : Fragment() {
                     setUpYoutubePlayer(item.videoId)
                     tvShortsTitle.text = item.videoTitle
                     tvChannelTitle.text = item.channelName
-                    item.channelThumbnail?.let { ivChannelThumbnail.loadVideoImage(it) }
+                    item.channelThumbnail?.let { ivChannelThumbnail.loadChannelImage(it) }
                 }
             }
         }
@@ -72,9 +72,7 @@ class ShortsFragment : Fragment() {
 
                 when (state) {
                     PlayerConstants.PlayerState.PAUSED -> Unit
-
                     PlayerConstants.PlayerState.ENDED -> Unit
-
                     else -> Unit
                 }
             }

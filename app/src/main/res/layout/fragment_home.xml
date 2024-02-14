@@ -89,8 +89,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_shorts_video" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/bt_send_data"
-                android:layout_width="135dp"
+                android:id="@+id/bt_btn_rechoice"
+                android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="12dp"

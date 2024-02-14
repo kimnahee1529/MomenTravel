@@ -4,13 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.country.DetailCityFragment">
-
-<!--    <Button-->
-<!--        android:id="@+id/bt_move_home_fragment"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Go To HomeFragment" />-->
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,24 +12,19 @@
         android:textStyle="bold"
         android:layout_marginTop="88dp"
         android:layout_marginStart="32dp"/>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="131dp"
         android:text="나만의 관심사 동영상을 추천 받아보세요!"/>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_interest"
         android:layout_width="match_parent"
         android:layout_height="440dp"
         android:layout_marginTop="200dp"
         android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp">
-
-    </androidx.recyclerview.widget.RecyclerView>
-
+        android:layout_marginEnd="32dp"/>
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_skip"
         android:layout_width="140dp"
@@ -44,9 +32,7 @@
         android:text="건너뛰기"
         android:layout_marginTop="680dp"
         android:layout_marginStart="40dp"
-        android:background="@drawable/rounded_btn_cancel"
-         />
-
+        android:background="@drawable/rounded_btn_cancel"/>
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_move_home_fragment"
         android:layout_width="160dp"
@@ -55,9 +41,5 @@
         android:layout_marginTop="680dp"
         android:layout_marginStart="210dp"
         android:background="@drawable/rounded_btn_confirm"
-        android:text="다음"
-        />
-
-
-
+        android:text="다음"/>
 </FrameLayout>

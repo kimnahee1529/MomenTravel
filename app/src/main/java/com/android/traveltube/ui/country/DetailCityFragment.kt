@@ -1,7 +1,10 @@
 package com.android.traveltube.ui.country
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,9 +24,11 @@ import kotlinx.coroutines.launch
 
 
 class DetailCityFragment : Fragment() {
+    private val COUNTRY_KEY = "country"
     private var _binding: FragmentDetailCityBinding? = null
     private val binding: FragmentDetailCityBinding get() = _binding!!
     private lateinit var adapter: DetailCityAdapter
+    private lateinit var sharedPref: SharedPreferences
     private var loadingDialog: LoadingDialogFragment? = null
     private val sharedViewModel by activityViewModels<SharedViewModel> {
         SharedViewModelFactory(YoutubeRepositoryImpl(VideoSearchDatabase.getInstance(requireContext())))
@@ -54,7 +59,7 @@ class DetailCityFragment : Fragment() {
         initView()
         initViewModel()
 
-        adapter = DetailCityAdapter(favoriteList)
+        adapter = DetailCityAdapter(favoriteList, this)
 
         val recyclerView = binding.rvInterest
         val increaseSpace = controlSpace(0, 75, 0, 0)
@@ -66,6 +71,14 @@ class DetailCityFragment : Fragment() {
 
     private fun initView() {
         binding.btnMoveHomeFragment.setOnClickListener {
+            saveFavorite()
+
+            val country = sharedPref.getString(COUNTRY_KEY, "")
+            val favorites = sharedPref.getString("favorites", "")
+
+            val searchKey = "$country, $favorites"
+            Log.d("searchKey", "$searchKey")
+
             /**
              * TODO 선택된 여행지, 관심사 태그를 통하여 api로 동영상 검색
              * 검색 된 결과를 Room 저장
@@ -73,7 +86,7 @@ class DetailCityFragment : Fragment() {
              */
 //            viewModel.getSearchVideoList() // 동영상 검색
 //            viewModel.getTravelVideoList()
-            viewModel.getSearchVideoList() // 동영상 검색
+            viewModel.getSearchVideoList(searchKey) // 동영상 검색
             viewModel.getTravelVideoList()
             viewModel.getShortsVideoList()
             showLoadingActivity()
@@ -88,7 +101,7 @@ class DetailCityFragment : Fragment() {
         viewModel.bothSearchesSuccessful.observe(viewLifecycleOwner) { success ->
             if (success) {
                 val action = DetailCityFragmentDirections.actionFragmentDetailCityToFragmentHome()
-                viewLifecycleOwner.lifecycleScope.launch {
+                lifecycleScope.launch {
                     if (findNavController().currentDestination?.id == R.id.fragment_detail_city) {
                         findNavController().navigate(action)
                     }
@@ -97,18 +110,39 @@ class DetailCityFragment : Fragment() {
             }
         }
     }
-
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
     }
-
     private fun showLoadingActivity() {
         loadingDialog = LoadingDialogFragment()
         loadingDialog?.show(parentFragmentManager, "LoadingDialog")
     }
-
     private fun closeLoadingActivity() {
         loadingDialog?.dismiss()
+    }
+    private fun saveFavorite() {
+        val favorite1: String
+        val favorite2: String
+        when (adapter.searchList.size) {
+            1 -> {
+                favorite1 = adapter.searchList[0]
+                favorite2 = ""
+            }
+            2 -> {
+                favorite1 = adapter.searchList[0]
+                favorite2 = adapter.searchList[1]
+            }
+            else -> {
+                favorite1 = ""
+                favorite2 = ""
+            }
+        }
+        val favorites = "$favorite1 $favorite2"
+        sharedPref = requireActivity().getSharedPreferences("preferenceName", Context.MODE_PRIVATE)
+        sharedPref.edit().apply {
+            putString("favorites", favorites)
+            apply()
+        }
     }
 }

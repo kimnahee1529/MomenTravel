@@ -33,15 +33,6 @@ class CountryAdapter(var items : MutableList<Country>) : RecyclerView.Adapter<Co
         val nation = items[position]
         holder.bind(nation)
 
-//        holder.itemView.setOnClickListener {
-//            itemclick?.itemClick(nation.countryName)
-//            val prePosition = selectedItem
-//            selectedItem = holder.adapterPosition
-//
-//
-//            notifyItemChanged(prePosition)
-//            notifyItemChanged(selectedItem)
-//        }
     }
 
     override fun getItemCount(): Int {
@@ -93,11 +84,12 @@ class CountryAdapter(var items : MutableList<Country>) : RecyclerView.Adapter<Co
 
             image.setImageResource(country.flag)
             name.text = country.countryName
+            bottomName.text = country.countryName
 
             if (country.isSelected) {
                 image.clearColorFilter()
                 name.isVisible = false
-                bottomName.isVisible = false
+                bottomName.isVisible = true
             } else {
                 image.setColorFilter(com.google.android.material.R.color.dim_foreground_material_dark)
                 name.isVisible = true

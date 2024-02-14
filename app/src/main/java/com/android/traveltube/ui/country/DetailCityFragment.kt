@@ -22,15 +22,13 @@ import kotlinx.coroutines.launch
 
 
 class DetailCityFragment : Fragment() {
-
     private var _binding: FragmentDetailCityBinding? = null
     private val binding: FragmentDetailCityBinding get() = _binding!!
     private lateinit var adapter : DetailCityAdapter
-
+    private var loadingDialog: LoadingDialogFragment? = null
     private val sharedViewModel by activityViewModels<SharedViewModel> {
         SharedViewModelFactory(YoutubeRepositoryImpl(VideoSearchDatabase.getInstance(requireContext())))
     }
-
     private val viewModel by viewModels<DetailCityViewModel> {
         DetailCityViewModelProviderFactory(
             YoutubeRepositoryImpl(
@@ -40,8 +38,6 @@ class DetailCityFragment : Fragment() {
             )
         )
     }
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,10 +45,8 @@ class DetailCityFragment : Fragment() {
         _binding = FragmentDetailCityBinding.inflate(inflater, container, false)
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val rootView = view.rootView
         rootView.setBackgroundColor(Color.WHITE)
 
@@ -67,9 +61,7 @@ class DetailCityFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = GridLayoutManager(context,3)
         recyclerView.addItemDecoration(increaseSpace)
-
     }
-
     private fun initView() {
         binding.btMoveHomeFragment.setOnClickListener {
             /**
@@ -79,39 +71,32 @@ class DetailCityFragment : Fragment() {
              */
             viewModel.getSearchVideoList() // 동영상 검색
             viewModel.getTravelVideoList()
+            viewModel.getShortsVideoList()
             showLoadingActivity()
         }
-
-
     }
-
     private fun initViewModel() {
         viewModel.bothSearchesSuccessful.observe(viewLifecycleOwner) { success ->
             if (success) {
                 val action = DetailCityFragmentDirections.actionFragmentDetailCityToFragmentHome()
-
-                viewLifecycleOwner.lifecycleScope.launch {
-                    findNavController().navigate(action)
+                lifecycleScope.launch {
+                    if (findNavController().currentDestination?.id == R.id.fragment_detail_city) {
+                        findNavController().navigate(action)
+                    }
                     closeLoadingActivity()
                 }
             }
         }
     }
-
-    private var loadingDialog: LoadingDialogFragment? = null
-
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
     }
-
     private fun showLoadingActivity() {
         loadingDialog = LoadingDialogFragment()
         loadingDialog?.show(parentFragmentManager, "LoadingDialog")
     }
-
     private fun closeLoadingActivity() {
         loadingDialog?.dismiss()
     }
-
 }

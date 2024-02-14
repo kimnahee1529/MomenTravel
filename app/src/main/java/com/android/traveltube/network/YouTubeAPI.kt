@@ -60,7 +60,7 @@ interface YouTubeAPI {
         @Query("part")
         part: String = "snippet",
         @Query("q")
-        searchText: String = SEARCH_TEXT,
+        searchText: String,
         @Query("maxResults")
         maxResults: Int = API_MAX_RESULT,
         @Query("regionCode")
@@ -80,7 +80,7 @@ interface YouTubeAPI {
         @Query("order")
         order: String = "viewCount",
         @Query("q")
-        searchText: String = "여행-쇼츠|shorts",
+        searchText: String,
         @Query("maxResults")
         maxResults: Int = API_MAX_RESULT,
         @Query("regionCode")

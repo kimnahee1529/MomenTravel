@@ -19,6 +19,7 @@ class DetailCityViewModel(
 ) : BasicDetailViewModel() {
     private var searchVideoListSuccess = false
     private var searchTravelVideoListSuccess = false
+    private var searchTravelShortsVideoListSuccess = false
     private val _bothSearchesSuccessful = MutableLiveData<Boolean>()
     val bothSearchesSuccessful: LiveData<Boolean>
         get() = _bothSearchesSuccessful
@@ -30,7 +31,7 @@ class DetailCityViewModel(
         }
 
     private fun checkBothSearches() {
-        if (searchVideoListSuccess && searchTravelVideoListSuccess) {
+        if (searchVideoListSuccess && searchTravelVideoListSuccess && searchTravelShortsVideoListSuccess) {
             _bothSearchesSuccessful.value = true
         }
     }
@@ -41,6 +42,10 @@ class DetailCityViewModel(
 
     fun getTravelVideoList() {
         searchTravelVideoList()
+    }
+
+    fun getShortsVideoList() {
+        searchShortsVideoList()
     }
 
     //영상 검색 정보 가져오는 getSearchingVideos 호출
@@ -83,7 +88,7 @@ class DetailCityViewModel(
     //여행 카테고리 영상 검색 정보 가져오는 getCatTravelVideos 호출
     private fun searchTravelVideoList() = viewModelScope.launch {
         kotlin.runCatching {
-            val videos = youtubeRepositoryImpl.getCatTravelVideos()
+            val videos = youtubeRepositoryImpl.getCatTravelVideos("여행 -쇼츠 -shorts")
             val videoItemModels = videos.items.map { item ->
                 val channelInfoList = getChannelInfo(item.snippet.channelId, youtubeRepositoryImpl)
                 val videoViewCountList = getVideoViewCount(item.id.videoId, youtubeRepositoryImpl)
@@ -113,6 +118,42 @@ class DetailCityViewModel(
                     exception
                 )
                 searchVideoListSuccess = false
+            }
+        }
+    }
+
+    //여행 쇼츠 영상 검색 정보 가져오는 getCatTravelVideos 호출
+    private fun searchShortsVideoList() = viewModelScope.launch {
+        kotlin.runCatching {
+            val videos = youtubeRepositoryImpl.getCatTravelVideos("여행 (쇼츠|shorts)")
+            val videoItemModels = videos.items.map { item ->
+                val channelInfoList = getChannelInfo(item.snippet.channelId, youtubeRepositoryImpl)
+                val videoViewCountList = getVideoViewCount(item.id.videoId, youtubeRepositoryImpl)
+                val videoViewCountModel = videoViewCountList.firstOrNull()
+
+                VideoBasicModel(
+                    id = item.id.videoId ?: item.id.kind,
+                    thumbNailUrl = item.snippet.thumbnails.medium.url,
+                    channelId = item.snippet.channelId,
+                    channelTitle = item.snippet.channelTitle,
+                    title = item.snippet.title,
+                    description = item.snippet.description,
+                    publishTime = item.snippet.publishedAt,
+                    channelInfoModel = channelInfoList.first(),
+                    videoViewCountModel = videoViewCountModel,
+                    modelType = ModelType.VIDEO_CATEGORY_SHORTS
+                )
+            }
+            saveSearchResult(videoItemModels)
+            searchTravelShortsVideoListSuccess = true
+        }.onFailure { exception ->
+            withContext(Dispatchers.Main) {
+                Log.e(
+                    "sharedviewmodel detailItem search Error",
+                    "Failed to fetch trending videos",
+                    exception
+                )
+                searchTravelShortsVideoListSuccess = false
             }
         }
     }

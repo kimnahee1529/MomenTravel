@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.datail.shorts.ShortsFragment">
+
+    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+        android:id="@+id/youtube_player_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+    </com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView>
+
+    <ImageView
+        android:id="@+id/iv_channel_thumbnail"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="12dp"
+        android:clipToOutline="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/tv_shorts_title"
+        app:layout_constraintStart_toStartOf="@+id/tv_shorts_title" />
+
+    <TextView
+        android:id="@+id/tv_channel_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="z1nz1n"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_channel_thumbnail"
+        app:layout_constraintStart_toEndOf="@+id/iv_channel_thumbnail"
+        app:layout_constraintTop_toTopOf="@+id/iv_channel_thumbnail" />
+
+    <TextView
+        android:id="@+id/tv_shorts_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="32dp"
+        android:textSize="16sp"
+        android:maxLines="2"
+        android:text="오사카 3박 4일 여행 60초 요약 | 도톤보리, 우메다, 오사카성, 유니버셜스튜디오, 교토, 아라시야마, 기요미즈데라"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

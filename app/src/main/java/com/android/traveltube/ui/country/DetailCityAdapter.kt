@@ -1,6 +1,8 @@
 package com.android.traveltube.ui.country
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,18 +10,24 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.android.traveltube.R
-import com.android.traveltube.databinding.AddFavoriteDialogBinding
+import com.android.traveltube.databinding.DialogAddFavoritesBinding
 import com.android.traveltube.databinding.ItemDetailCityBinding
 import com.android.traveltube.databinding.ItemInterestPlusBinding
+import com.android.traveltube.utils.UtilityKeyboard.hideKeyboard
 
-class DetailCityAdapter (val interest : MutableList<Interest>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class DetailCityAdapter (
+    val interest : MutableList<Interest>,
+    private val fragment: Fragment
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     var selectCount : Int = 0
     var alertDialog : AlertDialog? = null
     val TYPE_NORMAL = 0
     val TYPE_IMG = 1
+    val searchList = mutableListOf<String>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -70,7 +78,7 @@ class DetailCityAdapter (val interest : MutableList<Interest>) : RecyclerView.Ad
 
                 val builder = AlertDialog.Builder(context)
 
-                val dialogBinding = AddFavoriteDialogBinding.inflate(LayoutInflater.from(context))
+                val dialogBinding = DialogAddFavoritesBinding.inflate(LayoutInflater.from(context))
 
                 builder.setView(dialogBinding.root)
 
@@ -80,7 +88,7 @@ class DetailCityAdapter (val interest : MutableList<Interest>) : RecyclerView.Ad
 
                 }
 
-                dialogBinding.btnYes.setOnClickListener {
+                dialogBinding.btnDialogConfirm.setOnClickListener {
                     val interestAdd1 = dialogBinding.etPlusFavorite1.text.toString()
                     val interestAdd2 = dialogBinding.etPlusFavorite2.text.toString()
 
@@ -96,12 +104,14 @@ class DetailCityAdapter (val interest : MutableList<Interest>) : RecyclerView.Ad
 
                 }
 
-                dialogBinding.btnNo.setOnClickListener {
+                dialogBinding.btnDialogCancel.setOnClickListener {
                     alertDialog?.dismiss()
+                    fragment.hideKeyboard()
                 }
 
                 alertDialog = builder.create()
                 alertDialog?.show()
+                alertDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
             }
         }
@@ -125,9 +135,11 @@ class DetailCityAdapter (val interest : MutableList<Interest>) : RecyclerView.Ad
             itemView.setOnClickListener {
                 if (data.isSelected){
                     selectCount--
+                    removeFavorite(data.favorite)
                 } else {
                     if (selectCount < 2) {
                         selectCount++
+                        addFavorite(data.favorite)
                     } else {
                         Toast.makeText(context,"최대 2개까지 선택 가능합니다.", Toast.LENGTH_SHORT).show()
                         return@setOnClickListener
@@ -143,6 +155,18 @@ class DetailCityAdapter (val interest : MutableList<Interest>) : RecyclerView.Ad
 
     override fun getItemCount(): Int {
         return interest.size
+    }
+
+    fun addFavorite(favorite: String) {
+        if (searchList.size < 2) {
+            searchList.add(favorite)
+        }
+    }
+
+    fun removeFavorite(favorite : String) {
+        if (favorite in searchList) {
+            searchList.remove(favorite)
+        }
     }
 
 }

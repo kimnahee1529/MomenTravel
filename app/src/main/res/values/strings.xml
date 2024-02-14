@@ -19,5 +19,7 @@
 
     <string name="favorite_delete_message">좋아요 목록에서 삭제되었습니다.</string>
 
+    <string name="default_name">하나둘셋</string>
+
 
 </resources>

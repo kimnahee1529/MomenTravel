@@ -1,7 +1,9 @@
 package com.android.traveltube.ui.datail
 
+
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.android.traveltube.R
 import com.android.traveltube.data.db.VideoSearchDatabase
@@ -17,6 +21,8 @@ import com.android.traveltube.factory.SharedViewModelFactory
 import com.android.traveltube.repository.YoutubeRepositoryImpl
 import com.android.traveltube.ui.datail.recommend.RecommendListAdapter
 import com.android.traveltube.ui.datail.channel.ChannelOtherVideoListAdapter
+import com.android.traveltube.utils.Constants.PREFERENCE_KEY
+import com.android.traveltube.utils.Constants.PREFERENCE_NAME
 import com.android.traveltube.utils.DateManager.convertToDecimalString
 import com.android.traveltube.utils.DateManager.dateFormatter
 import com.android.traveltube.utils.DateManager.formatNumber
@@ -25,6 +31,7 @@ import com.android.traveltube.viewmodel.SharedViewModel
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import kotlinx.coroutines.launch
 
 
 class VideoDetailFragment : Fragment() {
@@ -45,16 +52,26 @@ class VideoDetailFragment : Fragment() {
 
     private val channelListAdapter by lazy {
         ChannelOtherVideoListAdapter(
-            onItemClick = {
-
+            onItemClick = {item ->
+                val action = VideoDetailFragmentDirections.actionFragmentVideoDetailSelf(item)
+                lifecycleScope.launch {
+                    if (findNavController().currentDestination?.id == R.id.fragment_video_detail) {
+                        findNavController().navigate(action)
+                    }
+                }
             }
         )
     }
 
     private val recommendListAdapter by lazy {
         RecommendListAdapter(
-            onItemClick = {
-
+            onItemClick = {item ->
+                val action = VideoDetailFragmentDirections.actionFragmentVideoDetailSelf(item)
+                lifecycleScope.launch {
+                    if (findNavController().currentDestination?.id == R.id.fragment_video_detail) {
+                        findNavController().navigate(action)
+                    }
+                }
             }
         )
 
@@ -73,17 +90,12 @@ class VideoDetailFragment : Fragment() {
 
         initView()
         initViewModel()
-        getSavedName()
     }
 
     private fun getSavedName() {
-        sharedPref = requireContext().getSharedPreferences("profile_data", Context.MODE_PRIVATE)
-        val savedName = sharedPref.getString("name", "")
-        binding.tvRecommendVideosTitle.text = if (savedName.isNullOrBlank()) {
-            "하나둘셋님을 위한 여행지"
-        } else {
-            "${savedName}님을 위한 여행지"
-        }
+        sharedPref = requireContext().getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
+        val name = sharedPref.getString(PREFERENCE_KEY, getString(R.string.default_name))
+        binding.tvRecommendVideosTitle.text = "${name}님을 위한 여행지"
     }
 
     private fun initView() {
@@ -94,6 +106,19 @@ class VideoDetailFragment : Fragment() {
             viewModel.onClickedLike()
         }
 
+        binding.ivShare.setOnClickListener {
+            val intent = Intent(Intent.ACTION_SEND_MULTIPLE).apply {
+                type = "text/plain"
+                val youtubeUrl = "https://www.youtube.com/watch?v=${args.homeToDetailEntity.id}"
+                val content = "친구가 링크를 공유했어요!\n어떤 링크인지 들어가서 확인해볼까요?"
+                putExtra(Intent.EXTRA_TEXT, "$content\n\n$youtubeUrl")
+            }
+
+            val chooserTitle = "친구에게 공유하기"
+            startActivity(Intent.createChooser(intent, chooserTitle))
+        }
+
+        getSavedName()
     }
 
     private fun initViewModel() {

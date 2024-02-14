@@ -27,20 +27,17 @@ import android.widget.Toast
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.ColorDrawable
-import android.util.Log
 import android.view.inputmethod.InputMethodManager
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import java.io.ByteArrayOutputStream
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.traveltube.data.db.VideoSearchDatabase
 import com.android.traveltube.databinding.DialogMypageBinding
-import com.android.traveltube.factory.SharedViewModelFactory
-import com.android.traveltube.model.db.VideoBasicModel
 import com.android.traveltube.repository.YoutubeRepositoryImpl
-import com.android.traveltube.viewmodel.SharedViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import kotlinx.coroutines.launch
 
 class MyVideoFragment : Fragment() {
 
@@ -60,6 +57,7 @@ class MyVideoFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: MyVideoAdapter
     private lateinit var bottomSheetDialog: BottomSheetDialog
+    private lateinit var youtubeRepository: YoutubeRepositoryImpl
     private var adapterToDelete: Int = RecyclerView.NO_POSITION
 
     private val watchHistoryViewModel: WatchHistoryViewModel by viewModels {
@@ -80,6 +78,8 @@ class MyVideoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
         initViewModel()
+
+        youtubeRepository = YoutubeRepositoryImpl(VideoSearchDatabase.getInstance(requireContext()))
 
         sharedPref = requireContext().getSharedPreferences("profile_data", Context.MODE_PRIVATE)
         val savedName = sharedPref.getString("name", "")
@@ -121,7 +121,11 @@ class MyVideoFragment : Fragment() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                adapter.filter.filter(s.toString())
+                val keyword = s.toString()
+                lifecycleScope.launch {
+                    val searchResult = youtubeRepository.getSearchResultFromHistory(keyword)
+                    adapter.submitList(searchResult)
+                }
             }
         })
     }

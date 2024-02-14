@@ -68,10 +68,6 @@ class MyVideoFragment : Fragment() {
         )
     }
 
-    private val sharedViewModel by activityViewModels<SharedViewModel> {
-        SharedViewModelFactory(YoutubeRepositoryImpl(VideoSearchDatabase.getInstance(requireContext())))
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -84,7 +80,6 @@ class MyVideoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
         initViewModel()
-        setUpSpinner()
 
         sharedPref = requireContext().getSharedPreferences("profile_data", Context.MODE_PRIVATE)
         val savedName = sharedPref.getString("name", "")
@@ -111,8 +106,6 @@ class MyVideoFragment : Fragment() {
             val itemToDelete =
                 (recyclerView.adapter as MyVideoAdapter).currentList.getOrNull(adapterPosition)
             if (itemToDelete != null) {
-                deleteItem(itemToDelete)
-                // TODO
                 watchHistoryViewModel.deleteWatchHistoryItem(itemToDelete.id)
             }
             bottomSheetDialog.dismiss()
@@ -120,24 +113,17 @@ class MyVideoFragment : Fragment() {
         bottomSheetView.findViewById<Button>(R.id.btn_bottomDialog_cancel).setOnClickListener {
             bottomSheetDialog.dismiss()
         }
-        val etMyVideoHistory = view.findViewById<EditText>(R.id.et_myVideo_history)
-        etMyVideoHistory.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                val searchText = s.toString()
-                searchHistory(searchText)
+        binding?.etMyVideoHistory?.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                adapter.filter.filter(s.toString())
+            }
         })
-    }
-
-    private fun searchHistory(query: String) {
-        adapter.filter(query)
-        Log.d("TAG", "$query")
-    }
-
-    private fun setUpSpinner() {
     }
 
     private fun initView() {
@@ -149,10 +135,6 @@ class MyVideoFragment : Fragment() {
                 bottomSheetDialog.show()
             }
         )
-    }
-
-    private fun deleteItem(video: VideoBasicModel) {
-        // adapter.deleteItem(video)
     }
 
     private fun initViewModel() = with(watchHistoryViewModel) {

@@ -22,7 +22,7 @@
             app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_fragment_home_to_fragment_country"
-            app:destination="@id/fragment_shorts"
+            app:destination="@id/fragment_country"
             app:popUpTo="@id/fragment_home"
             app:popUpToInclusive="true"/>
     </fragment>

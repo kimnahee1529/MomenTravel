@@ -67,12 +67,9 @@ object DateManager {
         return when {
             count >= 10000 -> {
                 val tenThousandCount = count / 10000.0
-                val formattedCount = String.format("%.1f", tenThousandCount)
-                if (formattedCount.endsWith(".0")) {
-                    "${formattedCount.substringBefore('.')}만회"
-                } else {
-                    "${formattedCount}만회"
-                }
+                val formattedCount = String.format("%.0f", tenThousandCount)
+                "${formattedCount}만회"
+
             }
             count >= 1000 -> {
                 val thousandCount = count / 1000.0

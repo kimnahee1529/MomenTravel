@@ -101,7 +101,7 @@ class DetailCityAdapter (
 
                     notifyDataSetChanged()
                     alertDialog?.dismiss()
-
+                    fragment.hideKeyboard()
                 }
 
                 dialogBinding.btnDialogCancel.setOnClickListener {

@@ -27,12 +27,19 @@ import android.widget.Toast
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.ColorDrawable
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
+import androidx.fragment.app.activityViewModels
 import java.io.ByteArrayOutputStream
 import com.android.traveltube.databinding.CustomDialogLayoutBinding
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.android.traveltube.model.MyVideoEditModel
+import com.android.traveltube.data.db.VideoSearchDatabase
+import com.android.traveltube.factory.SharedViewModelFactory
+import com.android.traveltube.model.db.VideoBasicModel
+import com.android.traveltube.repository.YoutubeRepositoryImpl
+import com.android.traveltube.viewmodel.SharedViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class MyVideoFragment : Fragment() {
 
@@ -46,39 +53,101 @@ class MyVideoFragment : Fragment() {
     private lateinit var btnCancel: Button
     private lateinit var btnEditImage: ImageView
     private lateinit var tvCharCount: TextView
-    private val galleryCode = 1
+    private val galleryRequestCode = 1
     private val maxNameLength = 6
     private var selectImage: Bitmap? = null
-
-    private lateinit var viewModel: MyVideoEditModel
-
     private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: MyVideoAdapter
+    private lateinit var bottomSheetDialog: BottomSheetDialog
+    private var adapterToDelete: Int = RecyclerView.NO_POSITION
+    private lateinit var watchHistoryViewModel: WatchHistoryViewModel
+    private val sharedViewModel by activityViewModels<SharedViewModel> {
+        SharedViewModelFactory(YoutubeRepositoryImpl(VideoSearchDatabase.getInstance(requireContext())))
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentMyVideoBinding.inflate(inflater, container, false)
-        sharedPref = requireContext().getSharedPreferences("profile_data", Context.MODE_PRIVATE)
+        return binding?.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView()
+        initViewModel()
+        setUpSpinner()
+
+        sharedPref = requireContext().getSharedPreferences("profile_data", Context.MODE_PRIVATE)
         val savedName = sharedPref.getString("name", "")
         binding?.tvMyVideoName?.text = savedName
         val savedImageBytes = sharedPref.getString("image_bitmap", null)?.let { decodeBitmap(it) }
-
         if (savedImageBytes != null) {
             binding?.ivPfImage?.setImageBitmap(savedImageBytes)
         } else {
             binding?.ivPfImage?.setImageResource(R.drawable.ic_default_image)
         }
-
         binding?.ivImageEdit?.setOnClickListener {
             showCustomDialog()
         }
 
-        recyclerView = binding?.root?.findViewById(R.id.rc_myVideo)!!
+        recyclerView = view.findViewById(R.id.rc_myVideo)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = adapter
+        bottomSheetDialog = BottomSheetDialog(requireContext())
+        val bottomSheetView = layoutInflater.inflate(R.layout.bottom_sheet_layout, null)
+        bottomSheetDialog.setContentView(bottomSheetView)
 
-        return binding?.root
+        bottomSheetView.findViewById<Button>(R.id.btn_bottomDialog_confirm).setOnClickListener {
+            val adapterPosition = adapterToDelete
+            val itemToDelete = (recyclerView.adapter as MyVideoAdapter).currentList.getOrNull(adapterPosition)
+            if (itemToDelete != null) {
+                deleteItem(itemToDelete)
+            }
+            bottomSheetDialog.dismiss()
+        }
+        bottomSheetView.findViewById<Button>(R.id.btn_bottomDialog_cancel).setOnClickListener {
+            bottomSheetDialog.dismiss()
+        }
+        val etMyVideoHistory = view.findViewById<EditText>(R.id.et_myVideo_history)
+        etMyVideoHistory.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val searchText = s.toString()
+                searchHistory(searchText)
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+    }
+
+    private fun searchHistory(query: String) {
+        adapter.filter(query)
+    }
+
+    private fun setUpSpinner() {
+    }
+
+    private fun initView() {
+        adapter = MyVideoAdapter(
+            onItemClick = { video ->
+            },
+            onItemLongClick = { video, position ->
+                adapterToDelete = position
+                bottomSheetDialog.show()
+            }
+        )
+    }
+
+    private fun deleteItem(video: VideoBasicModel) {
+        adapter.deleteItem(video)
+    }
+
+    private fun initViewModel() = with(sharedViewModel){
+        savedVideos.observe(viewLifecycleOwner) {
+            Log.d("TAG", "$it")
+            adapter.submitList(it)
+        }
     }
 
     override fun onDestroyView() {
@@ -103,7 +172,7 @@ class MyVideoFragment : Fragment() {
         val savedImageBytes = sharedPref.getString("image_bitmap", null)?.let { decodeBitmap(it) }
 
         etName.setText(savedName)
-        tvCharCount.text = savedName?.let { getCharCountText(it.length) }
+        tvCharCount.text = savedName?.let { getFormattedCharCountText(it.length) }
 
         if (savedImageBytes != null) {
             ivProfile.setImageBitmap(savedImageBytes)
@@ -119,7 +188,7 @@ class MyVideoFragment : Fragment() {
 
         btnGallery.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-            startActivityForResult(intent, galleryCode)
+            startActivityForResult(intent, galleryRequestCode)
         }
 
         btnConfirm.setOnClickListener {
@@ -179,7 +248,7 @@ class MyVideoFragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val length = s?.length ?: 0
-                tvCharCount.text = getCharCountText(length)
+                tvCharCount.text = getFormattedCharCountText(length)
                 btnConfirm.isEnabled = length in 1..maxNameLength
             }
 
@@ -198,7 +267,7 @@ class MyVideoFragment : Fragment() {
         binding?.root?.findViewById<ImageView>(R.id.iv_pf_image)?.setImageBitmap(newImageBitmap)
     }
 
-    private fun getCharCountText(length: Int): CharSequence {
+    private fun getFormattedCharCountText(length: Int): CharSequence {
         val coloredText = SpannableStringBuilder("$length/$maxNameLength")
         val textColor = if (length == maxNameLength) Color.RED else Color.BLACK
         coloredText.setSpan(ForegroundColorSpan(textColor), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -219,7 +288,7 @@ class MyVideoFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == galleryCode && resultCode == Activity.RESULT_OK && data != null) {
+        if (requestCode == galleryRequestCode && resultCode == Activity.RESULT_OK && data != null) {
             val selectedImageUri = data.data
             selectedImageUri?.let {
                 val inputStream = requireContext().contentResolver.openInputStream(it)

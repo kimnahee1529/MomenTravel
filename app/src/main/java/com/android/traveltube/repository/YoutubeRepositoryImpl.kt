@@ -3,7 +3,6 @@ package com.android.traveltube.repository
 import androidx.lifecycle.LiveData
 import com.android.traveltube.data.db.ModelType
 import com.android.traveltube.data.db.VideoSearchDatabase
-import com.android.traveltube.model.db.VideoFavoriteModel
 import com.android.traveltube.model.db.VideoBasicModel
 import com.android.traveltube.network.RetrofitInstance
 import kotlinx.coroutines.Dispatchers
@@ -34,41 +33,41 @@ class YoutubeRepositoryImpl(private val db: VideoSearchDatabase) {
         RetrofitInstance.api.getChannelsVideo(channelId = channelId)
     }
 
-    fun getFavoriteVideos(): LiveData<List<VideoFavoriteModel>> =
-        db.videoFavoriteDao().getFavoriteVideos()
+    fun getFavoriteVideos(): LiveData<List<VideoBasicModel>> =
+        db.videoDao().getFavoriteVideos()
 
     suspend fun insertVideos(model: List<VideoBasicModel>) {
-        db.videoDao().insertVideos(model)
+        for (newVideo in model) {
+            val existingVideo = db.videoDao().getVideoById(newVideo.id)
+            if (existingVideo != null) {
+                val updatedVideo = existingVideo.copy(
+                    thumbNailUrl = newVideo.thumbNailUrl ?: existingVideo.thumbNailUrl,
+                    channelId = newVideo.channelId ?: existingVideo.channelId,
+                    channelTitle = newVideo.channelTitle ?: existingVideo.channelTitle,
+                    title = newVideo.title ?: existingVideo.title,
+                    description = newVideo.description ?: existingVideo.description,
+                    publishTime = newVideo.publishTime ?: existingVideo.publishTime,
+                    channelInfoModel = newVideo.channelInfoModel ?: existingVideo.channelInfoModel,
+                    videoViewCountModel = newVideo.videoViewCountModel ?: existingVideo.videoViewCountModel
+                )
+                db.videoDao().insertVideos(listOf(updatedVideo))
+            } else {
+                db.videoDao().insertVideos(listOf(newVideo))
+            }
+        }
     }
-
-    fun getVideos(): LiveData<List<VideoBasicModel>> =
-        db.videoDao().getVideos()
 
     fun getVideos(modelType: ModelType): LiveData<List<VideoBasicModel>> =
         db.videoDao().getVideosByModelType(modelType)
 
     suspend fun updateFavoriteStatus(videoId: String, isFavorite: Boolean) {
-        val video = db.videoDao().getVideoById(videoId)
-        video?.let {
-            db.videoDao().updateFavoriteStatus(videoId, isFavorite)
-
-            val favoriteVideo = VideoFavoriteModel(
-                id = it.id,
-                thumbNailUrl = it.thumbNailUrl,
-                channelId = it.channelId,
-                channelTitle = it.channelTitle,
-                title = it.title,
-                description = it.description,
-                publishTime = it.publishTime,
-                channelInfoModel = it.channelInfoModel,
-                videoViewCountModel = it.videoViewCountModel,
-            )
-
-            if (isFavorite) {
-                db.videoFavoriteDao().insertFavoriteVideo(favoriteVideo)
-            } else {
-                db.videoFavoriteDao().deleteFavoriteVideo(favoriteVideo)
-            }
-        }
+        db.videoDao().updateFavoriteStatus(videoId, isFavorite)
     }
+
+    suspend fun updateSavedStatus(videoId: String, isFavorite: Boolean) {
+        db.videoDao().updateIsSavedStatus(videoId, isFavorite)
+    }
+
+    fun getSavedVideos(): LiveData<List<VideoBasicModel>> =
+        db.videoDao().getSavedVideos()
 }

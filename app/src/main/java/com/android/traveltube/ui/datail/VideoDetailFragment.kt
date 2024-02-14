@@ -1,5 +1,7 @@
 package com.android.traveltube.ui.datail
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -31,20 +33,18 @@ import kotlinx.coroutines.launch
 class VideoDetailFragment : Fragment() {
     private var _binding: FragmentVideoDetailBinding? = null
     private val binding: FragmentVideoDetailBinding get() = _binding!!
-
+    private lateinit var sharedPref: SharedPreferences
     private val args by navArgs<VideoDetailFragmentArgs>()
 
     private val sharedViewModel by activityViewModels<SharedViewModel> {
         SharedViewModelFactory(YoutubeRepositoryImpl(VideoSearchDatabase.getInstance(requireContext())))
     }
-
     private val viewModel: DetailViewModel by viewModels {
         DetailViewModelFactory(
             YoutubeRepositoryImpl(VideoSearchDatabase.getInstance(requireContext())),
             args.homeToDetailEntity
         )
     }
-
     private val channelListAdapter by lazy {
         ChannelListAdapter(
             onItemClick = {
@@ -52,7 +52,6 @@ class VideoDetailFragment : Fragment() {
             }
         )
     }
-
     private val recommendListAdapter by lazy {
         ReCommendListAdapter(
             onItemClick = {
@@ -68,20 +67,26 @@ class VideoDetailFragment : Fragment() {
         _binding = FragmentVideoDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initView()
         initViewModel()
+        getSavedName()
     }
-
+    private fun getSavedName() {
+        sharedPref = requireContext().getSharedPreferences("profile_data", Context.MODE_PRIVATE)
+        val savedName = sharedPref.getString("name", "")
+        binding.tvRecommendListTitle.text = if (savedName.isNullOrBlank()) {
+            "하나둘셋님을 위한 여행지"
+        } else {
+            "${savedName}님을 위한 여행지"
+        }
+    }
     private fun initView() {
         // Adapter 연결
         binding.recommendRecyclerView.adapter = recommendListAdapter
         binding.channelVideoRecyclerView.adapter = channelListAdapter
         loadSampleData()
-
         binding.ivLike.setOnClickListener {
             /**
              * 좋아요 상태 확인 isFavorite (1) false -> true: save, true -> false: delete
@@ -90,9 +95,7 @@ class VideoDetailFragment : Fragment() {
              */
             viewModel.onClickedLike()
         }
-
     }
-
     private fun loadSampleData() {
         lifecycleScope.launch {
             showSampleData(isLoading = true)
@@ -100,7 +103,6 @@ class VideoDetailFragment : Fragment() {
             showSampleData(isLoading = false)
         }
     }
-
     private fun showSampleData(isLoading: Boolean) {
         if (isLoading) {
             binding.sflSample.startShimmer()
@@ -112,7 +114,6 @@ class VideoDetailFragment : Fragment() {
             binding.channelVideoRecyclerView.visibility = View.VISIBLE
         }
     }
-
     private fun initViewModel() {
         with(viewModel) {
             uiState.observe(viewLifecycleOwner) { item ->
@@ -133,57 +134,44 @@ class VideoDetailFragment : Fragment() {
                     ivLike.setImageResource(if (item.isFavorite) R.drawable.ic_like_24 else R.drawable.ic_like_empty_24)
                 }
             }
-
             uiChannelVideoState.observe(viewLifecycleOwner) {
                 channelListAdapter.submitList(it)
             }
         }
-
         with(sharedViewModel) {
             searchResults.observe(viewLifecycleOwner) {
                 recommendListAdapter.submitList(it)
             }
-
         }
     }
-
     private fun setUpYoutubePlayer(videoId: String?) {
         if (videoId == null) {
             return
         }
-
         lifecycle.addObserver(binding.youtubePlayerView)
         binding.youtubePlayerView.addYouTubePlayerListener(object :
             AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
                 youTubePlayer.loadVideo(videoId, 0f)
             }
-
             override fun onStateChange(
                 youTubePlayer: YouTubePlayer,
                 state: PlayerConstants.PlayerState
             ) {
                 super.onStateChange(youTubePlayer, state)
-
                 when (state) {
                     PlayerConstants.PlayerState.PLAYING -> {
                         viewModel.onVideoPlaying()
                     }
-
                     PlayerConstants.PlayerState.PAUSED -> Unit
-
                     PlayerConstants.PlayerState.ENDED -> Unit
-
                     else -> Unit
                 }
             }
         })
     }
-
-
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
     }
-
 }

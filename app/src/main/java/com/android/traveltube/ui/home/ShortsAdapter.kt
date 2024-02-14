@@ -45,7 +45,7 @@ class ShortsAdapter(private val onItemClicked: (VideoBasicModel) -> Unit) :
             data.thumbNailUrl?.let {binding.ivThumbnail.loadVideoImage(it)}
             binding.tvShortsTitle.text = data.title
             binding.tvViewCount.text = data.videoViewCountModel?.viewCount?.formatNumber()?.let {
-                "조회수 ${it.formatNumber()}만회"
+                "조회수 ${it}"
             } ?: ""
             binding.root.setOnClickListener {
                 onItemClicked(data)

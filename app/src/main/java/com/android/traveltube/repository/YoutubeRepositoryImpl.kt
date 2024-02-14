@@ -70,4 +70,8 @@ class YoutubeRepositoryImpl(private val db: VideoSearchDatabase) {
 
     fun getSavedVideos(): LiveData<List<VideoBasicModel>> =
         db.videoDao().getSavedVideos()
+
+    suspend fun getVideoById(id : String ) : VideoBasicModel? {
+        return db.videoDao().getVideoById(id)
+    }
 }

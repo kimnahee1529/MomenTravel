@@ -15,8 +15,31 @@
         app:layout_constraintTop_toTopOf="parent" >
     </com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView>
 
+    <ImageView
+        android:id="@+id/iv_channel_thumbnail"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="12dp"
+        android:clipToOutline="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/tv_shorts_title"
+        app:layout_constraintStart_toStartOf="@+id/tv_shorts_title" />
+
     <TextView
-        android:id="@+id/tv_title"
+        android:id="@+id/tv_channel_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="z1nz1n"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_channel_thumbnail"
+        app:layout_constraintStart_toEndOf="@+id/iv_channel_thumbnail"
+        app:layout_constraintTop_toTopOf="@+id/iv_channel_thumbnail" />
+
+    <TextView
+        android:id="@+id/tv_shorts_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"

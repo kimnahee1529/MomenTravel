@@ -53,14 +53,9 @@ class CountryFragment : Fragment() {
         adapter = CountryAdapter(countryList)
 
         val recyclerView = binding.rvChooseCountry
-        val reduceSpace = controlSpace(0,-60,0,0)
-
         recyclerView.adapter = adapter
         recyclerView.layoutManager = GridLayoutManager(context,2)
         recyclerView.scheduleLayoutAnimation()
-        recyclerView.addItemDecoration(reduceSpace)
-
-
 
         var travelName = ""
 

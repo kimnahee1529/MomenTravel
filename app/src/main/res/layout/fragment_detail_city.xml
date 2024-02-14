@@ -1,45 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.country.DetailCityFragment">
+
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/textView8"
+        style="@style/TitleBoldText"
         android:text="관심사 선택"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        android:layout_marginTop="88dp"
-        android:layout_marginStart="32dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="131dp"
-        android:text="나만의 관심사 동영상을 추천 받아보세요!"/>
+        android:id="@+id/textView7"
+        style="@style/DescriptionText"
+        android:text="나만의 관심사로 동영상을 추천 받아보세요!"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_interest"
         android:layout_width="match_parent"
+        android:padding="30dp"
         android:layout_height="440dp"
-        android:layout_marginTop="200dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"/>
+        app:layout_constraintBottom_toTopOf="@+id/btn_skip"
+        tools:layout_editor_absoluteX="-16dp" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_skip"
         android:layout_width="140dp"
         android:layout_height="40dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/rounded_btn_cancel"
         android:text="건너뛰기"
-        android:layout_marginTop="680dp"
-        android:layout_marginStart="40dp"
-        android:background="@drawable/rounded_btn_cancel"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_move_home_fragment"
         android:layout_width="160dp"
         android:layout_height="40dp"
-        android:textColor="@color/white"
-        android:layout_marginTop="680dp"
-        android:layout_marginStart="210dp"
+        android:layout_marginEnd="30dp"
         android:background="@drawable/rounded_btn_confirm"
-        android:text="다음"/>
-</FrameLayout>
+        android:text="다음"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_skip"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,7 +18,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 class ShortsFragment : Fragment() {
     private var _binding: FragmentShortsBinding? = null
     private val binding: FragmentShortsBinding get() = _binding!!
-    private val args by navArgs<VideoDetailFragmentArgs>()
+    private val args by navArgs<ShortsFragmentArgs>()
 
     private val viewModel: DetailShortsModel by viewModels {
         DetailShortsViewModelFactory(

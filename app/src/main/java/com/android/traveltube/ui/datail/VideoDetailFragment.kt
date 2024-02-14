@@ -133,7 +133,7 @@ class VideoDetailFragment : Fragment() {
                         "조회수 ${item.viewCount?.formatNumber()} ${item.videoDate?.dateFormatter()}\n${item.videoDescription}"
                     tvChannelTitle.text = item.channelName
                     tvChannelSubscriptionCount.text =
-                        "구독자 ${item.subscriptionCount?.convertToDecimalString()}명"
+                        "구독자 ${item.subscriptionCount?.convertToDecimalString()}만명"
                     item.channelThumbnail?.let { ivChannelThumbnail.loadVideoImage(it) }
 
                     tvOtherVideosTitle.text = "${item.channelName}의 다른 동영상"

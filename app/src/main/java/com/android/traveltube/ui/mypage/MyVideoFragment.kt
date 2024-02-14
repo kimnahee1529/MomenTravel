@@ -32,10 +32,10 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import java.io.ByteArrayOutputStream
-import com.android.traveltube.databinding.CustomDialogLayoutBinding
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.traveltube.data.db.VideoSearchDatabase
+import com.android.traveltube.databinding.DialogMypageBinding
 import com.android.traveltube.factory.SharedViewModelFactory
 import com.android.traveltube.model.db.VideoBasicModel
 import com.android.traveltube.repository.YoutubeRepositoryImpl
@@ -149,7 +149,7 @@ class MyVideoFragment : Fragment() {
     }
 
     private fun showCustomDialog() {
-        val dialogBinding = CustomDialogLayoutBinding.inflate(layoutInflater)
+        val dialogBinding = DialogMypageBinding.inflate(layoutInflater)
         val dialog = AlertDialog.Builder(requireActivity()).create()
         dialog.setView(dialogBinding.root)
 

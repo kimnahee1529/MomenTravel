@@ -61,8 +61,9 @@ class DetailCityFragment : Fragment() {
         recyclerView.layoutManager = GridLayoutManager(context,3)
         recyclerView.addItemDecoration(increaseSpace)
     }
+
     private fun initView() {
-        binding.btMoveHomeFragment.setOnClickListener {
+        binding.btnMoveHomeFragment.setOnClickListener {
             /**
              * TODO 선택된 여행지, 관심사 태그를 통하여 api로 동영상 검색
              * 검색 된 결과를 Room 저장
@@ -72,6 +73,10 @@ class DetailCityFragment : Fragment() {
             viewModel.getTravelVideoList()
             viewModel.getShortsVideoList()
             showLoadingActivity()
+        }
+        binding.btnSkip.setOnClickListener {
+            val action = DetailCityFragmentDirections.actionFragmentDetailCityToFragmentHome()
+            findNavController().navigate(action)
         }
     }
     private fun initViewModel() {

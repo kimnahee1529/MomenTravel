@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="관심사 선택"
-        android:textSize="24sp"
+        android:textSize="32sp"
         android:textStyle="bold"
         android:layout_marginTop="88dp"
         android:layout_marginStart="32dp"/>
@@ -48,7 +48,7 @@
          />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/bt_move_home_fragment"
+        android:id="@+id/btn_move_home_fragment"
         android:layout_width="160dp"
         android:layout_height="40dp"
         android:textColor="@color/white"

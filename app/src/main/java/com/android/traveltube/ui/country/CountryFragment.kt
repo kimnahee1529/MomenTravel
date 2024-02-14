@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.android.traveltube.R
 import com.android.traveltube.databinding.FragmentCountryBinding
@@ -96,13 +97,10 @@ class CountryFragment : Fragment() {
             val wantNation = (binding.etCountrySearch.text).toString()
 
             if (wantNation.isNotEmpty()) {
-                moveNextFragment(DetailCityFragment())
+                findNavController().navigate(R.id.action_countryFragment_to_fragment_detail_city)
 //                saveCountry(wantNation)
             } else Toast.makeText(requireContext(),"여행지를 선택해 주세요", Toast.LENGTH_SHORT).show()
         }
-
-
-
     }
 
     override fun onDestroy() {

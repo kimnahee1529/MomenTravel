@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragment_detail_city">
+    app:startDestination="@id/fragment_country">
 
     <fragment
         android:id="@+id/fragment_home"
@@ -17,6 +17,11 @@
             app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_fragment_home_shorts_to_fragment_shorts"
+            app:destination="@id/fragment_shorts"
+            app:popUpTo="@id/fragment_home"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_fragment_home_to_fragment_country"
             app:destination="@id/fragment_shorts"
             app:popUpTo="@id/fragment_home"
             app:popUpToInclusive="true"/>

@@ -136,8 +136,4 @@ class CountryFragment : Fragment() {
             }
         }
     }
-
-
-
-
 }

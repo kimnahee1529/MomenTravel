@@ -1,5 +1,6 @@
 package com.android.traveltube.ui.datail
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,7 +11,9 @@ import com.android.traveltube.model.db.ChannelInfoModel
 import com.android.traveltube.model.db.VideoBasicModel
 import com.android.traveltube.repository.YoutubeRepositoryImpl
 import com.android.traveltube.viewmodel.BasicDetailViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class DetailViewModel(
     private val youtubeRepositoryImpl: YoutubeRepositoryImpl,
@@ -22,6 +25,9 @@ class DetailViewModel(
 
     private val _uiChannelVideoState: MutableLiveData<List<VideoBasicModel>> = MutableLiveData()
     val uiChannelVideoState: LiveData<List<VideoBasicModel>> get() = _uiChannelVideoState
+
+    private val _loadingState: MutableLiveData<LoadingState> = MutableLiveData(LoadingState.loaded())
+    val loadingState: LiveData<LoadingState> get() = _loadingState
 
     init {
         _uiState.value = uiState.value?.copy(
@@ -38,7 +44,6 @@ class DetailViewModel(
 
         )
 
-        // 채널 동영상
         searchChannelVideos()
     }
 
@@ -71,54 +76,50 @@ class DetailViewModel(
             return@launch
         }
 
-        val videos = youtubeRepositoryImpl.getChannelVideos(entity.channelId)
-        val videoItemModels = videos.items
-            .mapNotNull { item ->
-                val channelInfoList = getChannelInfo(item.snippet.channelId, youtubeRepositoryImpl)
-                val videoViewCountList =
-                    (item.id.videoId ?: item.id.kind)?.let {
-                        getVideoViewCount(
-                            it,
-                            youtubeRepositoryImpl
+        kotlin.runCatching {
+            _loadingState.value = LoadingState.loading()
+            val videos = youtubeRepositoryImpl.getChannelVideos(entity.channelId)
+            val videoItemModels = videos.items
+                .mapNotNull { item ->
+                    val videoId = item.id.videoId ?: item.id.kind
+                    if (videoId != null && !isPlaylistOrChannel(videoId)) {
+                        val channelInfoList =
+                            getChannelInfo(item.snippet.channelId, youtubeRepositoryImpl)
+                        val videoViewCountList =
+                            getVideoViewCount(videoId, youtubeRepositoryImpl)
+                        val videoViewCountModel = videoViewCountList?.firstOrNull()
+                        val channelInfoModel = channelInfoList.firstOrNull()
+
+                        VideoBasicModel(
+                            id = videoId,
+                            thumbNailUrl = item.snippet.thumbnails.medium.url,
+                            channelId = item.snippet.channelId,
+                            channelTitle = item.snippet.channelTitle,
+                            title = item.snippet.title,
+                            description = item.snippet.description,
+                            publishTime = item.snippet.publishedAt,
+                            channelInfoModel = channelInfoModel,
+                            videoViewCountModel = videoViewCountModel,
+                            modelType = ModelType.VIDEO_CHANNEL
                         )
-                    }
-                val videoViewCountModel = videoViewCountList?.firstOrNull()
-
-                val videoId = item.id.videoId ?: item.id.kind
-
-                if (videoId != null) {
-                    val channelInfoModel = if (channelInfoList.isNotEmpty()) {
-                        channelInfoList.first()
                     } else {
-                        ChannelInfoModel(
-                            channelId = null,
-                            channelThumbnail = null,
-                            subscriberCount = null,
-                            hiddenSubscriberCount = null
-                        )
+                        null
                     }
-
-                    VideoBasicModel(
-                        id = videoId,
-                        thumbNailUrl = item.snippet.thumbnails.medium.url,
-                        channelId = item.snippet.channelId,
-                        channelTitle = item.snippet.channelTitle,
-                        title = item.snippet.title,
-                        description = item.snippet.description,
-                        publishTime = item.snippet.publishedAt,
-                        channelInfoModel = channelInfoModel,
-                        videoViewCountModel = videoViewCountModel,
-                        modelType = ModelType.VIDEO_CHANNEL
-                    )
-                } else {
-                    null
                 }
+            _uiChannelVideoState.postValue(videoItemModels)
+        }.onFailure { exception ->
+            withContext(Dispatchers.Main) {
+                Log.e("DetailCityViewModel", "Failed to fetch channel videos", exception)
             }
-
-
-
-        _uiChannelVideoState.postValue(videoItemModels)
+        }.also {
+            _loadingState.value = LoadingState.loaded()
+        }
     }
+
+    private fun isPlaylistOrChannel(videoId: String): Boolean {
+        return videoId == "youtube#playlist" || videoId == "youtube#channel"
+    }
+
 
 }
 

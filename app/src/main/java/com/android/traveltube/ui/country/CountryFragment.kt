@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -28,8 +29,6 @@ class CountryFragment : Fragment() {
     private lateinit var sharedPref: SharedPreferences
     private val binding get() = _binding!!
     private lateinit var adapter : CountryAdapter
-    //private var canTravel = false
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -112,9 +111,6 @@ class CountryFragment : Fragment() {
                 findNavController().navigate(R.id.action_countryFragment_to_fragment_detail_city)
             } else Toast.makeText(requireContext(),"여행지를 선택해 주세요", Toast.LENGTH_SHORT).show()
         }
-
-
-
     }
 
     override fun onDestroy() {

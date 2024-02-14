@@ -31,7 +31,7 @@ class DetailCityFragment : Fragment() {
     private var _binding: FragmentDetailCityBinding? = null
 
     private val binding: FragmentDetailCityBinding get() = _binding!!
-    private lateinit var adapter : DetailCityAdapter
+    private lateinit var adapter: DetailCityAdapter
     private lateinit var sharedPref: SharedPreferences
     private var loadingDialog: LoadingDialogFragment? = null
     private val sharedViewModel by activityViewModels<SharedViewModel> {
@@ -46,6 +46,7 @@ class DetailCityFragment : Fragment() {
             )
         )
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,6 +54,7 @@ class DetailCityFragment : Fragment() {
         _binding = FragmentDetailCityBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val rootView = view.rootView
@@ -64,10 +66,10 @@ class DetailCityFragment : Fragment() {
         adapter = DetailCityAdapter(favoriteList)
 
         val recyclerView = binding.rvInterest
-        val increaseSpace = controlSpace(0,75,0,0)
+        val increaseSpace = controlSpace(0, 75, 0, 0)
 
         recyclerView.adapter = adapter
-        recyclerView.layoutManager = GridLayoutManager(context,3)
+        recyclerView.layoutManager = GridLayoutManager(context, 3)
         recyclerView.addItemDecoration(increaseSpace)
 
 
@@ -75,6 +77,7 @@ class DetailCityFragment : Fragment() {
 
 
     }
+
     private fun initView() {
         binding.btMoveHomeFragment.setOnClickListener {
             saveFavorite()
@@ -90,14 +93,15 @@ class DetailCityFragment : Fragment() {
              * 검색 된 결과를 Room 저장
              * 저장 된 항목은 HomeFragment 에서 사용할 수 있어야 함.
              */
-
-
+//            viewModel.getSearchVideoList() // 동영상 검색
+//            viewModel.getTravelVideoList()
             viewModel.getSearchVideoList() // 동영상 검색
             viewModel.getTravelVideoList()
             viewModel.getShortsVideoList()
             showLoadingActivity()
         }
     }
+
     private fun initViewModel() {
         viewModel.bothSearchesSuccessful.observe(viewLifecycleOwner) { success ->
             if (success) {

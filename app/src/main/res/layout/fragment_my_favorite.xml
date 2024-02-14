@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/favorite_frame_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.favorite.MyFavoriteFragment">
@@ -18,10 +19,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <Spinner
-                android:id="@+id/spinner"
+            <TextView
+                android:id="@+id/tv_popup_sort"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:drawablePadding="10dp"
+                android:text="@string/sorting_hint"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:drawableLeftCompat="@drawable/drawable_resize" />
+
+            <TextView
+                android:id="@+id/bt_favorite_edit"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="16sp"
+                android:text="@string/favorite_edit"
+                android:textStyle="bold" />
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -30,10 +45,11 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tool_bar"
+            app:spanCount="2"
             tools:listitem="@layout/item_favorite_list" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

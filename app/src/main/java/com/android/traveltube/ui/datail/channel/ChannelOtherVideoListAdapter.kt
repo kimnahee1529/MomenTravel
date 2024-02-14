@@ -1,18 +1,18 @@
-package com.android.traveltube.ui.datail.recommend
+package com.android.traveltube.ui.datail.channel
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.android.traveltube.databinding.ItemRecommendListBinding
+import com.android.traveltube.databinding.ItemChannelOtherVideoListBinding
 import com.android.traveltube.model.db.VideoBasicModel
 import com.android.traveltube.utils.DateManager.dateFormatter
 import com.android.traveltube.utils.DateManager.formatNumber
 import com.android.traveltube.utils.UtilManager.loadVideoImage
 
-class RecommendListAdapter(
+class ChannelOtherVideoListAdapter(
     private val onItemClick: (VideoBasicModel) -> Unit
-) : androidx.recyclerview.widget.ListAdapter<VideoBasicModel, RecommendListAdapter.ViewHolder>(
+) : androidx.recyclerview.widget.ListAdapter<VideoBasicModel, ChannelOtherVideoListAdapter.ViewHolder>(
 
     object : DiffUtil.ItemCallback<VideoBasicModel>() {
 
@@ -35,7 +35,7 @@ class RecommendListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
-            ItemRecommendListBinding.inflate(
+            ItemChannelOtherVideoListBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -48,17 +48,16 @@ class RecommendListAdapter(
     }
 
     class ViewHolder(
-        private val binding: ItemRecommendListBinding,
+        private val binding: ItemChannelOtherVideoListBinding,
         private val onItemClick: ((VideoBasicModel) -> Unit)?
     ) :
         RecyclerView.ViewHolder(binding.root) {
+
         fun bind(item: VideoBasicModel) = with(binding) {
-            item.thumbNailUrl?.let { ivVideoThumbnail.loadVideoImage(it) }
-            item.channelInfoModel?.channelThumbnail?.let { ivChannelThumbnail.loadVideoImage(it) }
-            tvChannelListTitle.text = item.title
-            tvChannelName.text = item.channelTitle
-            tvChannelViewCount.text = item.videoViewCountModel?.viewCount?.formatNumber()
-            tvChannelListDate.text = item.publishTime?.dateFormatter()
+            item.thumbNailUrl?.let { ivListThumbnail.loadVideoImage(it) }
+            tvListTitle.text = item.title
+            tvListViewCount.text = "조회수 ${item.videoViewCountModel?.viewCount?.formatNumber()}"
+            tvListDate.text = item.publishTime?.dateFormatter()
             binding.root.setOnClickListener {
                 onItemClick?.invoke(item)
             }

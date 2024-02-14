@@ -14,9 +14,14 @@
             android:id="@+id/action_fragment_home_to_fragment_video_detail"
             app:destination="@id/fragment_video_detail"
             app:popUpTo="@id/fragment_home"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_fragment_home_shorts_to_fragment_shorts"
+            app:destination="@id/fragment_shorts"
+            app:popUpTo="@id/fragment_home"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_fragment_home_to_fragment_country"
             app:destination="@id/fragment_shorts"
             app:popUpTo="@id/fragment_home"
             app:popUpToInclusive="true"/>
@@ -31,7 +36,7 @@
             android:id="@+id/action_fragment_detail_city_to_fragment_home"
             app:destination="@id/fragment_home"
             app:popUpTo="@id/fragment_home"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -43,7 +48,7 @@
             android:id="@+id/action_fragment_my_favorite_to_fragment_video_detail"
             app:destination="@id/fragment_video_detail"
             app:popUpTo="@id/fragment_home"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -55,15 +60,15 @@
             android:id="@+id/action_fragment_search_to_fragment_video_detail"
             app:destination="@id/fragment_video_detail"
             app:popUpTo="@id/fragment_home"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/fragment_my_video"
         android:name="com.android.traveltube.ui.mypage.MyVideoFragment"
         android:label="fragment_my_video"
-        tools:layout="@layout/fragment_my_video"
         app:popUpTo="@id/fragment_home"
-        app:popUpToInclusive="true">
+        app:popUpToInclusive="true"
+        tools:layout="@layout/fragment_my_video">
         <action
             android:id="@+id/action_fragment_my_video_to_fragment_video_detail"
             app:destination="@id/fragment_video_detail" />
@@ -76,6 +81,10 @@
         <argument
             android:name="homeToDetailEntity"
             app:argType="com.android.traveltube.model.db.VideoBasicModel" />
+        <action
+            android:id="@+id/action_fragment_video_detail_self"
+            app:destination="@id/fragment_video_detail"
+            app:launchSingleTop="true" />
     </fragment>
     <fragment
         android:id="@+id/fragment_shorts"
@@ -90,7 +99,7 @@
         android:id="@+id/fragment_country"
         android:name="com.android.traveltube.ui.country.CountryFragment"
         android:label="fragment_country"
-        tools:layout="@layout/fragment_country" >
+        tools:layout="@layout/fragment_country">
         <action
             android:id="@+id/action_countryFragment_to_fragment_detail_city"
             app:destination="@id/fragment_detail_city" />

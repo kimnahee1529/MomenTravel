@@ -1,5 +1,9 @@
 package com.android.traveltube.ui.datail
 
+
+import android.content.Context
+import android.content.SharedPreferences
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,14 +12,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.android.traveltube.R
 import com.android.traveltube.data.db.VideoSearchDatabase
 import com.android.traveltube.databinding.FragmentVideoDetailBinding
 import com.android.traveltube.factory.SharedViewModelFactory
 import com.android.traveltube.repository.YoutubeRepositoryImpl
-import com.android.traveltube.ui.datail.channel.ChannelListAdapter
-import com.android.traveltube.ui.datail.recommend.ReCommendListAdapter
+import com.android.traveltube.ui.datail.recommend.RecommendListAdapter
+import com.android.traveltube.ui.datail.channel.ChannelOtherVideoListAdapter
+import com.android.traveltube.utils.Constants.PREFERENCE_KEY
+import com.android.traveltube.utils.Constants.PREFERENCE_NAME
 import com.android.traveltube.utils.DateManager.convertToDecimalString
 import com.android.traveltube.utils.DateManager.dateFormatter
 import com.android.traveltube.utils.DateManager.formatNumber
@@ -24,16 +31,14 @@ import com.android.traveltube.viewmodel.SharedViewModel
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
 class VideoDetailFragment : Fragment() {
     private var _binding: FragmentVideoDetailBinding? = null
     private val binding: FragmentVideoDetailBinding get() = _binding!!
-
+    private lateinit var sharedPref: SharedPreferences
     private val args by navArgs<VideoDetailFragmentArgs>()
-
     private val sharedViewModel by activityViewModels<SharedViewModel> {
         SharedViewModelFactory(YoutubeRepositoryImpl(VideoSearchDatabase.getInstance(requireContext())))
     }
@@ -46,19 +51,30 @@ class VideoDetailFragment : Fragment() {
     }
 
     private val channelListAdapter by lazy {
-        ChannelListAdapter(
-            onItemClick = {
-
+        ChannelOtherVideoListAdapter(
+            onItemClick = {item ->
+                val action = VideoDetailFragmentDirections.actionFragmentVideoDetailSelf(item)
+                lifecycleScope.launch {
+                    if (findNavController().currentDestination?.id == R.id.fragment_video_detail) {
+                        findNavController().navigate(action)
+                    }
+                }
             }
         )
     }
 
     private val recommendListAdapter by lazy {
-        ReCommendListAdapter(
-            onItemClick = {
-
+        RecommendListAdapter(
+            onItemClick = {item ->
+                val action = VideoDetailFragmentDirections.actionFragmentVideoDetailSelf(item)
+                lifecycleScope.launch {
+                    if (findNavController().currentDestination?.id == R.id.fragment_video_detail) {
+                        findNavController().navigate(action)
+                    }
+                }
             }
         )
+
     }
 
     override fun onCreateView(
@@ -76,41 +92,33 @@ class VideoDetailFragment : Fragment() {
         initViewModel()
     }
 
+    private fun getSavedName() {
+        sharedPref = requireContext().getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
+        val name = sharedPref.getString(PREFERENCE_KEY, getString(R.string.default_name))
+        binding.tvRecommendVideosTitle.text = "${name}님을 위한 여행지"
+    }
+
     private fun initView() {
-        // Adapter 연결
         binding.recommendRecyclerView.adapter = recommendListAdapter
-        binding.channelVideoRecyclerView.adapter = channelListAdapter
-        loadSampleData()
+        binding.channelRecyclerView.adapter = channelListAdapter
 
         binding.ivLike.setOnClickListener {
-            /**
-             * 좋아요 상태 확인 isFavorite (1) false -> true: save, true -> false: delete
-             * getFavoriteVideos
-             *
-             */
             viewModel.onClickedLike()
         }
 
-    }
+        binding.ivShare.setOnClickListener {
+            val intent = Intent(Intent.ACTION_SEND_MULTIPLE).apply {
+                type = "text/plain"
+                val youtubeUrl = "https://www.youtube.com/watch?v=${args.homeToDetailEntity.id}"
+                val content = "친구가 링크를 공유했어요!\n어떤 링크인지 들어가서 확인해볼까요?"
+                putExtra(Intent.EXTRA_TEXT, "$content\n\n$youtubeUrl")
+            }
 
-    private fun loadSampleData() {
-        lifecycleScope.launch {
-            showSampleData(isLoading = true)
-            delay(3000)
-            showSampleData(isLoading = false)
+            val chooserTitle = "친구에게 공유하기"
+            startActivity(Intent.createChooser(intent, chooserTitle))
         }
-    }
 
-    private fun showSampleData(isLoading: Boolean) {
-        if (isLoading) {
-            binding.sflSample.startShimmer()
-            binding.sflSample.visibility = View.VISIBLE
-            binding.channelVideoRecyclerView.visibility = View.GONE
-        } else {
-            binding.sflSample.stopShimmer()
-            binding.sflSample.visibility = View.GONE
-            binding.channelVideoRecyclerView.visibility = View.VISIBLE
-        }
+        getSavedName()
     }
 
     private fun initViewModel() {
@@ -128,7 +136,7 @@ class VideoDetailFragment : Fragment() {
                         "구독자 ${item.subscriptionCount?.convertToDecimalString()}명"
                     item.channelThumbnail?.let { ivChannelThumbnail.loadVideoImage(it) }
 
-                    tvChannelOtherVideoTitle.text = "${item.channelName}의 다른 동영상"
+                    tvOtherVideosTitle.text = "${item.channelName}의 다른 동영상"
 
                     ivLike.setImageResource(if (item.isFavorite) R.drawable.ic_like_24 else R.drawable.ic_like_empty_24)
                 }
@@ -136,6 +144,17 @@ class VideoDetailFragment : Fragment() {
 
             uiChannelVideoState.observe(viewLifecycleOwner) {
                 channelListAdapter.submitList(it)
+            }
+
+            loadingState.observe(viewLifecycleOwner) { loadingState ->
+                if (loadingState.isLoading) {
+                    binding.shimmerFrameLayout.startShimmer()
+                } else {
+                    binding.shimmerFrameLayout.stopShimmer()
+                }
+
+                binding.shimmerFrameLayout.visibility = loadingState.shimmerVisibility
+                binding.channelRecyclerView.visibility = loadingState.recyclerViewVisibility
             }
         }
 
@@ -164,16 +183,12 @@ class VideoDetailFragment : Fragment() {
                 state: PlayerConstants.PlayerState
             ) {
                 super.onStateChange(youTubePlayer, state)
-
                 when (state) {
-                    PlayerConstants.PlayerState.PLAYING -> {
+                    PlayerConstants.PlayerState.PLAYING ->
                         viewModel.onVideoPlaying()
-                    }
 
                     PlayerConstants.PlayerState.PAUSED -> Unit
-
                     PlayerConstants.PlayerState.ENDED -> Unit
-
                     else -> Unit
                 }
             }

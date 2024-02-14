@@ -7,5 +7,19 @@
     <string name="fragment_my_page">마이 페이지</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="favorite_edit">편집</string>
+
+    <string name="sorting_hint">정렬</string>
+    <string name="sorting_basic">기본</string>
+    <string name="sorting_title">가나다순</string>
+    <string name="sorting_date">최신순</string>
+
+    <string name="edit">편집</string>
+    <string name="complete">완료</string>
+
+    <string name="favorite_delete_message">좋아요 목록에서 삭제되었습니다.</string>
+
+    <string name="default_name">하나둘셋</string>
+
 
 </resources>

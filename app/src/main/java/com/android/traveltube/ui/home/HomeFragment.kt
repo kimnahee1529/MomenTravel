@@ -14,6 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.traveltube.R
 import com.android.traveltube.data.db.VideoSearchDatabase
 import com.android.traveltube.factory.HomeViewModelFactory
 import com.android.traveltube.factory.PreferencesRepository
@@ -81,6 +82,13 @@ class HomeFragment : Fragment() {
         }
         initViewModel()
         setupImageRecyclerView()
+//        onRechoiceClickListener()
+    }
+
+    private fun onRechoiceClickListener() {
+        binding.btBtnRechoice.setOnClickListener {
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_country)
+        }
     }
 
     private fun setupImageRecyclerView() {

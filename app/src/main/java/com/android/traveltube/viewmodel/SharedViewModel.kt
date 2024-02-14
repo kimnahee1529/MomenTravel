@@ -14,6 +14,7 @@ class SharedViewModel(
     val favoriteVideos: LiveData<List<VideoBasicModel>> = youtubeRepositoryImpl.getFavoriteVideos()
 
     val searchTravelResults: LiveData<List<VideoBasicModel>> get() = youtubeRepositoryImpl.getVideos(ModelType.VIDEO_CATEGORY_TRAVEL)
+    val searchShortsTravelResults: LiveData<List<VideoBasicModel>> get() = youtubeRepositoryImpl.getVideos(ModelType.VIDEO_CATEGORY_SHORTS)
 
     val savedVideos: LiveData<List<VideoBasicModel>> get() = youtubeRepositoryImpl.getSavedVideos()
 

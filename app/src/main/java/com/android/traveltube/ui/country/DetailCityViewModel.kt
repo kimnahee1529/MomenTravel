@@ -44,6 +44,10 @@ class DetailCityViewModel(
         searchTravelVideoList()
     }
 
+    fun getShortsVideoList() {
+        searchShortsVideoList()
+    }
+
     //영상 검색 정보 가져오는 getSearchingVideos 호출
     private fun searchVideoList() = viewModelScope.launch {
         kotlin.runCatching {
@@ -117,9 +121,7 @@ class DetailCityViewModel(
             }
         }
     }
-    fun getShortsVideoList() {
-        searchShortsVideoList()
-    }
+
     //여행 쇼츠 영상 검색 정보 가져오는 getCatTravelVideos 호출
     private fun searchShortsVideoList() = viewModelScope.launch {
         kotlin.runCatching {
@@ -130,7 +132,7 @@ class DetailCityViewModel(
                 val videoViewCountModel = videoViewCountList.firstOrNull()
 
                 VideoBasicModel(
-                    id = item.id.videoId,
+                    id = item.id.videoId ?: item.id.kind,
                     thumbNailUrl = item.snippet.thumbnails.medium.url,
                     channelId = item.snippet.channelId,
                     channelTitle = item.snippet.channelTitle,
@@ -139,12 +141,11 @@ class DetailCityViewModel(
                     publishTime = item.snippet.publishedAt,
                     channelInfoModel = channelInfoList.first(),
                     videoViewCountModel = videoViewCountModel,
-                    modelType = ModelType.VIDEO_CATEGORY_TRAVEL
+                    modelType = ModelType.VIDEO_CATEGORY_SHORTS
                 )
             }
             saveSearchResult(videoItemModels)
             searchTravelShortsVideoListSuccess = true
-            Log.d("DetailCityViewModel search", videoItemModels.toString())
         }.onFailure { exception ->
             withContext(Dispatchers.Main) {
                 Log.e(
@@ -152,6 +153,7 @@ class DetailCityViewModel(
                     "Failed to fetch trending videos",
                     exception
                 )
+                searchTravelShortsVideoListSuccess = false
             }
         }
     }

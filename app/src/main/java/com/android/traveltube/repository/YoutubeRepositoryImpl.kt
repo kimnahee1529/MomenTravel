@@ -48,7 +48,8 @@ class YoutubeRepositoryImpl(private val db: VideoSearchDatabase) {
                     description = newVideo.description ?: existingVideo.description,
                     publishTime = newVideo.publishTime ?: existingVideo.publishTime,
                     channelInfoModel = newVideo.channelInfoModel ?: existingVideo.channelInfoModel,
-                    videoViewCountModel = newVideo.videoViewCountModel ?: existingVideo.videoViewCountModel
+                    videoViewCountModel = newVideo.videoViewCountModel
+                        ?: existingVideo.videoViewCountModel
                 )
                 db.videoDao().insertVideos(listOf(updatedVideo))
             } else {
@@ -71,7 +72,20 @@ class YoutubeRepositoryImpl(private val db: VideoSearchDatabase) {
     fun getSavedVideos(): LiveData<List<VideoBasicModel>> =
         db.videoDao().getSavedVideos()
 
-    suspend fun getVideoById(id : String ) : VideoBasicModel? {
-        return db.videoDao().getVideoById(id)
+    suspend fun getSearchResultFromSearch(
+        keyword: String,
+        modelType: ModelType = ModelType.VIDEO_CATEGORY_TRAVEL
+    ): List<VideoBasicModel> {
+        return db.videoDao().getSearchResultFromSearch(keyword, modelType)
     }
-}
+
+    suspend fun getSearchResultFromHistory(
+        keyword: String
+    ): List<VideoBasicModel> {
+        return db.videoDao().getSearchResultFromHistory(keyword)
+    }
+
+//    suspend fun getVideoById(id : String ) : VideoBasicModel? {
+//        return db.videoDao().getVideoById(id)
+//    }
+//}

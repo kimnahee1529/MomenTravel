@@ -12,18 +12,32 @@ import com.android.traveltube.model.db.VideoBasicModel
 interface VideoDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertVideos(models: List<VideoBasicModel>)
+
     @Query("SELECT * FROM videos")
     fun getVideos(): LiveData<List<VideoBasicModel>>
+
     @Query("SELECT * FROM videos WHERE id = :itemId")
     suspend fun getVideoById(itemId: String): VideoBasicModel?
+
     @Query("UPDATE videos SET isFavorite = :isFavorite WHERE id = :videoId")
     suspend fun updateFavoriteStatus(videoId: String, isFavorite: Boolean)
+
     @Query("SELECT * FROM videos WHERE modelType = :modelType")
     fun getVideosByModelType(modelType: ModelType): LiveData<List<VideoBasicModel>>
+
     @Query("SELECT * FROM videos WHERE isFavorite = 1")
     suspend fun getFavoriteVideos(): List<VideoBasicModel>
+
     @Query("UPDATE videos SET isSaved = :isSaved WHERE id = :videoId")
     suspend fun updateIsSavedStatus(videoId: String, isSaved: Boolean)
+
     @Query("SELECT * FROM videos WHERE isSaved = 1")
     fun getSavedVideos(): LiveData<List<VideoBasicModel>>
+
+
+    @Query("SELECT * FROM videos WHERE modelType = :modelType AND title LIKE '%' || :keyword || '%'")
+    suspend fun getSearchResultFromSearch(keyword: String, modelType: ModelType): List<VideoBasicModel>
+
+    @Query("SELECT * FROM videos WHERE isSaved = 1 AND title LIKE '%' || :keyword || '%'")
+    suspend fun getSearchResultFromHistory(keyword: String): List<VideoBasicModel>
 }

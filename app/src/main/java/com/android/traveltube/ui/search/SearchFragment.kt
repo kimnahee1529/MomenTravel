@@ -55,7 +55,7 @@ class SearchFragment : Fragment() {
         binding.btnGoSearch.setOnClickListener {
             val searchKey = binding.etSearchBar.toString()
             val result = viewModel.searchWithKeyWord(searchKey)
-            dataList.addAll(result)
+           // dataList.addAll(result)
         }
 
 //        binding.btnGoSearch.setOnClickListener {
@@ -116,10 +116,10 @@ class SearchFragment : Fragment() {
 
     }
 
-     suspend fun getItem(id : String) : VideoBasicModel? {
-
-        return YoutubeRepository.getVideoById(id)
-    }
+//     suspend fun getItem(id : String) : VideoBasicModel? {
+//
+//       // return YoutubeRepository.getVideoById(id)
+//    }
 
 
 

@@ -1,4 +1,4 @@
-package com.android.traveltube.model
+package com.android.traveltube.model.db
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

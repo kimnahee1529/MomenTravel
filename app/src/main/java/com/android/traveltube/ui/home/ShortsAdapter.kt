@@ -6,21 +6,22 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.android.traveltube.databinding.RecyclerviewHomeShortsVideoBinding
-import com.android.traveltube.model.db.VideoRecommendModel
+import com.android.traveltube.model.db.VideoBasicModel
+import com.android.traveltube.utils.DateManager.formatNumber
 import com.android.traveltube.utils.UtilManager.loadVideoImage
 
-class ShortsAdapter(private val onItemClicked: (VideoRecommendModel) -> Unit) :
-    ListAdapter<VideoRecommendModel, ShortsAdapter.Holder>(DocumentDiffCallback()) {
-    class DocumentDiffCallback : DiffUtil.ItemCallback<VideoRecommendModel>() {
+class ShortsAdapter(private val onItemClicked: (VideoBasicModel) -> Unit) :
+    ListAdapter<VideoBasicModel, ShortsAdapter.Holder>(DocumentDiffCallback()) {
+    class DocumentDiffCallback : DiffUtil.ItemCallback<VideoBasicModel>() {
         override fun areItemsTheSame(
-            oldItem: VideoRecommendModel,
-            newItem: VideoRecommendModel
+            oldItem: VideoBasicModel,
+            newItem: VideoBasicModel
         ): Boolean {
             return oldItem.id == newItem.id
         }
         override fun areContentsTheSame(
-            oldItem: VideoRecommendModel,
-            newItem: VideoRecommendModel
+            oldItem: VideoBasicModel,
+            newItem: VideoBasicModel
         ): Boolean {
             return oldItem.title == newItem.title
         }
@@ -40,9 +41,15 @@ class ShortsAdapter(private val onItemClicked: (VideoRecommendModel) -> Unit) :
     }
     inner class Holder(private val binding: RecyclerviewHomeShortsVideoBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: VideoRecommendModel) {
+        fun bind(data: VideoBasicModel) {
             data.thumbNailUrl?.let {binding.ivThumbnail.loadVideoImage(it)}
             binding.tvShortsTitle.text = data.title
+            binding.tvViewCount.text = data.videoViewCountModel?.viewCount?.formatNumber()?.let {
+                "조회수 ${it}"
+            } ?: ""
+            binding.root.setOnClickListener {
+                onItemClicked(data)
+            }
         }
     }
 }

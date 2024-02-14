@@ -8,15 +8,12 @@ import androidx.room.TypeConverters
 import com.android.traveltube.data.db.converter.ChannelInfoModelConverter
 import com.android.traveltube.data.db.converter.DateConverter
 import com.android.traveltube.data.db.converter.VideoViewCountConverter
-import com.android.traveltube.data.db.dao.VideoCatTravelDao
-import com.android.traveltube.data.db.dao.VideoFavoriteDao
-import com.android.traveltube.data.db.dao.VideoRecommendDao
-import com.android.traveltube.model.db.VideoCatTravelModel
-import com.android.traveltube.model.db.VideoFavoriteModel
-import com.android.traveltube.model.db.VideoRecommendModel
+import com.android.traveltube.data.db.dao.VideoDAO
+import com.android.traveltube.model.db.VideoBasicModel
+
 
 @Database(
-    entities = [VideoFavoriteModel::class, VideoRecommendModel::class, VideoCatTravelModel::class],
+    entities = [VideoBasicModel::class],
     version = 4,
     exportSchema = false
 )
@@ -26,9 +23,7 @@ import com.android.traveltube.model.db.VideoRecommendModel
     VideoViewCountConverter::class
 )
 abstract class VideoSearchDatabase : RoomDatabase() {
-    abstract fun videoFavoriteDao(): VideoFavoriteDao
-    abstract fun videoRecommendDao(): VideoRecommendDao
-    abstract fun videoCatTravelDao(): VideoCatTravelDao
+    abstract fun videoDao(): VideoDAO
 
     companion object {
         @Volatile
@@ -38,9 +33,9 @@ abstract class VideoSearchDatabase : RoomDatabase() {
             Room.databaseBuilder(
                 context.applicationContext,
                 VideoSearchDatabase::class.java,
-                "favorite-videos"
+                "videos"
             )
-                .fallbackToDestructiveMigration() // Handle schema changes (this discards the existing data)
+                .fallbackToDestructiveMigration()
                 .build()
 
         fun getInstance(context: Context): VideoSearchDatabase =

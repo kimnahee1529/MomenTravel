@@ -12,13 +12,13 @@ object RetrofitInstance {
     val api: YouTubeAPI by lazy { retrofit.create(YouTubeAPI::class.java)}
 
     private fun createOkHttpClient(): OkHttpClient {
-        val intercepter = HttpLoggingInterceptor()
+        val interceptor = HttpLoggingInterceptor()
 
         return OkHttpClient.Builder()
             .connectTimeout(20, TimeUnit.SECONDS)
             .readTimeout(20, TimeUnit.SECONDS)
             .writeTimeout(20, TimeUnit.SECONDS)
-            .addNetworkInterceptor(intercepter)
+            .addNetworkInterceptor(interceptor)
             .build()
     }
 

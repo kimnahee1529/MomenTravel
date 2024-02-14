@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="문지MOONZI>>"
+                android:text="문지MOONZI"
                 app:layout_constraintStart_toStartOf="@+id/tv_title"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
@@ -73,6 +73,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
+                android:text="조회수 44만회"
                 app:layout_constraintStart_toEndOf="@+id/tv_channel_title"
                 app:layout_constraintTop_toTopOf="@+id/tv_channel_title" />
 
@@ -82,6 +83,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
+                android:text="4개월전"
                 app:layout_constraintStart_toEndOf="@+id/tv_view_count"
                 app:layout_constraintTop_toTopOf="@+id/tv_channel_title" />
 

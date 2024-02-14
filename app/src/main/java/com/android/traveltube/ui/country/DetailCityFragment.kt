@@ -79,9 +79,10 @@ class DetailCityFragment : Fragment() {
         viewModel.bothSearchesSuccessful.observe(viewLifecycleOwner) { success ->
             if (success) {
                 val action = DetailCityFragmentDirections.actionFragmentDetailCityToFragmentHome()
-
-                viewLifecycleOwner.lifecycleScope.launch {
-                    findNavController().navigate(action)
+                lifecycleScope.launch {
+                    if (findNavController().currentDestination?.id == R.id.fragment_detail_city) {
+                        findNavController().navigate(action)
+                    }
                     closeLoadingActivity()
                 }
             }

@@ -2,13 +2,13 @@ package com.android.traveltube.ui.datail
 
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -19,8 +19,8 @@ import com.android.traveltube.data.db.VideoSearchDatabase
 import com.android.traveltube.databinding.FragmentVideoDetailBinding
 import com.android.traveltube.factory.SharedViewModelFactory
 import com.android.traveltube.repository.YoutubeRepositoryImpl
-import com.android.traveltube.ui.datail.recommend.RecommendListAdapter
 import com.android.traveltube.ui.datail.channel.ChannelOtherVideoListAdapter
+import com.android.traveltube.ui.datail.recommend.RecommendListAdapter
 import com.android.traveltube.utils.Constants.PREFERENCE_KEY
 import com.android.traveltube.utils.Constants.PREFERENCE_NAME
 import com.android.traveltube.utils.DateManager.convertToDecimalString

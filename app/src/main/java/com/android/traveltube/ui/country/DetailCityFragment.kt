@@ -71,8 +71,6 @@ class DetailCityFragment : Fragment() {
              * 검색 된 결과를 Room 저장
              * 저장 된 항목은 HomeFragment 에서 사용할 수 있어야 함.
              */
-//            viewModel.getSearchVideoList() // 동영상 검색
-//            viewModel.getTravelVideoList()
             viewModel.getSearchVideoList() // 동영상 검색
             viewModel.getTravelVideoList()
             viewModel.getShortsVideoList()
@@ -84,6 +82,7 @@ class DetailCityFragment : Fragment() {
         viewModel.bothSearchesSuccessful.observe(viewLifecycleOwner) { success ->
             if (success) {
                 val action = DetailCityFragmentDirections.actionFragmentDetailCityToFragmentHome()
+
                 viewLifecycleOwner.lifecycleScope.launch {
                     if (findNavController().currentDestination?.id == R.id.fragment_detail_city) {
                         findNavController().navigate(action)

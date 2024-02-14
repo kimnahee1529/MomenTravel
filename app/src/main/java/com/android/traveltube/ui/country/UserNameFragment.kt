@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.android.traveltube.R
 import com.android.traveltube.databinding.FragmentUserNameBinding
 
@@ -35,8 +36,7 @@ class UserNameFragment : Fragment() {
             val nickName = binding.etNickName.text.toString()
             if (nickName.isNotEmpty()) {
 //                saveNickname(nickName)
-                moveNextFragment(CountryFragment())
-
+//                findNavController().navigate(R.id.action_fragment_to_fragment_country)
             } else Toast.makeText(requireContext(), "닉네임을 입력해주세요", Toast.LENGTH_SHORT).show()
         }
     }

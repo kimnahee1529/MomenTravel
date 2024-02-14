@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun bottomNavigationVisibility(destinationId: Int) {
-        val isVideoDetailFragment = destinationId == R.id.fragment_video_detail  || destinationId ==  R.id.fragment_detail_city || destinationId ==  R.id.fragment_shorts
+        val isVideoDetailFragment = destinationId == R.id.fragment_video_detail  || destinationId ==  R.id.fragment_detail_city || destinationId ==  R.id.fragment_shorts ||destinationId == R.id.fragment_country
         binding.bottomNavigationView.visibility = if (isVideoDetailFragment) View.GONE else View.VISIBLE
     }
 

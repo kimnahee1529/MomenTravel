@@ -35,7 +35,11 @@ class ChannelOtherVideoListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
-            ItemChannelOtherVideoListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemChannelOtherVideoListBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         return ViewHolder(binding, onItemClick)
     }
 
@@ -48,11 +52,15 @@ class ChannelOtherVideoListAdapter(
         private val onItemClick: ((VideoBasicModel) -> Unit)?
     ) :
         RecyclerView.ViewHolder(binding.root) {
+
         fun bind(item: VideoBasicModel) = with(binding) {
             item.thumbNailUrl?.let { ivListThumbnail.loadVideoImage(it) }
             tvListTitle.text = item.title
             tvListViewCount.text = "조회수 ${item.videoViewCountModel?.viewCount?.formatNumber()}"
             tvListDate.text = item.publishTime?.dateFormatter()
+            binding.root.setOnClickListener {
+                onItemClick?.invoke(item)
+            }
         }
     }
 

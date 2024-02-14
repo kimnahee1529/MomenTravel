@@ -81,30 +81,14 @@ class DetailViewModel(
             val videos = youtubeRepositoryImpl.getChannelVideos(entity.channelId)
             val videoItemModels = videos.items
                 .mapNotNull { item ->
-                    val channelInfoList =
-                        getChannelInfo(item.snippet.channelId, youtubeRepositoryImpl)
-                    val videoViewCountList =
-                        (item.id.videoId ?: item.id.kind)?.let {
-                            getVideoViewCount(
-                                it,
-                                youtubeRepositoryImpl
-                            )
-                        }
-                    val videoViewCountModel = videoViewCountList?.firstOrNull()
-
                     val videoId = item.id.videoId ?: item.id.kind
-
-                    if (videoId != null) {
-                        val channelInfoModel = if (channelInfoList.isNotEmpty()) {
-                            channelInfoList.first()
-                        } else {
-                            ChannelInfoModel(
-                                channelId = null,
-                                channelThumbnail = null,
-                                subscriberCount = null,
-                                hiddenSubscriberCount = null
-                            )
-                        }
+                    if (videoId != null && !isPlaylistOrChannel(videoId)) {
+                        val channelInfoList =
+                            getChannelInfo(item.snippet.channelId, youtubeRepositoryImpl)
+                        val videoViewCountList =
+                            getVideoViewCount(videoId, youtubeRepositoryImpl)
+                        val videoViewCountModel = videoViewCountList?.firstOrNull()
+                        val channelInfoModel = channelInfoList.firstOrNull()
 
                         VideoBasicModel(
                             id = videoId,
@@ -130,8 +114,12 @@ class DetailViewModel(
         }.also {
             _loadingState.value = LoadingState.loaded()
         }
-
     }
+
+    private fun isPlaylistOrChannel(videoId: String): Boolean {
+        return videoId == "youtube#playlist" || videoId == "youtube#channel"
+    }
+
 
 }
 

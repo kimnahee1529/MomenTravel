@@ -30,6 +30,7 @@ import android.graphics.drawable.ColorDrawable
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import java.io.ByteArrayOutputStream
 import com.android.traveltube.databinding.CustomDialogLayoutBinding
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -60,7 +61,13 @@ class MyVideoFragment : Fragment() {
     private lateinit var adapter: MyVideoAdapter
     private lateinit var bottomSheetDialog: BottomSheetDialog
     private var adapterToDelete: Int = RecyclerView.NO_POSITION
-    private lateinit var watchHistoryViewModel: WatchHistoryViewModel
+
+    private val watchHistoryViewModel: WatchHistoryViewModel by viewModels {
+        WatchHistoryViewModelFactory(
+            YoutubeRepositoryImpl(VideoSearchDatabase.getInstance(requireContext()))
+        )
+    }
+
     private val sharedViewModel by activityViewModels<SharedViewModel> {
         SharedViewModelFactory(YoutubeRepositoryImpl(VideoSearchDatabase.getInstance(requireContext())))
     }
@@ -101,9 +108,12 @@ class MyVideoFragment : Fragment() {
 
         bottomSheetView.findViewById<Button>(R.id.btn_bottomDialog_confirm).setOnClickListener {
             val adapterPosition = adapterToDelete
-            val itemToDelete = (recyclerView.adapter as MyVideoAdapter).currentList.getOrNull(adapterPosition)
+            val itemToDelete =
+                (recyclerView.adapter as MyVideoAdapter).currentList.getOrNull(adapterPosition)
             if (itemToDelete != null) {
                 deleteItem(itemToDelete)
+                // TODO
+                watchHistoryViewModel.deleteWatchHistoryItem(itemToDelete.id)
             }
             bottomSheetDialog.dismiss()
         }
@@ -116,6 +126,7 @@ class MyVideoFragment : Fragment() {
                 val searchText = s.toString()
                 searchHistory(searchText)
             }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
@@ -123,6 +134,7 @@ class MyVideoFragment : Fragment() {
 
     private fun searchHistory(query: String) {
         adapter.filter(query)
+        Log.d("TAG", "$query")
     }
 
     private fun setUpSpinner() {
@@ -140,12 +152,11 @@ class MyVideoFragment : Fragment() {
     }
 
     private fun deleteItem(video: VideoBasicModel) {
-        adapter.deleteItem(video)
+        // adapter.deleteItem(video)
     }
 
-    private fun initViewModel() = with(sharedViewModel){
-        savedVideos.observe(viewLifecycleOwner) {
-            Log.d("TAG", "$it")
+    private fun initViewModel() = with(watchHistoryViewModel) {
+        historyVideos.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
     }
@@ -193,7 +204,8 @@ class MyVideoFragment : Fragment() {
 
         btnConfirm.setOnClickListener {
             etName.clearFocus()
-            val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val inputMethodManager =
+                requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(etName.windowToken, 0)
 
             val newName = etName.text.toString()
@@ -216,7 +228,11 @@ class MyVideoFragment : Fragment() {
 
                 dialog.dismiss()
             } else {
-                Toast.makeText(requireContext(), "한글, 영어, 숫자만 입력 가능하며 최대 6글자까지 입력 가능합니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "한글, 영어, 숫자만 입력 가능하며 최대 6글자까지 입력 가능합니다.",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
             ivProfile.setImageResource(R.drawable.ic_default_image)
@@ -226,7 +242,8 @@ class MyVideoFragment : Fragment() {
 
         btnCancel.setOnClickListener {
             etName.clearFocus()
-            val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val inputMethodManager =
+                requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(etName.windowToken, 0)
 
             selectImage?.let { bitmap ->
@@ -270,7 +287,12 @@ class MyVideoFragment : Fragment() {
     private fun getFormattedCharCountText(length: Int): CharSequence {
         val coloredText = SpannableStringBuilder("$length/$maxNameLength")
         val textColor = if (length == maxNameLength) Color.RED else Color.BLACK
-        coloredText.setSpan(ForegroundColorSpan(textColor), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        coloredText.setSpan(
+            ForegroundColorSpan(textColor),
+            0,
+            1,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
         return coloredText
     }
 

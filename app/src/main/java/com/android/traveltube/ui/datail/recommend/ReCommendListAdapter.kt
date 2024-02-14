@@ -59,7 +59,9 @@ class RecommendListAdapter(
             tvChannelName.text = item.channelTitle
             tvChannelViewCount.text = item.videoViewCountModel?.viewCount?.formatNumber()
             tvChannelListDate.text = item.publishTime?.dateFormatter()
-
+            binding.root.setOnClickListener {
+                onItemClick?.invoke(item)
+            }
         }
     }
 

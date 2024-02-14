@@ -7,11 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.android.traveltube.R
 import com.android.traveltube.data.db.VideoSearchDatabase
 import com.android.traveltube.databinding.FragmentMyFavoriteBinding
 import com.android.traveltube.repository.YoutubeRepositoryImpl
+import com.android.traveltube.ui.datail.VideoDetailFragmentDirections
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 
 
 class MyFavoriteFragment : Fragment() {
@@ -68,7 +72,15 @@ class MyFavoriteFragment : Fragment() {
             onItemClick = { item, viewType ->
                 when (viewType) {
                     ViewType.ITEM_VIEW_TYPE_NORMAL.ordinal -> {
-                        // TODO
+                        val action =
+                            MyFavoriteFragmentDirections.actionFragmentMyFavoriteToFragmentVideoDetail(
+                                item
+                            )
+                        lifecycleScope.launch {
+                            if (findNavController().currentDestination?.id == R.id.fragment_my_favorite) {
+                                findNavController().navigate(action)
+                            }
+                        }
                     }
 
                     ViewType.ITEM_VIEW_TYPE_EDIT.ordinal -> {

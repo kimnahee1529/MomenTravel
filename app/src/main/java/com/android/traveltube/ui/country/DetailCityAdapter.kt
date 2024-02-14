@@ -20,6 +20,7 @@ class DetailCityAdapter (val interest : MutableList<Interest>) : RecyclerView.Ad
     var alertDialog : AlertDialog? = null
     val TYPE_NORMAL = 0
     val TYPE_IMG = 1
+    val searchList = mutableListOf<String>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -125,9 +126,11 @@ class DetailCityAdapter (val interest : MutableList<Interest>) : RecyclerView.Ad
             itemView.setOnClickListener {
                 if (data.isSelected){
                     selectCount--
+                    removeFavorite(data.favorite)
                 } else {
                     if (selectCount < 2) {
                         selectCount++
+                        addFavorite(data.favorite)
                     } else {
                         Toast.makeText(context,"최대 2개까지 선택 가능합니다.", Toast.LENGTH_SHORT).show()
                         return@setOnClickListener
@@ -143,6 +146,18 @@ class DetailCityAdapter (val interest : MutableList<Interest>) : RecyclerView.Ad
 
     override fun getItemCount(): Int {
         return interest.size
+    }
+
+    fun addFavorite(favorite: String) {
+        if (searchList.size < 2) {
+            searchList.add(favorite)
+        }
+    }
+
+    fun removeFavorite(favorite : String) {
+        if (favorite in searchList) {
+            searchList.remove(favorite)
+        }
     }
 
 }

@@ -2,7 +2,6 @@ package com.android.traveltube.ui.country
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -87,6 +86,16 @@ class DetailCityFragment : Fragment() {
                 }
             }
         }
+//        viewModel.bothSearchesSuccessful.observe(viewLifecycleOwner) { success ->
+//            if (success) {
+//                val action = DetailCityFragmentDirections.actionFragmentDetailCityToFragmentHome()
+//
+//                viewLifecycleOwner.lifecycleScope.launch {
+//                    findNavController().navigate(action)
+//                    closeLoadingActivity()
+//                }
+//            }
+//        }
     }
     override fun onDestroyView() {
         _binding = null

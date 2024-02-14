@@ -34,7 +34,7 @@ class YoutubeRepositoryImpl(private val db: VideoSearchDatabase) {
         RetrofitInstance.api.getChannelsVideo(channelId = channelId)
     }
 
-    fun getFavoriteVideos(): LiveData<List<VideoBasicModel>> =
+    suspend fun getFavoriteVideos(): List<VideoBasicModel> =
         db.videoDao().getFavoriteVideos()
 
     suspend fun insertVideos(model: List<VideoBasicModel>) {
@@ -65,8 +65,8 @@ class YoutubeRepositoryImpl(private val db: VideoSearchDatabase) {
         db.videoDao().updateFavoriteStatus(videoId, isFavorite)
     }
 
-    suspend fun updateSavedStatus(videoId: String, isFavorite: Boolean) {
-        db.videoDao().updateIsSavedStatus(videoId, isFavorite)
+    suspend fun updateSavedStatus(videoId: String, isSaved: Boolean) {
+        db.videoDao().updateIsSavedStatus(videoId, isSaved)
     }
 
     fun getSavedVideos(): LiveData<List<VideoBasicModel>> =

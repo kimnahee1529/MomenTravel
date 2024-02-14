@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 private const val API_MAX_RESULT = 5 //TODO 수정 필요
 private const val API_REGION = "KR"
-private const val API_KEY = "AIzaSyBkdKOJgJgWvj1fCqZYxUm02RLODvb8Tyk" //TODO API키 넣어주세요
+private const val API_KEY = "AIzaSyDrkXMb_ZtiBt83YrpMcaiQy_zf5EmrSkQ" //TODO API키 넣어주세요
 private const val CHANNEL_ID = "UC6KwCU8Y8Uw4h_Q0ptLZkqw" //TODO 수정 필요
 private const val SEARCH_TEXT = "플레이브 봉구" //TODO 수정 필요
 private const val VIDEO_ID = "gbxCTwgKcX8" //TODO 수정 필요

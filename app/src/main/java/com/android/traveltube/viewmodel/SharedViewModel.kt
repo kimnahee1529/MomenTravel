@@ -1,6 +1,7 @@
 package com.android.traveltube.viewmodel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.traveltube.data.db.ModelType
@@ -13,15 +14,11 @@ class SharedViewModel(
 ) : ViewModel() {
     val searchResults: LiveData<List<VideoBasicModel>> get() = youtubeRepositoryImpl.getVideos(ModelType.VIDEO_RECOMMEND)
 
-    val favoriteVideos: LiveData<List<VideoBasicModel>> = youtubeRepositoryImpl.getFavoriteVideos()
-
     val searchTravelResults: LiveData<List<VideoBasicModel>> get() = youtubeRepositoryImpl.getVideos(ModelType.VIDEO_CATEGORY_TRAVEL)
 
-    val savedVideos: LiveData<List<VideoBasicModel>> get() = youtubeRepositoryImpl.getSavedVideos()
+    val searchShortsTravelResults: LiveData<List<VideoBasicModel>> get() = youtubeRepositoryImpl.getVideos(ModelType.VIDEO_CATEGORY_SHORTS)
 
-    fun getResultsTravelLVideoList(list: List<VideoBasicModel>) {
-        // _searchTravelResults.value = list
-    }
+    val savedVideos: LiveData<List<VideoBasicModel>> get() = youtubeRepositoryImpl.getSavedVideos()
 
 }
 

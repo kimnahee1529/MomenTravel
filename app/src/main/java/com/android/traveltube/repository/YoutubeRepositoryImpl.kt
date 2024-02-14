@@ -13,12 +13,12 @@ class YoutubeRepositoryImpl(private val db: VideoSearchDatabase) {
         RetrofitInstance.api.getTrendingVideos()
     }
 
-    suspend fun getSearchingVideos(search: String = "오사카 여행") = withContext(Dispatchers.IO) {
+    suspend fun getSearchingVideos(search: String = "일본 오사카") = withContext(Dispatchers.IO) {
         RetrofitInstance.api.getSearchingVideos(searchText = search)
     }
 
-    suspend fun getCatTravelVideos() = withContext(Dispatchers.IO) {
-        RetrofitInstance.api.getCatTravelVideos()
+    suspend fun getCatTravelVideos(search: String) = withContext(Dispatchers.IO) {
+        RetrofitInstance.api.getCatTravelVideos(searchText = search)
     }
 
     suspend fun getChannelInfo(channelId: String) = withContext(Dispatchers.IO) {
@@ -33,7 +33,7 @@ class YoutubeRepositoryImpl(private val db: VideoSearchDatabase) {
         RetrofitInstance.api.getChannelsVideo(channelId = channelId)
     }
 
-    fun getFavoriteVideos(): LiveData<List<VideoBasicModel>> =
+    suspend fun getFavoriteVideos(): List<VideoBasicModel> =
         db.videoDao().getFavoriteVideos()
 
     suspend fun insertVideos(model: List<VideoBasicModel>) {
@@ -64,8 +64,8 @@ class YoutubeRepositoryImpl(private val db: VideoSearchDatabase) {
         db.videoDao().updateFavoriteStatus(videoId, isFavorite)
     }
 
-    suspend fun updateSavedStatus(videoId: String, isFavorite: Boolean) {
-        db.videoDao().updateIsSavedStatus(videoId, isFavorite)
+    suspend fun updateSavedStatus(videoId: String, isSaved: Boolean) {
+        db.videoDao().updateIsSavedStatus(videoId, isSaved)
     }
 
     fun getSavedVideos(): LiveData<List<VideoBasicModel>> =

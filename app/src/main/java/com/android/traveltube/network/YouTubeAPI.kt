@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 private const val API_MAX_RESULT = 5 //TODO 수정 필요
 private const val API_REGION = "KR"
-private const val API_KEY = "AIzaSyBkdKOJgJgWvj1fCqZYxUm02RLODvb8Tyk" //TODO API키 넣어주세요
+private const val API_KEY = "AIzaSyDrkXMb_ZtiBt83YrpMcaiQy_zf5EmrSkQ" //TODO API키 넣어주세요
 private const val CHANNEL_ID = "UC6KwCU8Y8Uw4h_Q0ptLZkqw" //TODO 수정 필요
 private const val SEARCH_TEXT = "플레이브 봉구" //TODO 수정 필요
 private const val VIDEO_ID = "gbxCTwgKcX8" //TODO 수정 필요
@@ -60,7 +60,7 @@ interface YouTubeAPI {
         @Query("part")
         part: String = "snippet",
         @Query("q")
-        searchText: String = SEARCH_TEXT,
+        searchText: String,
         @Query("maxResults")
         maxResults: Int = API_MAX_RESULT,
         @Query("regionCode")
@@ -80,7 +80,7 @@ interface YouTubeAPI {
         @Query("order")
         order: String = "viewCount",
         @Query("q")
-        searchText: String = "여행-쇼츠|shorts",
+        searchText: String,
         @Query("maxResults")
         maxResults: Int = API_MAX_RESULT,
         @Query("regionCode")

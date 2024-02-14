@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.android.traveltube.databinding.RecyclerviewHomeShortsVideoBinding
 import com.android.traveltube.model.db.VideoBasicModel
+import com.android.traveltube.utils.DateManager.formatNumber
 import com.android.traveltube.utils.UtilManager.loadVideoImage
 
 class ShortsAdapter(private val onItemClicked: (VideoBasicModel) -> Unit) :
@@ -43,6 +44,12 @@ class ShortsAdapter(private val onItemClicked: (VideoBasicModel) -> Unit) :
         fun bind(data: VideoBasicModel) {
             data.thumbNailUrl?.let {binding.ivThumbnail.loadVideoImage(it)}
             binding.tvShortsTitle.text = data.title
+            binding.tvViewCount.text = data.videoViewCountModel?.viewCount?.formatNumber()?.let {
+                "조회수 ${it}"
+            } ?: ""
+            binding.root.setOnClickListener {
+                onItemClicked(data)
+            }
         }
     }
 }

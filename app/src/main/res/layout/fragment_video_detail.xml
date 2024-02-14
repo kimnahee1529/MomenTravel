@@ -107,33 +107,7 @@
                 app:readMoreText=" ...더보기" />
 
             <TextView
-                android:id="@+id/tvRecommendListTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="16dp"
-                android:text="수빈님을 위한 여행지"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_video_description" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recommend_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_margin="8dp"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvRecommendListTitle"
-                tools:listitem="@layout/item_recommend_list" />
-
-            <TextView
-                android:id="@+id/tvChannelOtherVideoTitle"
+                android:id="@+id/tv_other_videos_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -144,10 +118,82 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recommend_recycler_view" />
+                app:layout_constraintTop_toBottomOf="@id/tv_video_description" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/tv_recommend_videos_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_other_videos_title">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/channel_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_channel_other_video_list" />
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmer_frame_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <include layout="@layout/item_shimmer_list" />
+
+                        <include layout="@layout/item_shimmer_list" />
+
+                        <include layout="@layout/item_shimmer_list" />
+
+                        <include layout="@layout/item_shimmer_list" />
+
+                        <include layout="@layout/item_shimmer_list" />
+
+                        <include layout="@layout/item_shimmer_list" />
+
+                        <include layout="@layout/item_shimmer_list" />
+
+                        <include layout="@layout/item_shimmer_list" />
+
+                        <include layout="@layout/item_shimmer_list" />
+
+                        <include layout="@layout/item_shimmer_list" />
+                    </LinearLayout>
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_recommend_videos_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:text="수빈님을 위한 여행지"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/constraint_layout" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/channel_video_recycler_view"
+                android:id="@+id/recommend_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_margin="8dp"
@@ -155,43 +201,8 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvChannelOtherVideoTitle"
-                tools:listitem="@layout/item_channel_other_video_list" />
-
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/sfl_sample"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvChannelOtherVideoTitle">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <include layout="@layout/item_shimmer_list" />
-
-                    <include layout="@layout/item_shimmer_list" />
-
-                    <include layout="@layout/item_shimmer_list" />
-
-                    <include layout="@layout/item_shimmer_list" />
-
-                    <include layout="@layout/item_shimmer_list" />
-
-                    <include layout="@layout/item_shimmer_list" />
-
-                    <include layout="@layout/item_shimmer_list" />
-
-                    <include layout="@layout/item_shimmer_list" />
-
-                    <include layout="@layout/item_shimmer_list" />
-
-                    <include layout="@layout/item_shimmer_list" />
-                </LinearLayout>
-            </com.facebook.shimmer.ShimmerFrameLayout>
+                app:layout_constraintTop_toBottomOf="@id/tv_recommend_videos_title"
+                tools:listitem="@layout/item_recommend_list" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

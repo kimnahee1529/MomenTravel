@@ -1,7 +1,9 @@
 package com.android.traveltube.ui.home
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.traveltube.R
 import com.android.traveltube.data.db.VideoSearchDatabase
 import com.android.traveltube.factory.HomeViewModelFactory
 import com.android.traveltube.factory.PreferencesRepository
@@ -24,6 +27,7 @@ class HomeFragment : Fragment() {
     private val favoriteKey = "loadYoutubeData"
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private lateinit var sharedPref: SharedPreferences
     private val viewModel: HomeViewModel by viewModels {
         val preferences = requireContext().getSharedPreferences(favoriteKey, Context.MODE_PRIVATE)
         HomeViewModelFactory(
@@ -35,6 +39,7 @@ class HomeFragment : Fragment() {
         SharedViewModelFactory(YoutubeRepositoryImpl(VideoSearchDatabase.getInstance(requireContext())))
     }
 
+    //각 아이템 클릭 시 Detail 화면으로 이동
     private val homeListAdapter by lazy {
         SearchAdapter { videoDetailModel ->
             val action =
@@ -52,7 +57,7 @@ class HomeFragment : Fragment() {
     private val shortsListAdapter by lazy {
         ShortsAdapter { videoDetailModel ->
             val action =
-                HomeFragmentDirections.actionFragmentHomeToFragmentVideoDetail(videoDetailModel)
+                HomeFragmentDirections.actionFragmentHomeShortsToFragmentShorts(videoDetailModel)
             findNavController().navigate(action)
         }
     }
@@ -67,12 +72,26 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sharedPref = requireContext().getSharedPreferences("profile_data", Context.MODE_PRIVATE)
+        val savedName = sharedPref.getString("name", "")
+
+        binding.tvRecommendVideo.text = if (savedName.isNullOrBlank()) {
+            "하나둘셋님을 위한 여행지"
+        } else {
+            "${savedName}님을 위한 여행지"
+        }
         initViewModel()
         setupImageRecyclerView()
+//        onRechoiceClickListener()
+    }
+
+    private fun onRechoiceClickListener() {
+        binding.btBtnRechoice.setOnClickListener {
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_country)
+        }
     }
 
     private fun setupImageRecyclerView() {
-        //각 아이템 클릭 시 Detail 화면으로 이동
         binding.rvSearchVideo.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = homeListAdapter
@@ -99,7 +118,8 @@ class HomeFragment : Fragment() {
         sharedViewModel.searchTravelResults.observe(viewLifecycleOwner) {
             travelListAdapter.submitList(it)
         }
-        sharedViewModel.searchTravelResults.observe(viewLifecycleOwner) {
+        sharedViewModel.searchShortsTravelResults.observe(viewLifecycleOwner) {
+            Log.d("shortsListAdapter", it.size.toString())
             shortsListAdapter.submitList(it)
         }
     }

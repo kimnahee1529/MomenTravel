@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.android.traveltube.model.db.VideoBasicModel
 import com.android.traveltube.repository.YoutubeRepositoryImpl
-import com.android.traveltube.ui.favorite.FavoriteViewModel
 import kotlinx.coroutines.launch
 
 class WatchHistoryViewModel(

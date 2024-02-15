@@ -55,12 +55,12 @@ class VideoDetailFragment : Fragment() {
     private val channelListAdapter by lazy {
         ChannelOtherVideoListAdapter(
             onItemClick = {item ->
-                val action = VideoDetailFragmentDirections.actionFragmentVideoDetailSelf(item)
-                lifecycleScope.launch {
-                    if (findNavController().currentDestination?.id == R.id.fragment_video_detail) {
-                        findNavController().navigate(action)
-                    }
-                }
+//                val action = VideoDetailFragmentDirections.actionFragmentVideoDetailSelf(item)
+//                lifecycleScope.launch {
+//                    if (findNavController().currentDestination?.id == R.id.fragment_video_detail) {
+//                        findNavController().navigate(action)
+//                    }
+//                }
             }
         )
     }
@@ -68,12 +68,12 @@ class VideoDetailFragment : Fragment() {
     private val recommendListAdapter by lazy {
         RecommendListAdapter(
             onItemClick = {item ->
-                val action = VideoDetailFragmentDirections.actionFragmentVideoDetailSelf(item)
-                lifecycleScope.launch {
-                    if (findNavController().currentDestination?.id == R.id.fragment_video_detail) {
-                        findNavController().navigate(action)
-                    }
-                }
+//                val action = VideoDetailFragmentDirections.actionFragmentVideoDetailSelf(item)
+//                lifecycleScope.launch {
+//                    if (findNavController().currentDestination?.id == R.id.fragment_video_detail) {
+//                        findNavController().navigate(action)
+//                    }
+//                }
             }
         )
 

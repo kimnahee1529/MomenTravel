@@ -15,7 +15,7 @@
         <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
             android:id="@+id/youtube_player_view"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="230dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -30,15 +30,15 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp">
 
                 <TextView
                     android:id="@+id/tv_video_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
                     android:lineSpacingExtra="4dp"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +48,6 @@
                     android:id="@+id/iv_channel_thumbnail"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:adjustViewBounds="true"
                     android:background="@drawable/background_shape_circle"
@@ -80,9 +79,9 @@
 
                 <ImageView
                     android:id="@+id/iv_share"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginEnd="16dp"
                     android:src="@drawable/ic_share_24"
                     app:layout_constraintBottom_toBottomOf="@id/iv_channel_thumbnail"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -90,9 +89,9 @@
 
                 <ImageView
                     android:id="@+id/iv_like"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginEnd="12dp"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginEnd="20dp"
                     android:src="@drawable/ic_like_empty_24"
                     app:layout_constraintBottom_toBottomOf="@id/iv_channel_thumbnail"
                     app:layout_constraintEnd_toStartOf="@id/iv_share"
@@ -102,7 +101,7 @@
                     android:id="@+id/tv_video_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
+                    android:layout_marginTop="8dp"
                     android:background="@drawable/background_radius_round"
                     android:lineSpacingExtra="4dp"
                     android:padding="8dp"
@@ -118,15 +117,14 @@
                     android:id="@+id/tv_other_videos_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="20dp"
                     android:text="해쭈[HAEJOO]의 다른 동영상"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_video_description" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_video_description"
+                    app:layout_constraintBottom_toTopOf="@+id/constraint_layout"/>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraint_layout"
@@ -141,7 +139,6 @@
                         android:id="@+id/channel_recycler_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
                         android:orientation="horizontal"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -190,13 +187,12 @@
                     android:id="@+id/tv_recommend_videos_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="20dp"
                     android:text="수빈님을 위한 여행지"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/recommend_recycler_view"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/constraint_layout" />
 
@@ -204,7 +200,7 @@
                     android:id="@+id/recommend_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_margin="8dp"
+                    android:layout_marginTop="12dp"
                     android:orientation="vertical"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"

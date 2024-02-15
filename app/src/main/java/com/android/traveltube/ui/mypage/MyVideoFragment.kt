@@ -227,10 +227,6 @@ class MyVideoFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
-
-            ivProfile.setImageResource(R.drawable.ic_default_image)
-            selectImage = null
-            btnEditImage.visibility = View.GONE
         }
 
         btnCancel.setOnClickListener {

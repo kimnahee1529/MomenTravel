@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,39 +9,50 @@
 
     <EditText
         android:id="@+id/et_searchBar"
-        android:layout_width="280dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:hint="검색어를 입력하세요"
+        android:layout_marginTop="32dp"
         android:layout_marginStart="20dp"
-        android:paddingHorizontal="10dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/edit_text_stroke"
-        android:layout_marginTop="40dp"/>
+        android:hint="검색어를 입력하세요"
+        android:paddingHorizontal="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_searchResult"
         android:layout_width="match_parent"
         android:layout_height="600dp"
         android:padding="10dp"
-        android:layout_marginTop="120dp"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_searchBar"
+        app:layout_constraintVertical_bias="0.673" />
 
     <ImageView
         android:id="@+id/btn_goSearch"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="320dp"
-        android:layout_marginTop="48dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginEnd="16dp"
         android:src="@drawable/ic_search_24"
-        android:text="검색"/>
+        android:text="검색"
+        app:layout_constraintBottom_toBottomOf="@+id/et_searchBar"
+        app:layout_constraintEnd_toEndOf="@+id/et_searchBar"
+        app:layout_constraintTop_toTopOf="@+id/et_searchBar" />
 
     <TextView
         android:id="@+id/tv_noSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
         android:text="검색된 영상이 없습니다."
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="200dp"
+        android:textColor="@color/grey"
         android:textSize="20sp"
         android:visibility="invisible"
-        android:textColor="@color/grey"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_searchBar" />
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

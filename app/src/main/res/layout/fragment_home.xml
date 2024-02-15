@@ -17,7 +17,7 @@
 
             <TextView
                 android:id="@+id/tv_main_title"
-                style="@style/TitleBoldText"
+                style="@style/MainTitleBoldText"
                 android:text="여행지 구경"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

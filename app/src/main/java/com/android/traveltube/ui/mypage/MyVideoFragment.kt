@@ -124,6 +124,11 @@ class MyVideoFragment : Fragment() {
                 val keyword = s.toString()
                 lifecycleScope.launch {
                     val searchResult = youtubeRepository.getSearchResultFromHistory(keyword)
+                    if (searchResult.isEmpty()) {
+                        binding?.tvMyVideoEmptyText?.visibility = View.VISIBLE
+                    } else {
+                        binding?.tvMyVideoEmptyText?.visibility = View.GONE
+                    }
                     adapter.submitList(searchResult)
                 }
             }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="160dp"
+    android:layout_width="match_parent"
     android:layout_height="140dp"
     android:layout_margin="10dp"
     app:layout_constraintEnd_toEndOf="parent"
@@ -18,7 +18,7 @@
 
         <ImageView
             android:id="@+id/iv_travel"
-            android:layout_width="wrap_content"
+            android:layout_width="160dp"
             android:layout_height="100dp"
             android:scaleType="fitXY"
             android:src="@drawable/brazil" />
@@ -43,7 +43,7 @@
         android:text="브라질"
         android:textStyle="bold"
         android:visibility="visible"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/cv_item"
         app:layout_constraintStart_toStartOf="@+id/cv_item"
         app:layout_constraintTop_toBottomOf="@+id/cv_item" />

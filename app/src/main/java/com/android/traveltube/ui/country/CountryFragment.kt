@@ -62,9 +62,6 @@ class CountryFragment : Fragment() {
         adapter.itemclick = object : CountryAdapter.ItemClick {
             override fun itemClick(name: String) {
                travelName = name
-                binding.tvSelectedTravel.isVisible = true
-                binding.tvSelectedTravel.text = "선택된 여행지 : $name"
-
             }
         }
         val cancelImage = binding.ivCancel

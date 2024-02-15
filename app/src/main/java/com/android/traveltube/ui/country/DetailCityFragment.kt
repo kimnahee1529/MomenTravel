@@ -19,12 +19,13 @@ import com.android.traveltube.data.db.VideoSearchDatabase
 import com.android.traveltube.databinding.FragmentDetailCityBinding
 import com.android.traveltube.factory.SharedViewModelFactory
 import com.android.traveltube.repository.YoutubeRepositoryImpl
+import com.android.traveltube.utils.Constants.COUNTRY_KEY
+import com.android.traveltube.utils.Constants.FAVORITES_KEY
 import com.android.traveltube.viewmodel.SharedViewModel
 import kotlinx.coroutines.launch
 
 
 class DetailCityFragment : Fragment() {
-    private val COUNTRY_KEY = "country"
     private var _binding: FragmentDetailCityBinding? = null
     private val binding: FragmentDetailCityBinding get() = _binding!!
     private lateinit var adapter: DetailCityAdapter
@@ -62,11 +63,11 @@ class DetailCityFragment : Fragment() {
         adapter = DetailCityAdapter(favoriteList, this)
 
         val recyclerView = binding.rvInterest
-        val increaseSpace = controlSpace(0, 75, 0, 0)
+//        val increaseSpace = controlSpace(0, 75, 0, 0)
 
         recyclerView.adapter = adapter
         recyclerView.layoutManager = GridLayoutManager(context, 3)
-        recyclerView.addItemDecoration(increaseSpace)
+//        recyclerView.addItemDecoration(increaseSpace)
     }
 
     private fun initView() {
@@ -74,7 +75,7 @@ class DetailCityFragment : Fragment() {
             saveFavorite()
 
             val country = sharedPref.getString(COUNTRY_KEY, "")
-            val favorites = sharedPref.getString("favorites", "")
+            val favorites = sharedPref.getString(FAVORITES_KEY, "")
 
             val searchKey = "$country, $favorites"
             Log.d("searchKey", "$searchKey")
@@ -86,8 +87,12 @@ class DetailCityFragment : Fragment() {
             showLoadingActivity()
         }
         binding.btnSkip.setOnClickListener {
-            val action = DetailCityFragmentDirections.actionFragmentDetailCityToFragmentHome()
-            findNavController().navigate(action)
+            sharedPref = requireActivity().getSharedPreferences("preferenceName", Context.MODE_PRIVATE)
+            val country = sharedPref.getString(COUNTRY_KEY, "")
+            viewModel.getSearchVideoList(country!!)
+            viewModel.getTravelVideoList()
+            viewModel.getShortsVideoList()
+            showLoadingActivity()
         }
     }
 

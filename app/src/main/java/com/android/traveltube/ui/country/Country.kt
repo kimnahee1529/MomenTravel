@@ -194,7 +194,7 @@ val favoriteList : MutableList<Interest> = mutableListOf(
     Interest.Favorites("박물관"),
     Interest.Favorites("골프"),
     Interest.Favorites("낚시"),
-    Interest.Favorites("드라이빙"),
+    Interest.Favorites("드라이브"),
     Interest.Favorites("배낭여행"),
     Interest.Favorites("신혼여행"),
     Interest.plusImage(R.drawable.add)

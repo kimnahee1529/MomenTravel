@@ -17,14 +17,8 @@
 
             <TextView
                 android:id="@+id/tv_main_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="40dp"
+                style="@style/MainTitleBoldText"
                 android:text="여행지 구경"
-                android:textColor="@color/black"
-                android:textSize="32sp"
-                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -92,14 +86,13 @@
                 android:id="@+id/bt_btn_rechoice"
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
                 android:layout_marginEnd="12dp"
                 android:background="@drawable/rounded_btn_confirm"
                 android:text="여행지 재선택하기"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/tv_main_title" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

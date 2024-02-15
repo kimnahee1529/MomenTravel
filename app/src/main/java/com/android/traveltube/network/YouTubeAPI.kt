@@ -3,15 +3,11 @@ package com.android.traveltube.network
 import com.android.traveltube.data.channel.ChannelModel
 import com.android.traveltube.data.search.SearchModel
 import com.android.traveltube.data.videos.VideoModel
+import com.android.traveltube.utils.Constants.API_KEY
+import com.android.traveltube.utils.Constants.API_MAX_RESULT
+import com.android.traveltube.utils.Constants.API_REGION
 import retrofit2.http.GET
 import retrofit2.http.Query
-
-private const val API_MAX_RESULT = 15
-private const val API_REGION = "KR"
-private const val API_KEY = "AIzaSyDXqifu8eP7CX_TStYh5SFJPZO36J_4n5Q"
-private const val CHANNEL_ID = "UC6KwCU8Y8Uw4h_Q0ptLZkqw"
-private const val SEARCH_TEXT = "플레이브 봉구"
-private const val VIDEO_ID = "gbxCTwgKcX8"
 
 
 interface YouTubeAPI {

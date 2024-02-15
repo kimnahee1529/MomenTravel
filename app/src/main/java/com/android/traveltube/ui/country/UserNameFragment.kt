@@ -44,6 +44,7 @@ class UserNameFragment : Fragment() {
             } else Toast.makeText(requireContext(), "닉네임을 입력해주세요", Toast.LENGTH_SHORT).show()
         }
     }
+
     fun moveNextFragment(nextFrag : Fragment) {
         val manager = requireActivity().supportFragmentManager
         val transaction = manager.beginTransaction()

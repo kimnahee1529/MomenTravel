@@ -9,7 +9,7 @@ import com.android.traveltube.ui.datail.DetailUiState
 import com.android.traveltube.viewmodel.BasicDetailViewModel
 
 class DetailShortsModel(
-    private val entity: VideoBasicModel
+    entity: VideoBasicModel
 ) : BasicDetailViewModel() {
 
     private val _uiState: MutableLiveData<DetailUiState> = MutableLiveData(DetailUiState.init())
@@ -25,12 +25,6 @@ class DetailShortsModel(
             channelName = entity.channelTitle,
             channelThumbnail = entity.channelInfoModel?.channelThumbnail
         )
-    }
-
-    fun onClickedLike() {
-        val currentFavoriteState = _uiState.value?.isFavorite ?: false
-        val updatedFavoriteState = currentFavoriteState.not()
-        _uiState.value = _uiState.value?.copy(isFavorite = updatedFavoriteState)
     }
 }
 

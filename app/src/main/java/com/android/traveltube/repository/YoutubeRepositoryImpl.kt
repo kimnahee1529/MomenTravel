@@ -9,9 +9,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class YoutubeRepositoryImpl(private val db: VideoSearchDatabase) {
-    suspend fun getTrendingVideos() = withContext(Dispatchers.IO) {
-        RetrofitInstance.api.getTrendingVideos()
-    }
 
     suspend fun getSearchingVideos(search: String) = withContext(Dispatchers.IO) {
         RetrofitInstance.api.getSearchingVideos(searchText = search)
@@ -85,8 +82,3 @@ class YoutubeRepositoryImpl(private val db: VideoSearchDatabase) {
         return db.videoDao().getSearchResultFromHistory(keyword)
     }
 }
-
-//    suspend fun getVideoById(id : String ) : VideoBasicModel? {
-//        return db.videoDao().getVideoById(id)
-//    }
-//}

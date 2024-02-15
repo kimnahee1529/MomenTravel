@@ -94,7 +94,7 @@ class FavoriteListAdapter(
             tvFavoriteChannelName.text = item.channelTitle
 
             binding.root.setOnClickListener {
-                onItemClick?.invoke(item, viewType)
+                onItemClick.invoke(item, viewType)
             }
         }
     }
@@ -112,7 +112,7 @@ class FavoriteListAdapter(
             tvFavoriteChannelName.text = item.channelTitle
 
             btFavoriteEdit.setOnClickListener {
-                onItemClick?.invoke(item, viewType)
+                onItemClick.invoke(item, viewType)
             }
         }
     }

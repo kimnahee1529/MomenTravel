@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/userNameFragment">
+    app:startDestination="@id/fragment_home">
 
     <fragment
         android:id="@+id/fragment_home"
@@ -19,12 +19,12 @@
             android:id="@+id/action_fragment_home_shorts_to_fragment_shorts"
             app:destination="@id/fragment_shorts"
             app:popUpTo="@id/fragment_home"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_fragment_home_to_fragment_country"
             app:destination="@id/fragment_country"
             app:popUpTo="@id/fragment_home"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -108,7 +108,7 @@
         android:id="@+id/userNameFragment"
         android:name="com.android.traveltube.ui.country.UserNameFragment"
         android:label="fragment_user_name"
-        tools:layout="@layout/fragment_user_name" >
+        tools:layout="@layout/fragment_user_name">
         <action
             android:id="@+id/action_userNameFragment_to_fragment_country"
             app:destination="@id/fragment_country" />

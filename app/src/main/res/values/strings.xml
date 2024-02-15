@@ -22,4 +22,8 @@
     <string name="default_name">하나둘셋</string>
 
 
+    <string name="share_content">링크를 공유했어요! 어떤 링크인지 들어가서 확인해볼까요?</string>
+    <string name="chooser_title">동영상 공유하기</string>
+
+
 </resources>

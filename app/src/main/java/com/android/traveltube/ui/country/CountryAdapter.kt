@@ -92,7 +92,7 @@ class CountryAdapter(var items : MutableList<Country>) : RecyclerView.Adapter<Co
                 name.isVisible = false
                 bottomName.isVisible = true
             } else {
-               // image.setColorFilter(R.color.)
+                image.setColorFilter(com.google.android.material.R.color.material_grey_900)
                 name.isVisible = true
                 bottomName.isVisible = false
             }

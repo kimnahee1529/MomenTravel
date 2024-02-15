@@ -36,6 +36,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.traveltube.data.db.VideoSearchDatabase
 import com.android.traveltube.databinding.DialogMypageBinding
 import com.android.traveltube.repository.YoutubeRepositoryImpl
+import com.android.traveltube.utils.Constants.NAME_KEY
+import com.android.traveltube.utils.Constants.PREFERENCE_NAME
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.launch
 
@@ -81,8 +83,8 @@ class MyVideoFragment : Fragment() {
 
         youtubeRepository = YoutubeRepositoryImpl(VideoSearchDatabase.getInstance(requireContext()))
 
-        sharedPref = requireContext().getSharedPreferences("profile_data", Context.MODE_PRIVATE)
-        val savedName = sharedPref.getString("name", "")
+        sharedPref = requireContext().getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
+        val savedName = sharedPref.getString(NAME_KEY, "")
         binding?.tvMyVideoName?.text = savedName
         val savedImageBytes = sharedPref.getString("image_bitmap", null)?.let { decodeBitmap(it) }
         if (savedImageBytes != null) {
@@ -170,7 +172,7 @@ class MyVideoFragment : Fragment() {
         btnEditImage = dialogBinding.ivImageEdit
         tvCharCount = dialogBinding.tvCharCount
 
-        val savedName = sharedPref.getString("name", "")
+        val savedName = sharedPref.getString(NAME_KEY, "")
         val savedImageBytes = sharedPref.getString("image_bitmap", null)?.let { decodeBitmap(it) }
 
         etName.setText(savedName)
@@ -203,7 +205,7 @@ class MyVideoFragment : Fragment() {
 
             if (newName.matches(Regex("^[a-zA-Z0-9가-힣]*$")) && newName.length in 1..maxNameLength) {
                 sharedPref.edit().apply {
-                    putString("name", newName)
+                    putString(NAME_KEY, newName)
                     putString("image_bitmap", encodeBitmap(selectImage))
                     apply()
                 }

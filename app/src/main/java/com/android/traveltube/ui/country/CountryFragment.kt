@@ -53,14 +53,9 @@ class CountryFragment : Fragment() {
         adapter = CountryAdapter(countryList)
 
         val recyclerView = binding.rvChooseCountry
-        val reduceSpace = controlSpace(0,-60,0,0)
-
         recyclerView.adapter = adapter
         recyclerView.layoutManager = GridLayoutManager(context,2)
         recyclerView.scheduleLayoutAnimation()
-        recyclerView.addItemDecoration(reduceSpace)
-
-
 
         var travelName = ""
 
@@ -84,12 +79,27 @@ class CountryFragment : Fragment() {
                 cancelImage.isVisible = true
             }
             override fun afterTextChanged(s: Editable?) {
-                adapter.updateData(
-                    if (s.isNullOrBlank()) countryList
-                    else getFilteredList(s.toString())
-                )
+                val str = s.toString()
+                val filteredList = if (str.isNullOrBlank()) countryList else getFilteredList(str)
+                if (canTravelList.contains(str)) {
+                    val position = canTravelList.indexOf(str)
+
+                    when(position) {
+                        in 5..31 -> filteredList.add(0, countryList[2])
+                        in 32..72 ->filteredList.add(0,countryList[0])
+                        in 73..115 -> filteredList.add(0,countryList[1])
+                        else ->filteredList.add(0,countryList[3])
+                    }
+                }
+                adapter.updateData(filteredList)
+
+//                adapter.updateData(
+//                    if (str.isNullOrBlank()) countryList
+//                    else getFilteredList(str)
+//                )
 
             }
+
         })
 
         cancelImage.setOnClickListener {
@@ -136,8 +146,4 @@ class CountryFragment : Fragment() {
             }
         }
     }
-
-
-
-
 }

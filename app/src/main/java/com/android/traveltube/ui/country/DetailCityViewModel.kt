@@ -36,8 +36,8 @@ class DetailCityViewModel(
         }
     }
 
-    fun getSearchVideoList() {
-        searchVideoList()
+    fun getSearchVideoList(searchKey: String) {
+        searchVideoList(searchKey)
     }
 
     fun getTravelVideoList() {
@@ -49,9 +49,9 @@ class DetailCityViewModel(
     }
 
     //영상 검색 정보 가져오는 getSearchingVideos 호출
-    private fun searchVideoList() = viewModelScope.launch {
+    private fun searchVideoList(searchKey: String) = viewModelScope.launch {
         kotlin.runCatching {
-            val videos = youtubeRepositoryImpl.getSearchingVideos()
+            val videos = youtubeRepositoryImpl.getSearchingVideos(searchKey)
             val videoItemModels = videos.items.map { item ->
                 val channelInfoList = getChannelInfo(item.snippet.channelId, youtubeRepositoryImpl)
                 val videoViewCountList = getVideoViewCount(item.id.videoId, youtubeRepositoryImpl)

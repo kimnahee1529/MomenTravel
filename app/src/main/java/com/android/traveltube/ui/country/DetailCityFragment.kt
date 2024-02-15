@@ -14,22 +14,18 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.room.util.query
 import com.android.traveltube.R
 import com.android.traveltube.data.db.VideoSearchDatabase
 import com.android.traveltube.databinding.FragmentDetailCityBinding
 import com.android.traveltube.factory.SharedViewModelFactory
-import com.android.traveltube.network.RetrofitInstance
 import com.android.traveltube.repository.YoutubeRepositoryImpl
 import com.android.traveltube.viewmodel.SharedViewModel
 import kotlinx.coroutines.launch
-import retrofit2.http.Query
 
 
 class DetailCityFragment : Fragment() {
-    private  val COUNTRY_KEY = "country"
+    private val COUNTRY_KEY = "country"
     private var _binding: FragmentDetailCityBinding? = null
-
     private val binding: FragmentDetailCityBinding get() = _binding!!
     private lateinit var adapter: DetailCityAdapter
     private lateinit var sharedPref: SharedPreferences
@@ -63,7 +59,7 @@ class DetailCityFragment : Fragment() {
         initView()
         initViewModel()
 
-        adapter = DetailCityAdapter(favoriteList)
+        adapter = DetailCityAdapter(favoriteList, this)
 
         val recyclerView = binding.rvInterest
         val increaseSpace = controlSpace(0, 75, 0, 0)
@@ -71,32 +67,27 @@ class DetailCityFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = GridLayoutManager(context, 3)
         recyclerView.addItemDecoration(increaseSpace)
-
-
-
-
-
     }
 
     private fun initView() {
-        binding.btMoveHomeFragment.setOnClickListener {
+        binding.btnMoveHomeFragment.setOnClickListener {
             saveFavorite()
 
-            val country = sharedPref.getString(COUNTRY_KEY,"")
-            val favorites = sharedPref.getString("favorites","")
+            val country = sharedPref.getString(COUNTRY_KEY, "")
+            val favorites = sharedPref.getString("favorites", "")
 
             val searchKey = "$country, $favorites"
-            Log.d("로그디","컨트리 : ${country} , favorite :${favorites}")
+            Log.d("searchKey", "$searchKey")
 
-            /**
-             * TODO 선택된 여행지, 관심사 태그를 통하여 api로 동영상 검색
-             * 검색 된 결과를 Room 저장
-             * 저장 된 항목은 HomeFragment 에서 사용할 수 있어야 함.
-             */
-            viewModel.getSearchVideoList() // 동영상 검색
+
+            viewModel.getSearchVideoList(searchKey) // 동영상 검색
             viewModel.getTravelVideoList()
             viewModel.getShortsVideoList()
             showLoadingActivity()
+        }
+        binding.btnSkip.setOnClickListener {
+            val action = DetailCityFragmentDirections.actionFragmentDetailCityToFragmentHome()
+            findNavController().navigate(action)
         }
     }
 
@@ -148,13 +139,11 @@ class DetailCityFragment : Fragment() {
                 favorite2 = ""
             }
         }
-        val favorites = "${favorite1}" + "${favorite2}"
+        val favorites = "$favorite1 $favorite2"
         sharedPref = requireActivity().getSharedPreferences("preferenceName", Context.MODE_PRIVATE)
         sharedPref.edit().apply {
             putString("favorites", favorites)
             apply()
         }
     }
-
-
 }

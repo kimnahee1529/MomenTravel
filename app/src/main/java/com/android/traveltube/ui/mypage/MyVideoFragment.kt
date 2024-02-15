@@ -27,20 +27,17 @@ import android.widget.Toast
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.ColorDrawable
-import android.util.Log
 import android.view.inputmethod.InputMethodManager
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import java.io.ByteArrayOutputStream
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.traveltube.data.db.VideoSearchDatabase
 import com.android.traveltube.databinding.DialogMypageBinding
-import com.android.traveltube.factory.SharedViewModelFactory
-import com.android.traveltube.model.db.VideoBasicModel
 import com.android.traveltube.repository.YoutubeRepositoryImpl
-import com.android.traveltube.viewmodel.SharedViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import kotlinx.coroutines.launch
 
 class MyVideoFragment : Fragment() {
 
@@ -60,16 +57,13 @@ class MyVideoFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: MyVideoAdapter
     private lateinit var bottomSheetDialog: BottomSheetDialog
+    private lateinit var youtubeRepository: YoutubeRepositoryImpl
     private var adapterToDelete: Int = RecyclerView.NO_POSITION
 
     private val watchHistoryViewModel: WatchHistoryViewModel by viewModels {
         WatchHistoryViewModelFactory(
             YoutubeRepositoryImpl(VideoSearchDatabase.getInstance(requireContext()))
         )
-    }
-
-    private val sharedViewModel by activityViewModels<SharedViewModel> {
-        SharedViewModelFactory(YoutubeRepositoryImpl(VideoSearchDatabase.getInstance(requireContext())))
     }
 
     override fun onCreateView(
@@ -84,7 +78,8 @@ class MyVideoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
         initViewModel()
-        setUpSpinner()
+
+        youtubeRepository = YoutubeRepositoryImpl(VideoSearchDatabase.getInstance(requireContext()))
 
         sharedPref = requireContext().getSharedPreferences("profile_data", Context.MODE_PRIVATE)
         val savedName = sharedPref.getString("name", "")
@@ -111,8 +106,6 @@ class MyVideoFragment : Fragment() {
             val itemToDelete =
                 (recyclerView.adapter as MyVideoAdapter).currentList.getOrNull(adapterPosition)
             if (itemToDelete != null) {
-                deleteItem(itemToDelete)
-                // TODO
                 watchHistoryViewModel.deleteWatchHistoryItem(itemToDelete.id)
             }
             bottomSheetDialog.dismiss()
@@ -120,24 +113,26 @@ class MyVideoFragment : Fragment() {
         bottomSheetView.findViewById<Button>(R.id.btn_bottomDialog_cancel).setOnClickListener {
             bottomSheetDialog.dismiss()
         }
-        val etMyVideoHistory = view.findViewById<EditText>(R.id.et_myVideo_history)
-        etMyVideoHistory.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                val searchText = s.toString()
-                searchHistory(searchText)
+        binding?.etMyVideoHistory?.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                val keyword = s.toString()
+                lifecycleScope.launch {
+                    val searchResult = youtubeRepository.getSearchResultFromHistory(keyword)
+                    if (searchResult.isEmpty()) {
+                        binding?.tvMyVideoEmptyText?.visibility = View.VISIBLE
+                    } else {
+                        binding?.tvMyVideoEmptyText?.visibility = View.GONE
+                    }
+                    adapter.submitList(searchResult)
+                }
+            }
         })
-    }
-
-    private fun searchHistory(query: String) {
-        adapter.filter(query)
-        Log.d("TAG", "$query")
-    }
-
-    private fun setUpSpinner() {
     }
 
     private fun initView() {
@@ -149,10 +144,6 @@ class MyVideoFragment : Fragment() {
                 bottomSheetDialog.show()
             }
         )
-    }
-
-    private fun deleteItem(video: VideoBasicModel) {
-        // adapter.deleteItem(video)
     }
 
     private fun initViewModel() = with(watchHistoryViewModel) {

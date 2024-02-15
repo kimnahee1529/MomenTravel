@@ -78,7 +78,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:gravity="center"
-            android:text="하나두울세엣"
+            android:text="이 름"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -144,6 +144,21 @@
                 android:textSize="16sp" />
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_myVideo_emptyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:text="목록에 동영상이 없습니다."
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rc_myVideo"

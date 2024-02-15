@@ -5,4 +5,6 @@ object Constants {
     const val PREFERENCE_KEY = "name"
 
 
+    const val COUNTRY_KEY = "country"
+    const val FAVORITES_KEY = "favorites"
 }

@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -25,7 +24,7 @@ class UserNameFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentUserNameBinding.inflate(inflater,container,false)
         return binding.root
     }
@@ -34,7 +33,6 @@ class UserNameFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val rootView = view.rootView
         rootView.setBackgroundColor(Color.WHITE)
-
         val nextBtn = binding.btnNext
         sharedPref = requireActivity().getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
 
@@ -42,11 +40,6 @@ class UserNameFragment : Fragment() {
             val nickName = binding.etNickName.text.toString()
             if (nickName.isNotEmpty()) {
                 saveNickname(nickName)
-                Log.d("로그디","닉네임 입력${nickName}")
-//                val name = sharedPref.getString(NAME_KEY,"")
-//
-//
-//                Log.d("로그디","${name}")
                 findNavController().navigate(R.id.action_userNameFragment_to_fragment_country)
             } else Toast.makeText(requireContext(), "닉네임을 입력해주세요", Toast.LENGTH_SHORT).show()
         }
@@ -60,21 +53,17 @@ class UserNameFragment : Fragment() {
         transaction.commit()
     }
 
-    //sharedReferece에 이름 저장
-    fun saveNickname (nickName : String) {
+    private fun saveNickname (nickName : String) {
         sharedPref.edit().apply {
             putString(NAME_KEY, nickName)
             apply()
         }
     }
 
-
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
-
 
 }
 

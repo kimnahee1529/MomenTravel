@@ -1,5 +1,6 @@
 package com.android.traveltube.ui.search
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -122,6 +123,7 @@ class SearchFragment : Fragment() {
         _binding = null
     }
 
+    @SuppressLint("SuspiciousIndentation")
     fun goSearch(searchKey : String) : List<VideoBasicModel> {
 //        val data = YoutubeRepository.getVideos(ModelType.VIDEO_CATEGORY_TRAVEL)
 //        Log.d("112233",data.value.toString())

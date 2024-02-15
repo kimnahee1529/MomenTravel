@@ -14,6 +14,7 @@ import com.android.traveltube.databinding.ActivityMainBinding
 import com.android.traveltube.utils.Constants.COUNTRY_KEY
 import com.android.traveltube.utils.Constants.FAVORITES_KEY
 import com.android.traveltube.utils.Constants.NAME_KEY
+import com.android.traveltube.utils.Constants.PREFERENCE_NAME
 import com.android.traveltube.utils.Constants.PREFERENCE_NAME_COUNTRY
 
 class MainActivity : AppCompatActivity() {
@@ -23,6 +24,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
     private lateinit var sharedPref: SharedPreferences
+    private lateinit var sharedPrefName: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -38,8 +41,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun initStartFragment() {
         sharedPref = getSharedPreferences(PREFERENCE_NAME_COUNTRY, Context.MODE_PRIVATE)
+        sharedPrefName = getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
         val country = sharedPref.getString(COUNTRY_KEY,"")
-        val name = sharedPref.getString(NAME_KEY,"")
+        val name = sharedPrefName.getString(NAME_KEY,"")
 
         when  {
             name.isNullOrBlank() -> navController.navigate(R.id.userNameFragment)

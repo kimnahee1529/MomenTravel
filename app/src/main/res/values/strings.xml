@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TravelTube</string>
+    <string name="app_name">MomenTravel</string>
 
     <string name="fragment_home">홈</string>
     <string name="fragment_search">검색</string>

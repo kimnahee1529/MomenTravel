@@ -54,11 +54,13 @@ class DetailCityViewModel(
             val videos = youtubeRepositoryImpl.getSearchingVideos(searchKey)
             val videoItemModels = videos.items.map { item ->
                 val channelInfoList = getChannelInfo(item.snippet.channelId, youtubeRepositoryImpl)
-                val videoViewCountList = getVideoViewCount(item.id.videoId, youtubeRepositoryImpl)
+                val videoViewCountList = getVideoViewCount(item.id.videoId ?: item.id.kind, youtubeRepositoryImpl)
                 val videoViewCountModel = videoViewCountList.firstOrNull()
 
+                val id = item.id.videoId ?: item.id.kind
+
                 VideoBasicModel(
-                    id = item.id.videoId,
+                    id = id,
                     thumbNailUrl = item.snippet.thumbnails.medium.url,
                     channelId = item.snippet.channelId,
                     channelTitle = item.snippet.channelTitle,

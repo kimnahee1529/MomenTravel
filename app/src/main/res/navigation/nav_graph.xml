@@ -11,20 +11,16 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_fragment_home_to_fragment_video_detail"
-            app:destination="@id/fragment_video_detail"
-            app:popUpTo="@id/fragment_home"
-            app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_fragment_home_shorts_to_fragment_shorts"
-            app:destination="@id/fragment_shorts"
-            app:popUpTo="@id/fragment_home"
-            app:popUpToInclusive="true" />
-        <action
             android:id="@+id/action_fragment_home_to_fragment_country"
             app:destination="@id/fragment_country"
             app:popUpTo="@id/fragment_home"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_fragment_home_to_fragment_video_detail"
+            app:destination="@id/fragment_video_detail" />
+        <action
+            android:id="@+id/action_fragment_home_to_fragment_shorts"
+            app:destination="@id/fragment_shorts" />
     </fragment>
 
     <fragment
@@ -46,9 +42,7 @@
         tools:layout="@layout/fragment_my_favorite">
         <action
             android:id="@+id/action_fragment_my_favorite_to_fragment_video_detail"
-            app:destination="@id/fragment_video_detail"
-            app:popUpTo="@id/fragment_home"
-            app:popUpToInclusive="true" />
+            app:destination="@id/fragment_video_detail" />
     </fragment>
 
     <fragment
@@ -58,9 +52,7 @@
         tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_fragment_search_to_fragment_video_detail"
-            app:destination="@id/fragment_video_detail"
-            app:popUpTo="@id/fragment_home"
-            app:popUpToInclusive="true" />
+            app:destination="@id/fragment_video_detail" />
     </fragment>
     <fragment
         android:id="@+id/fragment_my_video"
@@ -68,11 +60,7 @@
         android:label="fragment_my_video"
         app:popUpTo="@id/fragment_home"
         app:popUpToInclusive="true"
-        tools:layout="@layout/fragment_my_video">
-        <action
-            android:id="@+id/action_fragment_my_video_to_fragment_video_detail"
-            app:destination="@id/fragment_video_detail" />
-    </fragment>
+        tools:layout="@layout/fragment_my_video"/>
     <fragment
         android:id="@+id/fragment_video_detail"
         android:name="com.android.traveltube.ui.datail.VideoDetailFragment"
@@ -81,10 +69,6 @@
         <argument
             android:name="homeToDetailEntity"
             app:argType="com.android.traveltube.model.db.VideoBasicModel" />
-        <action
-            android:id="@+id/action_fragment_video_detail_self"
-            app:destination="@id/fragment_video_detail"
-            app:launchSingleTop="true" />
     </fragment>
     <fragment
         android:id="@+id/fragment_shorts"

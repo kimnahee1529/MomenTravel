@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.datail.shorts.ShortsFragment">
 
     <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
@@ -12,8 +12,7 @@
         android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
-    </com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView>
+        app:layout_constraintTop_toTopOf="parent"></com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView>
 
     <ImageView
         android:id="@+id/iv_channel_thumbnail"
@@ -33,7 +32,9 @@
         android:ellipsize="end"
         android:maxLines="2"
         android:text="z1nz1n"
+        android:textColor="@color/white"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/iv_channel_thumbnail"
         app:layout_constraintStart_toEndOf="@+id/iv_channel_thumbnail"
         app:layout_constraintTop_toTopOf="@+id/iv_channel_thumbnail" />
@@ -48,7 +49,9 @@
         android:ellipsize="end"
         android:maxLines="2"
         android:text="오사카 3박 4일 여행 60초 요약 | 도톤보리, 우메다, 오사카성, 유니버셜스튜디오, 교토, 아라시야마, 기요미즈데라"
+        android:textColor="@color/white"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

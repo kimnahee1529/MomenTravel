@@ -13,7 +13,6 @@ import com.android.traveltube.R
 import com.android.traveltube.data.db.VideoSearchDatabase
 import com.android.traveltube.databinding.FragmentMyFavoriteBinding
 import com.android.traveltube.repository.YoutubeRepositoryImpl
-import com.android.traveltube.ui.datail.VideoDetailFragmentDirections
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 

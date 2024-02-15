@@ -58,7 +58,7 @@ class HomeFragment : Fragment() {
     private val shortsListAdapter by lazy {
         ShortsAdapter { videoDetailModel ->
             val action =
-                HomeFragmentDirections.actionFragmentHomeShortsToFragmentShorts(videoDetailModel)
+                HomeFragmentDirections.actionFragmentHomeToFragmentShorts(videoDetailModel)
             findNavController().navigate(action)
         }
     }

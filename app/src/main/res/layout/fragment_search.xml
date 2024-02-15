@@ -8,12 +8,12 @@
 
     <EditText
         android:id="@+id/et_searchBar"
-        android:layout_width="260dp"
+        android:layout_width="280dp"
         android:layout_height="50dp"
         android:hint="검색어를 입력하세요"
         android:layout_marginStart="20dp"
         android:paddingHorizontal="10dp"
-
+        android:background="@drawable/edit_text_stroke"
         android:layout_marginTop="40dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -25,10 +25,22 @@
 
     <ImageView
         android:id="@+id/btn_goSearch"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="300dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="320dp"
+        android:layout_marginTop="48dp"
         android:src="@drawable/ic_search_24"
         android:text="검색"/>
+
+    <TextView
+        android:id="@+id/tv_noSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="검색된 영상이 없습니다."
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="200dp"
+        android:textSize="20sp"
+        android:visibility="invisible"
+        android:textColor="@color/grey"/>
+
 </FrameLayout>

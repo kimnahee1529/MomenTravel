@@ -147,7 +147,7 @@ class DetailCityAdapter (
                 }
 
                 data.isSelected = !data.isSelected
-                Log.d("로그디","${data.favorite}${data.isSelected}")
+//                Log.d("로그디","${data.favorite}${data.isSelected}")
                 notifyDataSetChanged()
             }
         }

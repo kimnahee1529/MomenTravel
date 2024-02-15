@@ -14,7 +14,6 @@ import java.util.Locale
 class CountryAdapter(var items : MutableList<Country>) : RecyclerView.Adapter<CountryAdapter.ViewHolder>(),
     Filterable {
 
-    //    private var selectedItem : Int = RecyclerView.NO_POSITION
     private var filteredList: MutableList<Country> = items.toMutableList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -99,7 +98,7 @@ class CountryAdapter(var items : MutableList<Country>) : RecyclerView.Adapter<Co
                 name.isVisible = true
                 bottomName.isVisible = false
             }
-
+            //
             itemView.setOnClickListener {
                 country.isSelected = !country.isSelected
                 itemclick?.itemClick(country.countryName)

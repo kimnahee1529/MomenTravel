@@ -95,10 +95,7 @@ class CountryFragment : Fragment() {
                 } else binding.tvNoSearchResult.isVisible = true
                 adapter.updateData(filteredList)
 
-//                adapter.updateData(
-//                    if (str.isNullOrBlank()) countryList
-//                    else getFilteredList(str)
-//                )
+
 
             }
 

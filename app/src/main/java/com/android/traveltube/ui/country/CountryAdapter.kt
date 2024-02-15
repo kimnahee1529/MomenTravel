@@ -14,7 +14,6 @@ import java.util.Locale
 class CountryAdapter(var items : MutableList<Country>) : RecyclerView.Adapter<CountryAdapter.ViewHolder>(),
     Filterable {
 
-    //    private var selectedItem : Int = RecyclerView.NO_POSITION
     private var filteredList: MutableList<Country> = items.toMutableList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -82,24 +81,24 @@ class CountryAdapter(var items : MutableList<Country>) : RecyclerView.Adapter<Co
             val image = binding.ivTravel
             val name = binding.tvNation
             val bottomName = binding.tvBottomName
-//            val film = binding.ivFilm
+            val film = binding.ivFilm
 
             image.setImageResource(country.flag)
             name.text = country.countryName
             bottomName.text = country.countryName
 
             if (country.isSelected) {
-                image.clearColorFilter()
-//                film.isVisible = false
+//                image.clearColorFilter()
+                film.isVisible = false
                 name.isVisible = false
                 bottomName.isVisible = true
             } else {
-                image.setColorFilter(com.google.android.material.R.color.material_grey_900)
-//                film.isVisible = true
+//                image.setColorFilter(com.google.android.material.R.color.material_grey_900)
+                film.isVisible = true
                 name.isVisible = true
                 bottomName.isVisible = false
             }
-
+            //
             itemView.setOnClickListener {
                 country.isSelected = !country.isSelected
                 itemclick?.itemClick(country.countryName)

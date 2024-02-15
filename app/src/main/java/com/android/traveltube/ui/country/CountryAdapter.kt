@@ -7,6 +7,7 @@ import android.widget.Filter
 import android.widget.Filterable
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.android.traveltube.R
 import com.android.traveltube.databinding.ItemCountryRecyclerviewBinding
 import java.util.Locale
 

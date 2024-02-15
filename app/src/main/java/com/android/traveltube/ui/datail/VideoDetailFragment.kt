@@ -21,8 +21,10 @@ import com.android.traveltube.factory.SharedViewModelFactory
 import com.android.traveltube.repository.YoutubeRepositoryImpl
 import com.android.traveltube.ui.datail.channel.ChannelOtherVideoListAdapter
 import com.android.traveltube.ui.datail.recommend.RecommendListAdapter
-import com.android.traveltube.utils.Constants.PREFERENCE_KEY
+import com.android.traveltube.utils.Constants.NAME_KEY
 import com.android.traveltube.utils.Constants.PREFERENCE_NAME
+import com.android.traveltube.utils.Constants.SHARE_INTENT_TYPE
+import com.android.traveltube.utils.Constants.YOUTUBE_BASE_URL
 import com.android.traveltube.utils.DateManager.convertToDecimalString
 import com.android.traveltube.utils.DateManager.dateFormatter
 import com.android.traveltube.utils.DateManager.formatNumber
@@ -94,7 +96,7 @@ class VideoDetailFragment : Fragment() {
 
     private fun getSavedName() {
         sharedPref = requireContext().getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
-        val name = sharedPref.getString(PREFERENCE_KEY, getString(R.string.default_name))
+        val name = sharedPref.getString(NAME_KEY, getString(R.string.default_name))
         binding.tvRecommendVideosTitle.text = "${name}님을 위한 여행지"
     }
 
@@ -108,13 +110,13 @@ class VideoDetailFragment : Fragment() {
 
         binding.ivShare.setOnClickListener {
             val intent = Intent(Intent.ACTION_SEND_MULTIPLE).apply {
-                type = "text/plain"
-                val youtubeUrl = "https://www.youtube.com/watch?v=${args.homeToDetailEntity.id}"
-                val content = "친구가 링크를 공유했어요!\n어떤 링크인지 들어가서 확인해볼까요?"
+                type = SHARE_INTENT_TYPE
+                val youtubeUrl = "$YOUTUBE_BASE_URL${args.homeToDetailEntity.id}"
+                val content = getString(R.string.share_content)
                 putExtra(Intent.EXTRA_TEXT, "$content\n\n$youtubeUrl")
             }
 
-            val chooserTitle = "친구에게 공유하기"
+            val chooserTitle = getString(R.string.chooser_title)
             startActivity(Intent.createChooser(intent, chooserTitle))
         }
 

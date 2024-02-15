@@ -13,6 +13,8 @@ import com.android.traveltube.R
 import com.android.traveltube.databinding.ActivityMainBinding
 import com.android.traveltube.utils.Constants.COUNTRY_KEY
 import com.android.traveltube.utils.Constants.FAVORITES_KEY
+import com.android.traveltube.utils.Constants.NAME_KEY
+import com.android.traveltube.utils.Constants.PREFERENCE_NAME_COUNTRY
 
 class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy {
@@ -35,13 +37,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initStartFragment() {
-        sharedPref = getSharedPreferences("preferenceName", Context.MODE_PRIVATE)
+        sharedPref = getSharedPreferences(PREFERENCE_NAME_COUNTRY, Context.MODE_PRIVATE)
         val country = sharedPref.getString(COUNTRY_KEY,"")
+        val name = sharedPref.getString(NAME_KEY,"")
 
-        if (country.isNullOrBlank()) {
-            navController.navigate(R.id.fragment_country)
-        } else {
-            navController.navigate(R.id.fragment_home)
+        when  {
+            name.isNullOrBlank() -> navController.navigate(R.id.userNameFragment)
+            country.isNullOrBlank() -> navController.navigate(R.id.fragment_country)
+            else -> navController.navigate(R.id.fragment_home)
         }
     }
 

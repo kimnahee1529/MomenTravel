@@ -21,6 +21,7 @@ import com.android.traveltube.factory.SharedViewModelFactory
 import com.android.traveltube.repository.YoutubeRepositoryImpl
 import com.android.traveltube.utils.Constants.COUNTRY_KEY
 import com.android.traveltube.utils.Constants.FAVORITES_KEY
+import com.android.traveltube.utils.Constants.PREFERENCE_NAME_COUNTRY
 import com.android.traveltube.viewmodel.SharedViewModel
 import kotlinx.coroutines.launch
 
@@ -87,7 +88,7 @@ class DetailCityFragment : Fragment() {
             showLoadingActivity()
         }
         binding.btnSkip.setOnClickListener {
-            sharedPref = requireActivity().getSharedPreferences("preferenceName", Context.MODE_PRIVATE)
+            sharedPref = requireActivity().getSharedPreferences(PREFERENCE_NAME_COUNTRY, Context.MODE_PRIVATE)
             val country = sharedPref.getString(COUNTRY_KEY, "")
             viewModel.getSearchVideoList(country!!)
             viewModel.getTravelVideoList()
@@ -145,9 +146,9 @@ class DetailCityFragment : Fragment() {
             }
         }
         val favorites = "$favorite1 $favorite2"
-        sharedPref = requireActivity().getSharedPreferences("preferenceName", Context.MODE_PRIVATE)
+        sharedPref = requireActivity().getSharedPreferences(PREFERENCE_NAME_COUNTRY, Context.MODE_PRIVATE)
         sharedPref.edit().apply {
-            putString("favorites", favorites)
+            putString(FAVORITES_KEY, favorites)
             apply()
         }
     }

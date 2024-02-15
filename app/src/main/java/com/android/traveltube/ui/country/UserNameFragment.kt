@@ -11,6 +11,8 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.android.traveltube.R
 import com.android.traveltube.databinding.FragmentUserNameBinding
+import com.android.traveltube.utils.Constants.NAME_KEY
+import com.android.traveltube.utils.Constants.PREFERENCE_NAME
 
 
 class UserNameFragment : Fragment() {
@@ -51,9 +53,9 @@ class UserNameFragment : Fragment() {
 
     //sharedReferece에 이름 저장
     fun saveNickname (nickName : String) {
-        val spf = requireActivity().getSharedPreferences("name", Context.MODE_PRIVATE)
+        val spf = requireActivity().getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
         val editor = spf.edit()
-        editor.putString("name", nickName)
+        editor.putString(NAME_KEY, nickName)
         editor.apply()
     }
 

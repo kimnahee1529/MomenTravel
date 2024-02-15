@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.android.traveltube.R
 import com.android.traveltube.databinding.FragmentCountryBinding
 import com.android.traveltube.ui.country.Country.Companion.countryList
+import com.android.traveltube.utils.Constants.PREFERENCE_NAME_COUNTRY
 
 
 class CountryFragment : Fragment() {
@@ -112,7 +113,7 @@ class CountryFragment : Fragment() {
                 saveCountry(wantNation)
 
 
-                sharedPref = requireContext().getSharedPreferences("preferenceName", Context.MODE_PRIVATE)
+                sharedPref = requireContext().getSharedPreferences(PREFERENCE_NAME_COUNTRY, Context.MODE_PRIVATE)
                 val country = sharedPref.getString(COUNTRY_KEY,"")
                 Log.d("컨트리 프레그먼트","11233 ${country}")
                 findNavController().navigate(R.id.action_countryFragment_to_fragment_detail_city)
@@ -127,7 +128,7 @@ class CountryFragment : Fragment() {
 
 
     fun saveCountry (country : String) {
-        val spf = requireActivity().getSharedPreferences("preferenceName", Context.MODE_PRIVATE)
+        val spf = requireActivity().getSharedPreferences(PREFERENCE_NAME_COUNTRY, Context.MODE_PRIVATE)
         val editor = spf.edit()
         editor.putString(COUNTRY_KEY, country)
         Log.d("컨트리 프레그먼트",country)

@@ -2,9 +2,12 @@ package com.android.traveltube.utils
 
 object Constants {
     const val PREFERENCE_NAME = "profile_data"
-    const val PREFERENCE_KEY = "name"
+    const val NAME_KEY = "name"
 
-
+    const val PREFERENCE_NAME_COUNTRY = "preferenceName"
     const val COUNTRY_KEY = "country"
     const val FAVORITES_KEY = "favorites"
+
+    const val SHARE_INTENT_TYPE = "text/plain"
+    const val YOUTUBE_BASE_URL = "https://www.youtube.com/watch?v="
 }

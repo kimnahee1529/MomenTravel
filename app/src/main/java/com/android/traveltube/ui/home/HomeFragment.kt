@@ -19,6 +19,8 @@ import com.android.traveltube.factory.HomeViewModelFactory
 import com.android.traveltube.factory.PreferencesRepository
 import com.android.traveltube.factory.SharedViewModelFactory
 import com.android.traveltube.repository.YoutubeRepositoryImpl
+import com.android.traveltube.utils.Constants.NAME_KEY
+import com.android.traveltube.utils.Constants.PREFERENCE_NAME
 import com.android.traveltube.viewmodel.HomeViewModel
 import com.android.traveltube.viewmodel.SharedViewModel
 
@@ -71,8 +73,8 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sharedPref = requireContext().getSharedPreferences("profile_data", Context.MODE_PRIVATE)
-        val savedName = sharedPref.getString("name", "")
+        sharedPref = requireContext().getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
+        val savedName = sharedPref.getString(NAME_KEY, "")
 
         binding.tvRecommendVideo.text = if (savedName.isNullOrBlank()) {
             "하나둘셋님을 위한 여행지"

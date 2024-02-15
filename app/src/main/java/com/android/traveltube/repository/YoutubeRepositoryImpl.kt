@@ -13,7 +13,7 @@ class YoutubeRepositoryImpl(private val db: VideoSearchDatabase) {
         RetrofitInstance.api.getTrendingVideos()
     }
 
-    suspend fun getSearchingVideos(search: String = "일본 오사카") = withContext(Dispatchers.IO) {
+    suspend fun getSearchingVideos(search: String) = withContext(Dispatchers.IO) {
         RetrofitInstance.api.getSearchingVideos(searchText = search)
     }
 

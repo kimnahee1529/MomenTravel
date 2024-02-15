@@ -12,6 +12,7 @@ import java.util.Date
 data class VideoBasicModel(
     @PrimaryKey(autoGenerate = false)
     val id: String,
+    val timestamp: Long,
     val thumbNailUrl: String?,
     val channelId: String?,
     val channelTitle: String?,

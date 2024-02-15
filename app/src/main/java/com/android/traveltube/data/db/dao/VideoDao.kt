@@ -22,7 +22,7 @@ interface VideoDAO {
     @Query("UPDATE videos SET isFavorite = :isFavorite WHERE id = :videoId")
     suspend fun updateFavoriteStatus(videoId: String, isFavorite: Boolean)
 
-    @Query("SELECT * FROM videos WHERE modelType = :modelType")
+    @Query("SELECT * FROM videos WHERE modelType = :modelType ORDER BY timestamp DESC")
     fun getVideosByModelType(modelType: ModelType): LiveData<List<VideoBasicModel>>
 
     @Query("SELECT * FROM videos WHERE isFavorite = 1")
@@ -36,7 +36,10 @@ interface VideoDAO {
 
 
     @Query("SELECT * FROM videos WHERE modelType = :modelType AND title LIKE '%' || :keyword || '%'")
-    suspend fun getSearchResultFromSearch(keyword: String, modelType: ModelType): List<VideoBasicModel>
+    suspend fun getSearchResultFromSearch(
+        keyword: String,
+        modelType: ModelType
+    ): List<VideoBasicModel>
 
     @Query("SELECT * FROM videos WHERE isSaved = 1 AND title LIKE '%' || :keyword || '%'")
     suspend fun getSearchResultFromHistory(keyword: String): List<VideoBasicModel>

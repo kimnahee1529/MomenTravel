@@ -69,6 +69,9 @@
         <argument
             android:name="homeToDetailEntity"
             app:argType="com.android.traveltube.model.db.VideoBasicModel" />
+        <action
+            android:id="@+id/action_video_detail_to_video_detail"
+            app:destination="@id/fragment_video_detail" />
     </fragment>
     <fragment
         android:id="@+id/fragment_shorts"

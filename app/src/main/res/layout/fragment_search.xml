@@ -17,7 +17,6 @@
         android:background="@drawable/edit_text_stroke"
         android:hint="검색어를 입력하세요"
         android:paddingHorizontal="10dp"
-        app:layout_constraintBottom_toTopOf="@id/rv_searchResult"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,12 +24,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_searchResult"
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="0dp"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_searchBar"
-        app:layout_constraintVertical_bias="0.673" />
+        app:layout_constraintTop_toBottomOf="@+id/et_searchBar" />
 
     <ImageView
         android:id="@+id/btn_goSearch"

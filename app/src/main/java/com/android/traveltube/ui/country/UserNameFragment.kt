@@ -35,8 +35,8 @@ class UserNameFragment : Fragment() {
         nextBtn.setOnClickListener {
             val nickName = binding.etNickName.text.toString()
             if (nickName.isNotEmpty()) {
-//                saveNickname(nickName)
-//                findNavController().navigate(R.id.action_fragment_to_fragment_country)
+                saveNickname(nickName)
+                findNavController().navigate(R.id.action_userNameFragment_to_fragment_country)
             } else Toast.makeText(requireContext(), "닉네임을 입력해주세요", Toast.LENGTH_SHORT).show()
         }
     }

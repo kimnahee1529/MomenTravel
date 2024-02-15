@@ -85,3 +85,8 @@ class YoutubeRepositoryImpl(private val db: VideoSearchDatabase) {
         return db.videoDao().getSearchResultFromHistory(keyword)
     }
 }
+
+//    suspend fun getVideoById(id : String ) : VideoBasicModel? {
+//        return db.videoDao().getVideoById(id)
+//    }
+//}

@@ -79,11 +79,7 @@ class DetailCityFragment : Fragment() {
             val searchKey = "$country, $favorites"
             Log.d("searchKey", "$searchKey")
 
-            /**
-             * TODO 선택된 여행지, 관심사 태그를 통하여 api로 동영상 검색
-             * 검색 된 결과를 Room 저장
-             * 저장 된 항목은 HomeFragment 에서 사용할 수 있어야 함.
-             */
+
             viewModel.getSearchVideoList(searchKey) // 동영상 검색
             viewModel.getTravelVideoList()
             viewModel.getShortsVideoList()

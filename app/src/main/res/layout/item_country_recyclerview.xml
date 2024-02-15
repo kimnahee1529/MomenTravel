@@ -9,8 +9,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="160dp"
+        android:layout_height="100dp"
         app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +21,15 @@
             android:layout_width="160dp"
             android:layout_height="100dp"
             android:scaleType="fitXY"
-            android:src="@drawable/brazil" />
+            android:src="@drawable/hawaii" />
+
+<!--        <ImageView-->
+<!--            android:id="@+id/iv_film"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:alpha="0.5"-->
+<!--            android:scaleType="fitXY"-->
+<!--            android:src="@drawable/film_blue" />-->
 
         <TextView
             android:id="@+id/tv_nation"

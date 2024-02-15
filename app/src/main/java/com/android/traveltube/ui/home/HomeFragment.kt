@@ -3,7 +3,6 @@ package com.android.traveltube.ui.home
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -66,7 +65,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -110,10 +109,6 @@ class HomeFragment : Fragment() {
 
     //video, search api 호출
     private fun initViewModel() {
-//        sharedViewModel.getDetailItem() //채널 썸네일 받아오기
-//        sharedViewModel.getChannelItem()
-        //        sharedViewModel.detailItems.observe(viewLifecycleOwner) {
-//        }
         sharedViewModel.searchResults.observe(viewLifecycleOwner) {
             homeListAdapter.submitList(it)
         }
@@ -121,7 +116,6 @@ class HomeFragment : Fragment() {
             travelListAdapter.submitList(it)
         }
         sharedViewModel.searchShortsTravelResults.observe(viewLifecycleOwner) {
-            Log.d("shortsListAdapter", it.size.toString())
             shortsListAdapter.submitList(it)
         }
     }

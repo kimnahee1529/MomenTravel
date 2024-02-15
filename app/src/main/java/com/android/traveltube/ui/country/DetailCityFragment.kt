@@ -4,12 +4,10 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -17,12 +15,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.android.traveltube.R
 import com.android.traveltube.data.db.VideoSearchDatabase
 import com.android.traveltube.databinding.FragmentDetailCityBinding
-import com.android.traveltube.factory.SharedViewModelFactory
 import com.android.traveltube.repository.YoutubeRepositoryImpl
 import com.android.traveltube.utils.Constants.COUNTRY_KEY
 import com.android.traveltube.utils.Constants.FAVORITES_KEY
 import com.android.traveltube.utils.Constants.PREFERENCE_NAME_COUNTRY
-import com.android.traveltube.viewmodel.SharedViewModel
 import kotlinx.coroutines.launch
 
 
@@ -32,9 +28,6 @@ class DetailCityFragment : Fragment() {
     private lateinit var adapter: DetailCityAdapter
     private lateinit var sharedPref: SharedPreferences
     private var loadingDialog: LoadingDialogFragment? = null
-    private val sharedViewModel by activityViewModels<SharedViewModel> {
-        SharedViewModelFactory(YoutubeRepositoryImpl(VideoSearchDatabase.getInstance(requireContext())))
-    }
     private val viewModel by viewModels<DetailCityViewModel> {
         DetailCityViewModelProviderFactory(
             YoutubeRepositoryImpl(
@@ -64,11 +57,9 @@ class DetailCityFragment : Fragment() {
         adapter = DetailCityAdapter(favoriteList, this)
 
         val recyclerView = binding.rvInterest
-//        val increaseSpace = controlSpace(0, 75, 0, 0)
 
         recyclerView.adapter = adapter
         recyclerView.layoutManager = GridLayoutManager(context, 3)
-//        recyclerView.addItemDecoration(increaseSpace)
     }
 
     private fun initView() {
@@ -77,10 +68,7 @@ class DetailCityFragment : Fragment() {
 
             val country = sharedPref.getString(COUNTRY_KEY, "")
             val favorites = sharedPref.getString(FAVORITES_KEY, "")
-
             val searchKey = "$country, $favorites"
-            Log.d("searchKey", "$searchKey")
-
 
             viewModel.getSearchVideoList(searchKey) // 동영상 검색
             viewModel.getTravelVideoList()
@@ -122,12 +110,6 @@ class DetailCityFragment : Fragment() {
     private fun closeLoadingActivity() {
         loadingDialog?.dismiss()
     }
-//    fun loadSearchKey(){
-//        val spf = requireActivity().getSharedPreferences("searchKey", Context.MODE_PRIVATE)
-//        val country = spf.getString("country", "")
-//        searchKeyWord += "${country}"
-//
-//    }
     private fun saveFavorite() {
         val favorite1: String
         val favorite2: String

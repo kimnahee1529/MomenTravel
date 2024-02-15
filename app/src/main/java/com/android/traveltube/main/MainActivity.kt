@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -12,7 +11,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.android.traveltube.R
 import com.android.traveltube.databinding.ActivityMainBinding
 import com.android.traveltube.utils.Constants.COUNTRY_KEY
-import com.android.traveltube.utils.Constants.FAVORITES_KEY
 import com.android.traveltube.utils.Constants.NAME_KEY
 import com.android.traveltube.utils.Constants.PREFERENCE_NAME
 import com.android.traveltube.utils.Constants.PREFERENCE_NAME_COUNTRY
@@ -29,13 +27,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
         initView()
     }
 
     private fun initView() {
         setUpJetpackNavigation()
-
         initStartFragment()
     }
 

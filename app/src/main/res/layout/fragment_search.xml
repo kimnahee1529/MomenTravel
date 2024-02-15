@@ -20,6 +20,7 @@
         android:id="@+id/rv_searchResult"
         android:layout_width="match_parent"
         android:layout_height="600dp"
+        android:padding="10dp"
         android:layout_marginTop="120dp"/>
 
     <ImageView
@@ -30,11 +31,4 @@
         android:layout_marginTop="40dp"
         android:src="@drawable/ic_search_24"
         android:text="검색"/>
-
-
-
-
-
-
-
 </FrameLayout>

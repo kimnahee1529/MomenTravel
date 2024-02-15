@@ -40,18 +40,19 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/edit_text_stroke"
         android:completionThreshold="1"
-        android:paddingStart="15dp"
         android:drawableStart="@drawable/search_vector_asset"
         android:hint="원하시는 국가를 입력해 주세요"
         android:maxLines="2"
+        android:paddingStart="15dp"
         android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/textView6"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
     <ImageView
         android:id="@+id/iv_cancel"
         android:layout_width="14dp"
@@ -78,13 +79,14 @@
         android:id="@+id/tv_noSearchResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
         android:text="검색한 여행지가 없습니다."
         android:textColor="#E4E3EB"
         android:textSize="20sp"
         android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/et_countrySearch" />
 
 
     <androidx.appcompat.widget.AppCompatButton

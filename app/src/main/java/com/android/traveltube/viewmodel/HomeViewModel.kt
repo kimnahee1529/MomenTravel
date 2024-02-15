@@ -46,7 +46,6 @@ class HomeViewModel(
 //        }
 //    }
     private fun convertToSearchItemModel(item: SearchItem): VideoDetailModel {
-//           TODO : 추가할 수 있으면 viewCount도 추가하기
         return VideoDetailModel(
             id = item.id.videoId,
             thumbNailUrl = item.snippet.thumbnails.default.url,

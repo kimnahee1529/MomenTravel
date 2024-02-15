@@ -6,12 +6,12 @@ import com.android.traveltube.data.videos.VideoModel
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-private const val API_MAX_RESULT = 15 //TODO 수정 필요
+private const val API_MAX_RESULT = 15
 private const val API_REGION = "KR"
-private const val API_KEY = "AIzaSyDTAGRYG7esqNg9PlYNPALqVEZrwfpCgj0" //TODO API키 넣어주세요
-private const val CHANNEL_ID = "UC6KwCU8Y8Uw4h_Q0ptLZkqw" //TODO 수정 필요
-private const val SEARCH_TEXT = "플레이브 봉구" //TODO 수정 필요
-private const val VIDEO_ID = "gbxCTwgKcX8" //TODO 수정 필요
+private const val API_KEY = "AIzaSyDXqifu8eP7CX_TStYh5SFJPZO36J_4n5Q"
+private const val CHANNEL_ID = "UC6KwCU8Y8Uw4h_Q0ptLZkqw"
+private const val SEARCH_TEXT = "플레이브 봉구"
+private const val VIDEO_ID = "gbxCTwgKcX8"
 
 
 interface YouTubeAPI {

@@ -154,7 +154,12 @@ class VideoDetailFragment : Fragment() {
 
         with(sharedViewModel) {
             searchResults.observe(viewLifecycleOwner) {
-                recommendListAdapter.submitList(it)
+                with(sharedViewModel) {
+                    searchResults.observe(viewLifecycleOwner) { searchResultsList ->
+                        val filteredList = searchResultsList.filter { it.id != args.homeToDetailEntity.id }
+                        recommendListAdapter.submitList(filteredList)
+                    }
+                }
             }
 
         }

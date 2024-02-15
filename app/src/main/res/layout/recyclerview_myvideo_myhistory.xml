@@ -11,7 +11,7 @@
     <ImageView
         android:id="@+id/iv_myVideo_historyImage"
         android:layout_width="160dp"
-        android:layout_height="120dp"
+        android:layout_height="110dp"
         android:background="@drawable/rounded_video_pic_corner"
         android:scaleType="fitXY"
         android:src="@drawable/ic_screenshat"

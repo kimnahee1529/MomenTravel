@@ -1,48 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.country.UserNameFragment">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_marginTop="88dp"
-        android:layout_marginStart="32dp"
-        android:text="닉네임이 무엇인가요?"/>
+        android:id="@+id/textView9"
+        style="@style/TitleBoldText"
+        android:text="닉네임이 무엇인가요?"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/textView10"
+        style="@style/DescriptionText"
         android:text="프로필에 표시됩니다."
-        android:textSize="12sp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="131dp"/>
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
     <EditText
         android:id="@+id/et_nickName"
         android:layout_width="320dp"
         android:layout_height="48dp"
-        android:hint="닉네임을 입력해주세요"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/edit_text_stroke"
-        android:textStyle="bold"
-        android:textSize="12sp"
+        android:hint="닉네임을 입력해주세요"
         android:paddingHorizontal="12dp"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="166dp"/>
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView10"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
     <Button
         android:id="@+id/btn_next"
         android:layout_width="325dp"
         android:layout_height="50dp"
-        android:text="다음"
         android:background="@drawable/rounded_btn_confirm"
-        android:layout_marginTop="680dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"/>
+        android:text="다음"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

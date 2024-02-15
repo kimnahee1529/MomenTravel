@@ -71,6 +71,7 @@ class CountryFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 if (s.toString().isEmpty()) {
                     cancelImage.isVisible = false
+                    binding.tvNoSearchResult.isVisible = false
                 }
             }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -80,15 +81,18 @@ class CountryFragment : Fragment() {
                 val str = s.toString()
                 val filteredList = if (str.isNullOrBlank()) countryList else getFilteredList(str)
                 if (canTravelList.contains(str)) {
+                    binding.tvNoSearchResult.isVisible = false
                     val position = canTravelList.indexOf(str)
 
                     when(position) {
+                        in 0 ..4 -> filteredList
                         in 5..31 -> filteredList.add(0, countryList[2])
+
                         in 32..72 ->filteredList.add(0,countryList[0])
                         in 73..115 -> filteredList.add(0,countryList[1])
                         else ->filteredList.add(0,countryList[3])
                     }
-                }
+                } else binding.tvNoSearchResult.isVisible = true
                 adapter.updateData(filteredList)
 
 //                adapter.updateData(

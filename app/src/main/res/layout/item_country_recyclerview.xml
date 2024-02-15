@@ -23,13 +23,13 @@
             android:scaleType="fitXY"
             android:src="@drawable/hawaii" />
 
-<!--        <ImageView-->
-<!--            android:id="@+id/iv_film"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:alpha="0.5"-->
-<!--            android:scaleType="fitXY"-->
-<!--            android:src="@drawable/film_blue" />-->
+        <ImageView
+            android:id="@+id/iv_film"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.8"
+            android:scaleType="fitXY"
+            android:src="@drawable/film_black" />
 
         <TextView
             android:id="@+id/tv_nation"

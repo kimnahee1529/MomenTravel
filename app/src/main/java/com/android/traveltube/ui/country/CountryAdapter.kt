@@ -82,20 +82,20 @@ class CountryAdapter(var items : MutableList<Country>) : RecyclerView.Adapter<Co
             val image = binding.ivTravel
             val name = binding.tvNation
             val bottomName = binding.tvBottomName
-//            val film = binding.ivFilm
+            val film = binding.ivFilm
 
             image.setImageResource(country.flag)
             name.text = country.countryName
             bottomName.text = country.countryName
 
             if (country.isSelected) {
-                image.clearColorFilter()
-//                film.isVisible = false
+//                image.clearColorFilter()
+                film.isVisible = false
                 name.isVisible = false
                 bottomName.isVisible = true
             } else {
-                image.setColorFilter(com.google.android.material.R.color.material_grey_900)
-//                film.isVisible = true
+//                image.setColorFilter(com.google.android.material.R.color.material_grey_900)
+                film.isVisible = true
                 name.isVisible = true
                 bottomName.isVisible = false
             }

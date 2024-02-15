@@ -91,6 +91,7 @@ class DetailViewModel(
 
                         VideoBasicModel(
                             id = videoId,
+                            timestamp = System.currentTimeMillis(),
                             thumbNailUrl = item.snippet.thumbnails.medium.url,
                             channelId = item.snippet.channelId,
                             channelTitle = item.snippet.channelTitle,

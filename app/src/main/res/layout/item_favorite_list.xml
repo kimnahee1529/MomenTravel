@@ -9,7 +9,6 @@
         android:id="@+id/iv_favorite_video_thumbnail"
         android:layout_width="160dp"
         android:layout_height="120dp"
-        android:layout_marginEnd="8dp"
         android:background="@drawable/background_radius_round"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"

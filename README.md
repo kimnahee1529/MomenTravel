@@ -26,20 +26,23 @@
       - `VideoViewCountModel`
   - `VideoDetailModel`
 - `ui/` : 애플리케이션의 UI를 담당하는 Fragment/Adapter와 viewModel이 위치합니다.
-  - `favorites/`
+  - `country/`
     - `FavoriteImageAdapter` : 북마크 화면에서 사용하는 리사이클러뷰 어댑터
     - `FavoritesFragment` : 북마크 화면 UI 및 로직 처리
     - `FavoritesViewModel` : 북마크 화면의 데이터 및 로직 처리를 담당
-  - `search/`
+  - `detail/`
     - `ImageSearchAdapter` : 이미지 검색 화면에서 사용하는 리사이클러뷰 어댑터
     - `ImageSearchFragment` : 이미지 검색 화면 UI 및 로직 처리
     - `ImageSearchViewModel` : 이미지 검색 화면의 데이터 및 로직 처리를 담당
-      
+  - `favorite/`
+  - `home/`
+  - `mypage/`
+  - `search/`
+  - `splash/`
 - `network/`
     - `ImageNetworkInterface` : 이미지 API 호출 인터페이스 정의
     - `VideoNetworkInterface` : 이미지 API 호출 인터페이스 정의
     - `NetWorkClient` : Retrofit 인스턴스 및 설정 관련 로직
-
 
 - `repository/` : ViewModel 생성을 위한 Repository 클래스
     - `ImageRepository`

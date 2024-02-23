@@ -28,6 +28,10 @@
 - `network/`
     - `RetrofitInstance` : Retrofit 인스턴스 및 설정 관련 로직
     - `YouTubeAPI` : 유튜브 API 호출 인터페이스 정의
+- `repository/`
+    - `YoutubeRepositoryImpl`
+ 
+    
 - `ui/` : 애플리케이션의 UI를 담당하는 Fragment/Adapter와 viewModel이 위치합니다.
   - `country/`
     - `FavoriteImageAdapter` : 북마크 화면에서 사용하는 리사이클러뷰 어댑터
@@ -43,9 +47,7 @@
   - `search/`
   - `splash/`
 
-- `repository/` : ViewModel 생성을 위한 Repository 클래스
-    - `ImageRepository`
-    - `PreferencesRepository`
+
  
 - `utils/` : 프로젝트 전반에 사용되는 유틸리티 함수 모음
     - `FormatManager` : 날짜 형식 변경, 이미지 불러오는 함수 관리

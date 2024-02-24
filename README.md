@@ -1,3 +1,6 @@
+## Momentravel
+여행 영상을 볼 수 있는 앱
+
 ## 📂 폴더 및 파일 구조
 - `data/` : 애플리케이션의 데이터 로직과 API 호출을 처리합니다.
     - `channel/` : ChannelModel 하위에 더 많음 데이터 클래스들이 있음

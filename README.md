@@ -33,8 +33,7 @@
     - `YouTubeAPI` : 유튜브 API 호출 인터페이스 정의
 - `repository/`
     - `YoutubeRepositoryImpl`
- 
-    
+
 - `ui/` : 애플리케이션의 UI를 담당하는 Fragment/Adapter와 viewModel이 위치합니다.
   - `country/`
     - `FavoriteImageAdapter` : 북마크 화면에서 사용하는 리사이클러뷰 어댑터
@@ -60,11 +59,6 @@
 - `ViewPager` : 뷰페이저 관련 함수
 - `SharedViewModel` : 여러 Fragment 간에 공유되는 데이터 관리
 
-
-
-## 프로젝트 소개
-
-여행 중의 행복한 순간들을 볼 수 있는 영상 앱
 
 ## 개발 기간
 

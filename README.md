@@ -1,6 +1,30 @@
 ## Momentravel
 유튜브 API를 사용해 여행 영상을 볼 수 있는 앱
 
+## 개발 기간
+
+* 24.02.05 ~ 24.02.16
+
+## 화면
+### 닉네임 입력 / 여행지 선택 / 관심사 선택
+<img src="https://github.com/kimnahee1529/MomenTravel/assets/65105035/72d77eb2-6eca-4989-b23e-fcebc909726a" width="200"/>
+<img src="https://github.com/kimnahee1529/MomenTravel/assets/65105035/fca8ed70-68a6-4251-986f-93f73127c936" width="200"/>
+<img src="https://github.com/kimnahee1529/MomenTravel/assets/65105035/9dc81956-eb85-455b-a8bc-0a8f5efd6f01" width="200"/>
+<br>  
+
+### 홈 / 동영상 상세 / 쇼츠 상세
+<img src="https://github.com/kimnahee1529/MomenTravel/assets/65105035/a4fad55c-da18-4c9b-afcd-d483406826ec" width="200"/>
+<img src="https://github.com/kimnahee1529/MomenTravel/assets/65105035/09ec7c6a-d178-4db9-a091-f25fe862bc1e" width="200"/>
+<img src="https://github.com/kimnahee1529/MomenTravel/assets/65105035/51694871-3c52-4041-9815-41b2e69ad24d" width="200"/>
+<br>  
+
+### 마이페이지 / 좋아요 / 검색
+<img src="https://github.com/kimnahee1529/MomenTravel/assets/65105035/29d1b309-efe1-4fdd-802d-a728270bd40c" width="200"/>
+<img src="https://github.com/kimnahee1529/MomenTravel/assets/65105035/006f3583-714f-4544-92d8-2d9f589e135b" width="200"/>
+<img src="https://github.com/kimnahee1529/MomenTravel/assets/65105035/0abc5c51-7880-44d1-98ee-8deadb2529e0" width="200"/>
+
+---
+
 ## 📂 폴더 및 파일 구조
 - `data/` : 애플리케이션의 데이터 로직과 API 호출을 처리합니다.
     - `channel/` : ChannelModel 하위에 더 많음 데이터 클래스들이 있음
@@ -57,10 +81,7 @@
 - `ViewPager` : 뷰페이저 관련 함수
 - `SharedViewModel` : 여러 Fragment 간에 공유되는 데이터 관리
 
-
-## 개발 기간
-
-* 24.02.05 ~ 24.02.16
+---
 
 ### 여행지 선택 화면 및 관심사 선택 (은명준)
 

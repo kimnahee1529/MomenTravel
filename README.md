@@ -83,6 +83,21 @@
 
 ---
 
+### 🛠기술🛠
+
+#### ⚙기술 스택⚙
+|제목|내용|
+|------|---|
+|Jetpack| `Room` `ViewModel` `LiveData` `LifeCycles` `ViewBinding` `AAC` `Navigation`|
+|데이터 처리|`Percelize` `SharedPreferences` `Serializable`|
+|API 통신|`Retrofit` `OkHttp`|
+|활용 API|`YouTube Data API`|
+|이미지 처리|`Glide`|
+|UI Frameworks|`Fragment` `RecyclerViewAdapter` `ListAdapter` `Shimmer` `BottomSheet` `ViewPager2` `MotionLayout` `MeterialDesign`|  
+#### 🔧아키텍처🔧
+`MVVM`  
+----
+
 ### 여행지 선택 화면 및 관심사 선택 (은명준)
 
 1. 여행지 선택 시 나라를 선택 안하면 토스트메세지가 나오면서 넘어가지 못하게 만들고, 검색기능 구성

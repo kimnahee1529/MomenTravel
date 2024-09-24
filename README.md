@@ -74,7 +74,7 @@
   - `splash/`
 - `utils/` : 프로젝트 전반에 사용되는 유틸리티 함수 모음
     - `Constants` : 상수 저장
-    - `UtilityManager` : 이미지 불러오는 함수, 일 수 계산 함수, 구독자 표시 함수, 재생 수 포맷팅 함
+    - `UtilityManager` : 이미지 불러오는 함수, 일 수 계산 함수, 구독자 표시 함수, 재생 수 포맷팅 함수
     - `KeyboardManager` : 키보드 숨기는 함수
  
 
